@@ -40,6 +40,7 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+import com.android.contacts.common.GeniusAdapter;
 import com.android.contacts.common.R;
 
 import java.util.ArrayList;
@@ -253,8 +254,11 @@ public class SelectPhoneAccountDialogFragment extends DialogFragment {
                 holder.numberTextView.setVisibility(View.GONE);
             } else {
                 holder.numberTextView.setVisibility(View.VISIBLE);
+//                holder.numberTextView.setText(
+//                        PhoneNumberUtils.createTtsSpannable(
+//                                account.getAddress().getSchemeSpecificPart()));
                 holder.numberTextView.setText(
-                        PhoneNumberUtils.createTtsSpannable(
+                        GeniusAdapter.createTtsSpannable(
                                 account.getAddress().getSchemeSpecificPart()));
             }
             holder.imageView.setImageDrawable(account.getIcon() != null

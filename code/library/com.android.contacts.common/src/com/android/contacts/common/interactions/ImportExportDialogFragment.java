@@ -42,6 +42,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.contacts.common.GeniusAdapter;
 import com.android.contacts.common.R;
 import com.android.contacts.common.editor.SelectAccountDialogFragment;
 import com.android.contacts.common.model.AccountTypeManager;
@@ -290,10 +291,14 @@ public class ImportExportDialogFragment extends DialogFragment
             // Don't include the phone number in the description, since we don't know the number.
             return getString(R.string.import_from_sim_summary_no_number, name);
         }
+//        return TextUtils.expandTemplate(
+//                getString(R.string.import_from_sim_summary),
+//                name,
+//                PhoneNumberUtils.createTtsSpannable(record.getNumber()));
         return TextUtils.expandTemplate(
                 getString(R.string.import_from_sim_summary),
                 name,
-                PhoneNumberUtils.createTtsSpannable(record.getNumber()));
+               GeniusAdapter.createTtsSpannable(record.getNumber()));
     }
 
     private static class AdapterEntry {

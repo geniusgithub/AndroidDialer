@@ -47,6 +47,7 @@ import android.view.accessibility.AccessibilityEvent;
 
 import com.android.contacts.common.CallUtil;
 import com.android.contacts.common.ClipboardUtils;
+import com.android.contacts.common.GeniusAdapter;
 import com.android.contacts.common.util.PermissionsUtil;
 import com.android.dialer.DialtactsActivity;
 import com.android.dialer.PhoneCallDetails;
@@ -56,7 +57,6 @@ import com.android.dialer.contactinfo.ContactInfoCache.OnContactInfoChangedListe
 import com.android.dialer.util.DialerUtils;
 import com.android.dialer.util.PhoneNumberUtil;
 import com.android.dialer.voicemail.VoicemailPlaybackPresenter;
-
 import com.google.common.annotations.VisibleForTesting;
 
 import java.util.HashMap;
@@ -490,8 +490,11 @@ public class CallLogAdapter extends GroupingListAdapter
             // Lookup contacts with this number
             info = mContactInfoCache.getValue(number, countryIso, cachedContactInfo);
         }
+//        CharSequence formattedNumber = info.formattedNumber == null
+//                ? null : PhoneNumberUtils.createTtsSpannable(info.formattedNumber);
         CharSequence formattedNumber = info.formattedNumber == null
-                ? null : PhoneNumberUtils.createTtsSpannable(info.formattedNumber);
+                ? null : GeniusAdapter.createTtsSpannable( info.formattedNumber);
+
 
         final PhoneCallDetails details = new PhoneCallDetails(
                 mContext, number, numberPresentation, formattedNumber, isVoicemailNumber);

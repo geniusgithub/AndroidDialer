@@ -1217,8 +1217,8 @@ public class ContactListItemView extends ViewGroup
 
         if (ContactDisplayUtils.isPossiblePhoneNumber(name)) {
             // Give the text-to-speech engine a hint that it's a phone number
-            mNameTextView.setContentDescription(
-                    PhoneNumberUtils.createTtsSpannable(name.toString()));
+//            mNameTextView.setContentDescription(
+//                    PhoneNumberUtils.createTtsSpannable(name.toString()));
 // 			modify by genius        
             mNameTextView.setContentDescription(GeniusAdapter.createTtsSpannable(name.toString()));
         } else {
