@@ -1,0 +1,107 @@
+<!--
+  ~ Copyright (C) 2012 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License
+-->
+
+<resources>
+    <!--  Primary text color in the Dialer -->
+    <color name="dialtacts_primary_text_color">#333333</color>
+    <!-- Secondary text color in the Dialer -->
+    <color name="dialtacts_secondary_text_color">#636363</color>
+    <color name="dialer_red_highlight_color">#ff1744</color>
+    <color name="dialer_green_highlight_color">#00c853</color>
+
+    <!-- Color for the setting text. -->
+    <color name="setting_primary_color">@color/dialtacts_primary_text_color</color>
+    <!-- Color for the setting description text. -->
+    <color name="setting_secondary_color">@color/dialtacts_secondary_text_color</color>
+    <color name="setting_disabled_color">#aaaaaa</color>
+    <color name="setting_background_color">#ffffff</color>
+    <color name="setting_button_color">#eee</color>
+
+    <!-- 70% black -->
+    <color name="call_log_icon_tint">#b3000000</color>
+    <color name="call_log_list_item_primary_action_icon_tint">@color/call_log_icon_tint</color>
+    <!-- Color of the text describing an unconsumed missed call. -->
+    <color name="call_log_missed_call_highlight_color">@color/dialer_red_highlight_color</color>
+    <!-- Color of the text describing an unconsumed voicemail. -->
+    <color name="call_log_voicemail_highlight_color">#33b5e5</color>
+
+    <!-- Background color of visual voicemail promo card. -->
+    <color name="visual_voicemail_promo_card_background">#673ab7</color>
+    <color name="visual_voicemail_promo_card_divider">#7d57c1</color>
+    <color name="promo_card_text">#ffffff</color>
+
+    <color name="voicemail_icon_tint">@color/call_log_icon_tint</color>
+    <color name="voicemail_icon_disabled_tint">#80000000</color>
+    <color name="voicemail_playpause_icon_tint">@color/dialer_theme_color</color>
+    <!-- Colour of voicemail progress bar to the right of position indicator. -->
+    <color name="voicemail_playback_seek_bar_yet_to_play">#cecece</color>
+    <!-- Colour of voicemail progress bar to the left of position indicator. -->
+    <color name="voicemail_playback_seek_bar_already_played">@color/dialer_theme_color</color>
+
+    <!-- Standard color for selected items. -->
+    <color name="item_selected">#660099cc</color>
+
+    <!-- White background for dialer -->
+    <color name="background_dialer_white">#ffffff</color>
+    <!-- Background color of new dialer activity -->
+    <color name="background_dialer_light">#fafafa</color>
+    <!-- Background color for search results and call details -->
+    <color name="background_dialer_results">#f9f9f9</color>
+    <color name="background_dialer_call_log">@color/background_dialer_light</color>
+    <color name="background_dialer_call_log_list_item">@color/background_dialer_white</color>
+
+    <!-- Color of the 1dp divider that separates favorites -->
+    <color name="favorite_contacts_separator_color">#d0d0d0</color>
+
+    <color name="searchbox_icon_tint">#a4a4a4</color>
+
+    <!-- Color of the contact name in favorite tiles -->
+    <color name="contact_tile_name_color">#ffffff</color>
+
+    <color name="contact_list_name_text_color">@color/dialtacts_primary_text_color</color>
+
+    <!-- Undo dialogue color -->
+    <color name="undo_dialogue_text_color">#4d4d4d</color>
+
+    <color name="empty_list_text_color">#b2b2b2</color>
+
+    <color name="remove_text_color">#ffffff</color>
+
+    <!-- Text color for the "Remove" text when a contact is dragged on top of the remove view -->
+    <color name="remove_highlighted_text_color">#FF3F3B</color>
+
+    <!-- Color of the bottom border below the contacts grid on the main dialer screen. -->
+    <color name="contacts_grid_bottom_border_color">#16000000</color>
+
+    <!-- Color of actions in expanded call log entries.  This text color represents actions such
+         as call back, play voicemail, etc. -->
+    <color name="call_log_action_text">@color/dialer_theme_color</color>
+
+    <!-- Color for missed call icons. -->
+    <color name="missed_call">#ff2e58</color>
+
+    <!-- Color for answered or outgoing call icons. -->
+    <color name="answered_call">@color/dialer_green_highlight_color</color>
+
+    <!-- Color for icons in the actionbar -->
+    <color name="actionbar_icon_color">#ffffff</color>
+
+    <color name="dialer_dialpad_touch_tint">#330288d1</color>
+
+    <color name="floating_action_button_touch_tint">#80ffffff</color>
+
+    <color name="call_log_action_divider">#eeeeee</color>
+</resources>

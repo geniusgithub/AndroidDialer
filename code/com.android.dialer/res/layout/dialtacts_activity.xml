@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2013 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialtacts_mainlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:clipChildren="false"
+    android:background="@color/background_dialer_light">
+
+    <FrameLayout
+        android:id="@+id/dialtacts_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false">
+        <!-- The main contacts grid -->
+        <FrameLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:id="@+id/dialtacts_frame"
+            android:clipChildren="false" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/floating_action_button_container"
+        android:background="@drawable/fab_blue"
+        android:layout_width="@dimen/floating_action_button_width"
+        android:layout_height="@dimen/floating_action_button_height"
+        android:layout_marginBottom="@dimen/floating_action_button_margin_bottom"
+        android:layout_gravity="center_horizontal|bottom">
+
+        <ImageButton
+            android:id="@+id/floating_action_button"
+            android:background="@drawable/floating_action_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/action_menu_dialpad_button"
+            android:src="@drawable/fab_ic_dial"/>
+
+    </FrameLayout>
+
+    <!-- Host container for the contact tile drag shadow -->
+    <FrameLayout
+        android:id="@+id/activity_overlay"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+        <ImageView
+            android:id="@+id/contact_tile_drag_shadow_overlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:importantForAccessibility="no" />
+    </FrameLayout>
+
+</FrameLayout>

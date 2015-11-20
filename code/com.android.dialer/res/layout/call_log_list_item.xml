@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/call_log_list_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- Day group heading. Used to show a "today", "yesterday", "last week" or "other" heading
+         above a group of call log entries. -->
+    <TextView
+        android:id="@+id/call_log_day_group_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginStart="@dimen/call_log_start_margin"
+        android:layout_marginEnd="@dimen/call_log_outer_margin"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="?attr/call_log_secondary_text_color"
+        android:textSize="@dimen/call_log_secondary_text_size"
+        android:paddingTop="@dimen/call_log_day_group_padding_top"
+        android:paddingBottom="@dimen/call_log_day_group_padding_bottom" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/call_log_row"
+        style="@style/CallLogCardStyle">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Primary area containing the contact badge and caller information -->
+            <LinearLayout
+                android:id="@+id/primary_action_view"
+                android:background="?android:attr/selectableItemBackground"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/call_log_start_margin"
+                android:paddingEnd="@dimen/call_log_outer_margin"
+                android:paddingTop="@dimen/call_log_vertical_padding"
+                android:paddingBottom="@dimen/call_log_vertical_padding"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:focusable="true"
+                android:nextFocusRight="@+id/call_back_action"
+                android:nextFocusLeft="@+id/quick_contact_photo" >
+
+                <QuickContactBadge
+                    android:id="@+id/quick_contact_photo"
+                    android:layout_width="@dimen/contact_photo_size"
+                    android:layout_height="@dimen/contact_photo_size"
+                    android:paddingTop="2dp"
+                    android:nextFocusRight="@id/primary_action_view"
+                    android:layout_gravity="top"
+                    android:focusable="true" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="@dimen/call_log_list_item_info_margin_start">
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/call_log_name_margin_bottom"
+                        android:layout_marginEnd="@dimen/call_log_icon_margin"
+                        android:textColor="?attr/call_log_primary_text_color"
+                        android:textSize="@dimen/call_log_primary_text_size"
+                        android:singleLine="true" />
+
+                    <TextView
+                        android:id="@+id/voicemail_transcription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/call_log_icon_margin"
+                        android:textColor="?attr/call_log_secondary_text_color"
+                        android:textSize="@dimen/call_log_secondary_text_size"
+                        android:singleLine="true"
+                        android:ellipsize="marquee"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:id="@+id/call_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <view
+                            class="com.android.dialer.calllog.CallTypeIconsView"
+                            android:id="@+id/call_type_icons"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/call_log_icon_margin"
+                            android:layout_gravity="center_vertical" />
+
+                        <TextView
+                            android:id="@+id/call_location_and_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/call_log_icon_margin"
+                            android:layout_gravity="center_vertical"
+                            android:textColor="?attr/call_log_secondary_text_color"
+                            android:textSize="@dimen/call_log_secondary_text_size"
+                            android:singleLine="true" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/call_account_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/call_log_icon_margin"
+                        android:textColor="?attr/call_log_secondary_text_color"
+                        android:textSize="@dimen/call_log_secondary_text_size"
+                        android:visibility="gone"
+                        android:singleLine="true" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/primary_action_button"
+                    android:layout_width="@dimen/call_log_list_item_primary_action_dimen"
+                    android:layout_height="@dimen/call_log_list_item_primary_action_dimen"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="@dimen/call_log_icon_margin"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:scaleType="center"
+                    android:tint="@color/call_log_list_item_primary_action_icon_tint"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <!-- Viewstub with additional expandable actions for a call log entry -->
+            <ViewStub android:id="@+id/call_log_entry_actions_stub"
+                android:inflatedId="@+id/call_log_entry_actions"
+                android:layout="@layout/call_log_list_item_actions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

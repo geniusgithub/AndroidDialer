@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2015 Google Inc. All Rights Reserved. -->
+
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/promo_card"
+    style="@style/CallLogCardStyle"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    card_view:cardBackgroundColor="@color/visual_voicemail_promo_card_background">
+
+    <LinearLayout
+        android:id="@+id/promo_card_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/promo_card_start_padding"
+            android:paddingEnd="@dimen/promo_card_main_padding"
+            android:paddingTop="@dimen/promo_card_top_padding"
+            android:paddingBottom="@dimen/promo_card_main_padding"
+            android:orientation="horizontal"
+            android:gravity="top">
+
+            <ImageView
+                android:id="@+id/promo_card_icon"
+                android:layout_width="@dimen/promo_card_icon_size"
+                android:layout_height="@dimen/promo_card_icon_size"
+                android:layout_gravity="top"
+                android:src="@drawable/ic_voicemail_24dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/promo_card_main_padding"
+                android:orientation="vertical"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/promo_card_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/promo_card_title_padding"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/background_dialer_white"
+                    android:textSize="@dimen/call_log_primary_text_size"
+                    android:textStyle="bold"
+                    android:text="@string/visual_voicemail_title"
+                    android:singleLine="false"/>
+
+                <TextView
+                    android:id="@+id/promo_card_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/background_dialer_white"
+                    android:textSize="@dimen/call_log_secondary_text_size"
+                    android:text="@string/visual_voicemail_text"
+                    android:lineSpacingExtra="@dimen/promo_card_line_spacing"
+                    android:singleLine="false"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/visual_voicemail_promo_card_divider"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/promo_card_action_end_padding"
+            android:paddingTop="@dimen/promo_card_action_vertical_padding"
+            android:paddingBottom="@dimen/promo_card_action_vertical_padding"
+            android:orientation="horizontal"
+            android:gravity="end">
+
+            <TextView
+                android:id="@+id/settings_action"
+                style="@style/PromoCardActionStyle"
+                android:background="?android:attr/selectableItemBackground"
+                android:text="@string/visual_voicemail_settings"
+                android:nextFocusLeft="@+id/promo_card"
+                android:nextFocusRight="@+id/ok_action"
+                android:paddingEnd="@dimen/promo_card_action_between_padding"/>
+
+            <TextView
+                android:id="@+id/ok_action"
+                style="@style/PromoCardActionStyle"
+                android:background="?android:attr/selectableItemBackground"
+                android:text="@android:string/ok"
+                android:nextFocusLeft="@+id/settings_action"
+                android:nextFocusRight="@+id/promo_card"/>
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

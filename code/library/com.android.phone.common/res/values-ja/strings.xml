@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  ~ Copyright (C) 2012 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License
+   -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="description_dialpad_overflow" msgid="4853244877599437286">"その他のオプション"</string>
+    <string name="description_delete_button" msgid="88733669653753441">"Backspace"</string>
+    <string name="description_image_button_plus" msgid="7821061347207448362">"足す"</string>
+    <string name="description_voicemail_button" msgid="6281470684653439120">"ボイスメール"</string>
+    <string name="default_notification_description" msgid="6011631627871110785">"デフォルトの通知音（<xliff:g id="DEFAULT_SOUND_TITLE">%1$s</xliff:g>）"</string>
+    <string name="callFailed_userBusy" msgid="5163219086553610486">"話し中"</string>
+    <string name="callFailed_congestion" msgid="3645995103907418337">"ネットワークがビジー状態です"</string>
+    <string name="callFailed_timedOut" msgid="7772951976278867294">"応答なし（タイムアウト）"</string>
+    <string name="callFailed_server_unreachable" msgid="4766146133909799091">"サーバーに接続できません"</string>
+    <string name="callFailed_number_unreachable" msgid="1243366438388873914">"番号に接続できません"</string>
+    <string name="callFailed_invalid_credentials" msgid="6115412108261660271">"ユーザー名またはパスワードが正しくありません"</string>
+    <string name="callFailed_out_of_network" msgid="6970725831030399542">"ネットワーク外の通話です"</string>
+    <string name="callFailed_server_error" msgid="1391421251190688379">"サーバーエラー: しばらくしてからもう一度お試しください。"</string>
+    <string name="callFailed_noSignal" msgid="1758972490451048086">"圏外です"</string>
+    <string name="callFailed_limitExceeded" msgid="8796663077702587664">"ACMの制限を超えています"</string>
+    <string name="callFailed_powerOff" msgid="9179061328562234362">"無線通信OFF"</string>
+    <string name="callFailed_simError" msgid="3307159523385380486">"SIMがない、またはSIMエラー"</string>
+    <string name="callFailed_outOfService" msgid="4535901975891969115">"モバイルネットワークが利用できません"</string>
+    <string name="callFailed_fdn_only" msgid="1720606112619022283">"発信は発信番号制限によって制限されています。"</string>
+    <string name="callFailed_cb_enabled" msgid="4745550615395092407">"通話制限中は発信できません。"</string>
+    <string name="callFailed_dsac_restricted" msgid="4087941056515103695">"通話の発信制限が設定されています。"</string>
+    <string name="callFailed_dsac_restricted_emergency" msgid="9031535611092828510">"緊急通報の発信制限が設定されています。"</string>
+    <string name="callFailed_dsac_restricted_normal" msgid="266947632344387216">"緊急通報以外は発信制限が設定されています。"</string>
+    <string name="callFailed_unobtainable_number" msgid="124621797631734731">"無効な番号"</string>
+    <string name="incall_error_missing_voicemail_number" msgid="3651090591812220874">"ボイスメールの番号が不明です。"</string>
+    <string name="ringtone_silent" msgid="249805466934178869">"なし"</string>
+    <string name="ringtone_unknown" msgid="2303463713486734520">"不明な着信音"</string>
+</resources>

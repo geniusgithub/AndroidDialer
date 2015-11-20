@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  ~ Copyright (C) 2012 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License
+   -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="description_dialpad_overflow" msgid="4853244877599437286">"Máis opcións"</string>
+    <string name="description_delete_button" msgid="88733669653753441">"retroceso"</string>
+    <string name="description_image_button_plus" msgid="7821061347207448362">"máis"</string>
+    <string name="description_voicemail_button" msgid="6281470684653439120">"correo de voz"</string>
+    <string name="default_notification_description" msgid="6011631627871110785">"Son predeterminado (<xliff:g id="DEFAULT_SOUND_TITLE">%1$s</xliff:g>)"</string>
+    <string name="callFailed_userBusy" msgid="5163219086553610486">"Liña ocupada"</string>
+    <string name="callFailed_congestion" msgid="3645995103907418337">"Rede ocupada"</string>
+    <string name="callFailed_timedOut" msgid="7772951976278867294">"Sen resposta; superouse o tempo de espera"</string>
+    <string name="callFailed_server_unreachable" msgid="4766146133909799091">"Non se pode acceder ao servidor"</string>
+    <string name="callFailed_number_unreachable" msgid="1243366438388873914">"Número non accesible"</string>
+    <string name="callFailed_invalid_credentials" msgid="6115412108261660271">"Nome de usuario ou contrasinal incorrecto"</string>
+    <string name="callFailed_out_of_network" msgid="6970725831030399542">"Chamada fóra de rede"</string>
+    <string name="callFailed_server_error" msgid="1391421251190688379">"Erro no servidor. Téntao de novo máis tarde."</string>
+    <string name="callFailed_noSignal" msgid="1758972490451048086">"Sen cobertura"</string>
+    <string name="callFailed_limitExceeded" msgid="8796663077702587664">"Límite de ACM superado"</string>
+    <string name="callFailed_powerOff" msgid="9179061328562234362">"Radio desactivada"</string>
+    <string name="callFailed_simError" msgid="3307159523385380486">"Non hai SIM ou hai un erro na SIM"</string>
+    <string name="callFailed_outOfService" msgid="4535901975891969115">"Rede móbil non dispoñible"</string>
+    <string name="callFailed_fdn_only" msgid="1720606112619022283">"As chamadas saíntes están restrinxidas por FDN."</string>
+    <string name="callFailed_cb_enabled" msgid="4745550615395092407">"Non se poden facer chamadas mentres está activada a restrición de chamadas."</string>
+    <string name="callFailed_dsac_restricted" msgid="4087941056515103695">"As chamadas están restrinxidas polo control de acceso."</string>
+    <string name="callFailed_dsac_restricted_emergency" msgid="9031535611092828510">"As chamadas de emerxencia están restrinxidas polo control de acceso."</string>
+    <string name="callFailed_dsac_restricted_normal" msgid="266947632344387216">"As chamadas normais están restrinxidas polo control de acceso."</string>
+    <string name="callFailed_unobtainable_number" msgid="124621797631734731">"Número non válido"</string>
+    <string name="incall_error_missing_voicemail_number" msgid="3651090591812220874">"Número de correo de voz descoñecido."</string>
+    <string name="ringtone_silent" msgid="249805466934178869">"Ningún"</string>
+    <string name="ringtone_unknown" msgid="2303463713486734520">"Ton de chamada descoñecido"</string>
+</resources>

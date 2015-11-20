@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2011 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<view class="com.android.dialer.dialpad.DialpadFragment$DialpadSlidingRelativeLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- spacer view -->
+        <View
+            android:id="@+id/spacer"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#00000000" />
+
+        <!-- Dialpad shadow -->
+        <View
+            android:layout_width="@dimen/shadow_length"
+            android:layout_height="match_parent"
+            android:background="@drawable/shadow_fade_left" />
+
+        <RelativeLayout
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1">
+
+            <include layout="@layout/dialpad_view"
+                 android:layout_height="match_parent"
+                 android:layout_width="match_parent" />
+
+            <!-- "Dialpad chooser" UI, shown only when the user brings up the
+                     Dialer while a call is already in progress.
+                     When this UI is visible, the other Dialer elements
+                     (the textfield/button and the dialpad) are hidden. -->
+
+            <ListView android:id="@+id/dialpadChooser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/background_dialer_light"
+                    android:visibility="gone" />
+
+            <!-- Margin bottom and alignParentBottom don't work well together, so use a Space instead. -->
+            <Space android:id="@+id/dialpad_floating_action_button_margin_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_alignParentBottom="true" />
+
+            <FrameLayout
+                android:id="@+id/dialpad_floating_action_button_container"
+                android:background="@drawable/fab_green"
+                android:layout_width="@dimen/floating_action_button_width"
+                android:layout_height="@dimen/floating_action_button_height"
+                android:layout_above="@id/dialpad_floating_action_button_margin_bottom"
+                android:layout_centerHorizontal="true">
+
+                <ImageButton
+                    android:id="@+id/dialpad_floating_action_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/floating_action_button"
+                    android:contentDescription="@string/description_dial_button"
+                    android:src="@drawable/fab_ic_call"/>
+
+            </FrameLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</view>

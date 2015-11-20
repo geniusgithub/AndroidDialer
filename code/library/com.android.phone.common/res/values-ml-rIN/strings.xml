@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  ~ Copyright (C) 2012 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License
+   -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="description_dialpad_overflow" msgid="4853244877599437286">"കൂടുതൽ ഓപ്‌ഷനുകൾ"</string>
+    <string name="description_delete_button" msgid="88733669653753441">"ബാക്ക്‌സ്‌പെയ്‌സ്"</string>
+    <string name="description_image_button_plus" msgid="7821061347207448362">"പ്ലസ്"</string>
+    <string name="description_voicemail_button" msgid="6281470684653439120">"വോയ്‌സ്‌മെയിൽ"</string>
+    <string name="default_notification_description" msgid="6011631627871110785">"സ്ഥിര ശബ്‌ദം (<xliff:g id="DEFAULT_SOUND_TITLE">%1$s</xliff:g>)"</string>
+    <string name="callFailed_userBusy" msgid="5163219086553610486">"ലൈൻ തിരക്കിലാണ്"</string>
+    <string name="callFailed_congestion" msgid="3645995103907418337">"നെറ്റ്‌വർക്ക് തിരക്കിലാണ്"</string>
+    <string name="callFailed_timedOut" msgid="7772951976278867294">"പ്രതികരണമില്ല, കാലഹരണപ്പെട്ടു"</string>
+    <string name="callFailed_server_unreachable" msgid="4766146133909799091">"സെർവർ പരിധിക്ക് പുറത്താണ്"</string>
+    <string name="callFailed_number_unreachable" msgid="1243366438388873914">"നമ്പർ പരിധിയ്‌ക്ക് പുറത്താണ്"</string>
+    <string name="callFailed_invalid_credentials" msgid="6115412108261660271">"ഉപയോക്തൃനാമമോ പാസ്‌വേഡോ തെറ്റാണ്"</string>
+    <string name="callFailed_out_of_network" msgid="6970725831030399542">"കോൾ നെറ്റ്‌വർക്കിന് പുറത്താണ്"</string>
+    <string name="callFailed_server_error" msgid="1391421251190688379">"സെർവർ പിശക്. പിന്നീട് വീണ്ടും ശ്രമിക്കുക."</string>
+    <string name="callFailed_noSignal" msgid="1758972490451048086">"സിഗ്‌നൽ ഇല്ല"</string>
+    <string name="callFailed_limitExceeded" msgid="8796663077702587664">"ACM പരിധി കഴിഞ്ഞു"</string>
+    <string name="callFailed_powerOff" msgid="9179061328562234362">"റേഡിയോ ഓഫാണ്"</string>
+    <string name="callFailed_simError" msgid="3307159523385380486">"സിം ഇല്ല അല്ലെങ്കിൽ സിം പിശക്"</string>
+    <string name="callFailed_outOfService" msgid="4535901975891969115">"സെല്ലുലാർ നെറ്റ്‌വർക്ക് ലഭ്യമല്ല"</string>
+    <string name="callFailed_fdn_only" msgid="1720606112619022283">"FDN, ഔട്ട്ഗോയിംഗ് കോളുകൾ നിയന്ത്രിച്ചിരിക്കുന്നു."</string>
+    <string name="callFailed_cb_enabled" msgid="4745550615395092407">"കോൾ ബാറിംഗ് ഓണായിരിക്കുമ്പോൾ നിങ്ങൾക്ക് ഔട്ട്‌ഗോയിംഗ് കോളുകൾ ചെയ്യാനാവില്ല."</string>
+    <string name="callFailed_dsac_restricted" msgid="4087941056515103695">"ആക്‌സസ്സ് നിയന്ത്രണം ഉപയോഗിച്ച് കോളുകൾ നിയന്ത്രിച്ചിരിക്കുന്നു."</string>
+    <string name="callFailed_dsac_restricted_emergency" msgid="9031535611092828510">"ആക്‌സസ്സ് നിയന്ത്രണം ഉപയോഗിച്ച് അടിയന്തിര കോളുകൾ നിയന്ത്രിച്ചിരിക്കുന്നു."</string>
+    <string name="callFailed_dsac_restricted_normal" msgid="266947632344387216">"ആക്‌സസ്സ് നിയന്ത്രണം ഉപയോഗിച്ച് സാധാരണ കോളുകൾ നിയന്ത്രിച്ചിരിക്കുന്നു."</string>
+    <string name="callFailed_unobtainable_number" msgid="124621797631734731">"നമ്പർ അസാധുവാണ്"</string>
+    <string name="incall_error_missing_voicemail_number" msgid="3651090591812220874">"വോയ്‌സ് മെയിൽ നമ്പർ അജ്ഞാതമാണ്."</string>
+    <string name="ringtone_silent" msgid="249805466934178869">"ഒന്നുമില്ല"</string>
+    <string name="ringtone_unknown" msgid="2303463713486734520">"അറിഞ്ഞുകൂടാത്ത റിംഗ്‌ടോൺ"</string>
+</resources>

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  ~ Copyright (C) 2012 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License
+   -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="applicationLabel" msgid="7762561155467201526">"Телефон"</string>
+    <string name="launcherActivityLabel" msgid="1129729740601172692">"Телефон"</string>
+    <string name="dialerIconLabel" msgid="6500826552823403796">"Телефон"</string>
+    <string name="recentCallsIconLabel" msgid="2639489159797075507">"История на обажданията"</string>
+    <string name="recentCalls_callNumber" msgid="1756372533999226126">"Обаждане на <xliff:g id="NAME">%s</xliff:g>"</string>
+    <string name="call_detail_menu_report" msgid="587960283417977382">"Сигнал за неправилен номер"</string>
+    <string name="recentCalls_editNumberBeforeCall" msgid="7756171675833267857">"Редактиране на номер преди обаждане"</string>
+    <string name="recentCalls_addToContact" msgid="4570467333422734645">"Добавяне към контакт"</string>
+    <string name="recentCalls_removeFromRecentList" msgid="5551148439199439404">"Изтриване от историята на обажданията"</string>
+    <string name="recentCalls_deleteAll" msgid="5157887960461979812">"Изчистване на историята на обажд."</string>
+    <string name="recentCalls_trashVoicemail" msgid="7604696960787435655">"Изтриване на гласова поща"</string>
+    <string name="recentCalls_shareVoicemail" msgid="1416112847592942840">"Споделяне на гласова поща"</string>
+    <string name="recentCalls_empty" msgid="5934808652605981210">"Списъкът с обажданията е празен"</string>
+    <string name="recentCalls_empty_action" msgid="6033275870727664335">"Обаждане"</string>
+    <string name="clearCallLogConfirmation_title" msgid="801753155679372984">"Да се изчисти ли историята на обажд.?"</string>
+    <string name="clearCallLogConfirmation" msgid="7899552396101432827">"Така ще се изтрият всички обаждания от историята ви"</string>
+    <string name="clearCallLogProgress_title" msgid="3372471156216306132">"Историята на обажд. се изчиства…"</string>
+    <plurals name="notification_voicemail_title" formatted="false" msgid="9088953961148324851">
+      <item quantity="other"> <xliff:g id="COUNT">%1$d</xliff:g> гласови съобщения </item>
+      <item quantity="one">Гласово съобщение</item>
+    </plurals>
+    <string name="notification_action_voicemail_play" msgid="6113133136977996863">"Пускане"</string>
+    <string name="notification_voicemail_callers_list" msgid="1153954809339404149">"<xliff:g id="NEWER_CALLERS">%1$s</xliff:g>, <xliff:g id="OLDER_CALLER">%2$s</xliff:g>"</string>
+    <string name="notification_new_voicemail_ticker" msgid="895342132049452081">"Нова гласова поща от <xliff:g id="CALLER">%1$s</xliff:g>"</string>
+    <string name="voicemail_playback_error" msgid="3356071912353297599">"Гл. поща не можа да се възпроизведе"</string>
+    <string name="voicemail_buffering" msgid="738287747618697097">"Буферира се..."</string>
+    <string name="voicemail_fetching_content" msgid="1287895365599580842">"Гласовата поща се зарежда…"</string>
+    <string name="voicemail_fetching_timout" msgid="3959428065511972176">"Гласовата поща не можа да се зареди"</string>
+    <string name="call_log_voicemail_header" msgid="3945407886667089173">"Само обаждания с гласова поща"</string>
+    <string name="call_log_incoming_header" msgid="2787722299753674684">"Само входящи обаждания"</string>
+    <string name="call_log_outgoing_header" msgid="761009180766735769">"Само изходящи обаждания"</string>
+    <string name="call_log_missed_header" msgid="8017148056610855956">"Само пропуснати обаждания"</string>
+    <string name="visual_voicemail_title" msgid="4574199312906348905">"Визуална гласова поща"</string>
+    <string name="visual_voicemail_text" msgid="164967285234132509">"Преглеждайте и прослушвайте гласовата си поща, без да се налага да се обаждате на номер. Може да бъдете таксувани за данни."</string>
+    <string name="visual_voicemail_settings" msgid="8090338793118794741">"Настройки"</string>
+    <string name="voicemail_status_voicemail_not_available" msgid="5222480147701456390">"Няма налични актуализации на гласовата поща"</string>
+    <string name="voicemail_status_messages_waiting" msgid="6329544650250068650">"Има нова гласова поща, която не може да се зареди в момента."</string>
+    <string name="voicemail_status_configure_voicemail" msgid="8300808991932816153">"Настройте гласовата си поща"</string>
+    <string name="voicemail_status_audio_not_available" msgid="2449801102560158082">"Няма звук"</string>
+    <string name="voicemail_status_action_configure" msgid="8671796489912239589">"Настройка"</string>
+    <string name="voicemail_status_action_call_server" msgid="1824816252288551794">"Чуйте гл. си поща"</string>
+    <string name="call_log_item_count_and_date" msgid="7641933305703520787">"(<xliff:g id="COUNT">%1$d</xliff:g>) <xliff:g id="DATE">%2$s</xliff:g>"</string>
+    <string name="sms_disambig_title" msgid="5846266399240630846">"Избиране на номер"</string>
+    <string name="call_disambig_title" msgid="4392886850104795739">"Избиране на номер"</string>
+    <string name="make_primary" msgid="5829291915305113983">"Запомняне на този избор"</string>
+    <string name="description_search_button" msgid="3660807558587384889">"търсене"</string>
+    <string name="description_dial_button" msgid="1274091017188142646">"набиране"</string>
+    <string name="description_digits_edittext" msgid="8760207516497016437">"номер за набиране"</string>
+    <string name="description_playback_start_stop" msgid="5060732345522492292">"Пускане или спиране на възпроизвеждането"</string>
+    <string name="description_playback_speakerphone" msgid="6008323900245707504">"Включване или изключване на високоговорителя"</string>
+    <string name="description_playback_seek" msgid="4509404274968530055">"Търсене на позиция за възпроизвеждане"</string>
+    <string name="description_rate_decrease" msgid="3161652589401708284">"Намаляване на скоростта на възпроизвеждане"</string>
+    <string name="description_rate_increase" msgid="6324606574127052385">"Увеличаване на скоростта на възпроизвеждане"</string>
+    <string name="action_menu_call_history_description" msgid="9018442816219748968">"История на обажданията"</string>
+    <string name="action_menu_overflow_description" msgid="2303272250613084574">"Още опции"</string>
+    <string name="action_menu_dialpad_button" msgid="1425910318049008136">"клавиатура за набиране"</string>
+    <string name="menu_copy" msgid="6108677035381940698">"Копиране"</string>
+    <string name="menu_show_outgoing_only" msgid="1965570298133301970">"Показване само на изходящите"</string>
+    <string name="menu_show_incoming_only" msgid="7534206815238877417">"Показване само на входящите"</string>
+    <string name="menu_show_missed_only" msgid="154473166059743996">"Показване само на пропуснатите"</string>
+    <string name="menu_show_voicemails_only" msgid="1898421289561435703">"Показване само на гл. поща"</string>
+    <string name="menu_show_all_calls" msgid="7560347482073345885">"Показване на всички обаждания"</string>
+    <string name="add_2sec_pause" msgid="9214012315201040129">"Добавяне на 2-сек пауза"</string>
+    <string name="add_wait" msgid="3360818652790319634">"Добавяне на изчакване"</string>
+    <string name="dialer_settings_label" msgid="4305043242594150479">"Настройки"</string>
+    <string name="menu_newContact" msgid="1209922412763274638">"Нов контакт"</string>
+    <string name="menu_allContacts" msgid="6948308384034051670">"Всички контакти"</string>
+    <string name="callDetailTitle" msgid="5340227785196217938">"Подробности за обаждане"</string>
+    <string name="toast_call_detail_error" msgid="6947041258280380832">"Данните не са налице"</string>
+    <string name="dialer_useDtmfDialpad" msgid="1707548397435075040">"Използване на тонова клавиатура"</string>
+    <string name="dialer_returnToInCallScreen" msgid="3719386377550913067">"Назад към текущото обаждане"</string>
+    <string name="dialer_addAnotherCall" msgid="4205688819890074468">"Добавяне на обаждане"</string>
+    <string name="type_incoming" msgid="6502076603836088532">"Вх. обаждане"</string>
+    <string name="type_outgoing" msgid="343108709599392641">"Изх. обаждане"</string>
+    <string name="type_missed" msgid="2720502601640509542">"Пропуснато обаждане"</string>
+    <string name="type_incoming_video" msgid="82323391702796181">"Входящо видеообаждане"</string>
+    <string name="type_outgoing_video" msgid="2858140021680755266">"Изходящо видеообаждане"</string>
+    <string name="type_missed_video" msgid="954396897034220545">"Пропуснато видеообаждане"</string>
+    <string name="type_voicemail" msgid="5153139450668549908">"Гласова поща"</string>
+    <string name="actionIncomingCall" msgid="6028930669817038600">"Вх. обаждания"</string>
+    <string name="description_call_log_play_button" msgid="651182125650429846">"Пускане на гласовата поща"</string>
+    <string name="description_view_contact" msgid="5205669345700598415">"Преглед на контактa <xliff:g id="NAME">%1$s</xliff:g>"</string>
+    <string name="description_call" msgid="3443678121983852666">"Обаждане до <xliff:g id="NAME">%1$s</xliff:g>"</string>
+    <string name="description_contact_details" msgid="51229793651342809">"Подробности за контакта за <xliff:g id="NAMEORNUMBER">%1$s</xliff:g>"</string>
+    <string name="description_new_voicemail" msgid="2133792360865517746">"Нова гласова поща."</string>
+    <string name="description_num_calls" msgid="1601505153694540074">"<xliff:g id="NUMBEROFCALLS">%1$s</xliff:g> обаждания."</string>
+    <string name="description_video_call" msgid="2933838090743214204">"Видеообаждане."</string>
+    <string name="description_send_text_message" msgid="3118485319691414221">"Изпращане на SMS до <xliff:g id="NAME">%1$s</xliff:g>"</string>
+    <string name="description_call_log_unheard_voicemail" msgid="118101684236996786">"Непрослушана гласова поща"</string>
+    <string name="description_start_voice_search" msgid="520539488194946012">"Стартиране на гласово търсене"</string>
+    <string name="menu_callNumber" msgid="997146291983360266">"Обаждане на <xliff:g id="NUMBER">%s</xliff:g>"</string>
+    <string name="unknown" msgid="740067747858270469">"Неизвестен"</string>
+    <string name="voicemail" msgid="3851469869202611441">"Гласова поща"</string>
+    <string name="private_num" msgid="6374339738119166953">"Частен номер"</string>
+    <string name="payphone" msgid="7726415831153618726">"Обществен телефон"</string>
+    <string name="callDetailsShortDurationFormat" msgid="3988146235579303592">"<xliff:g id="SECONDS">%s</xliff:g> сек"</string>
+    <string name="callDetailsDurationFormat" msgid="6061406028764382234">"<xliff:g id="MINUTES">%s</xliff:g> мин <xliff:g id="SECONDS">%s</xliff:g> сек"</string>
+    <string name="dialog_phone_call_prohibited_message" msgid="5730565540182492608">"Не можете да се обадите на този номер"</string>
+    <string name="dialog_voicemail_not_ready_message" msgid="4384716252789515378">"За да настроите гласовата поща, отворете „Меню“ &gt; „Настройки“."</string>
+    <string name="dialog_voicemail_airplane_mode_message" msgid="530922773669546093">"За да чуете гласовата си поща, първо изключете самолетния режим."</string>
+    <string name="contact_list_loading" msgid="5488620820563977329">"Зарежда се…"</string>
+    <string name="imei" msgid="3045126336951684285">"IMEI"</string>
+    <string name="meid" msgid="6210568493746275750">"MEID"</string>
+    <string name="simContacts_emptyLoading" msgid="6700035985448642408">"Зарежда се от SIM карта..."</string>
+    <string name="simContacts_title" msgid="27341688347689769">"Контакти от SIM карта"</string>
+    <string name="add_contact_not_available" msgid="5547311613368004859">"Няма налично приложение за контакти"</string>
+    <string name="voice_search_not_available" msgid="2977719040254285301">"Гласовото търсене не е налице"</string>
+    <string name="call_not_available" msgid="8941576511946492225">"Не може да се осъществи телефонно обаждане, защото приложението Телефон е деактивирано."</string>
+    <string name="activity_not_available" msgid="2287665636817987623">"На устройството няма приложение за това действие"</string>
+    <string name="dialer_hint_find_contact" msgid="1012544667033887519">"Въведете име или тел. номер"</string>
+    <string name="recentMissed_empty" msgid="6213733029875741604">"Нямате пропуснати обаждания."</string>
+    <string name="recentVoicemails_empty" msgid="7345542764648856330">"Входящата ви гласова поща е празна."</string>
+    <string name="show_favorites_only" msgid="5520072531022614595">"Показване само на любимите"</string>
+    <string name="call_log_activity_title" msgid="4612824396355272023">"История"</string>
+    <string name="call_log_all_title" msgid="3566738938889333307">"Всички"</string>
+    <string name="call_log_missed_title" msgid="4541142293870638971">"Пропуснати"</string>
+    <string name="call_log_voicemail_title" msgid="940422274047025948">"Гл. поща"</string>
+    <string name="tab_speed_dial" msgid="7552166276545648893">"Бързо набиране"</string>
+    <string name="tab_recents" msgid="929949073851377206">"Скорошни"</string>
+    <string name="tab_all_contacts" msgid="1410922767166533690">"Контакти"</string>
+    <string name="tab_voicemail" msgid="155024725947496746">"Гласова поща"</string>
+    <string name="favorite_hidden" msgid="5011234945140912047">"Премахнато от любимите"</string>
+    <string name="favorite_hidden_undo" msgid="2508998611039406474">"Отмяна"</string>
+    <string name="search_shortcut_call_number" msgid="7277194656832895870">"Обаждане на <xliff:g id="NUMBER">%s</xliff:g>"</string>
+    <string name="search_shortcut_create_new_contact" msgid="1679917465521554093">"Създаване на нов контакт"</string>
+    <string name="search_shortcut_add_to_contact" msgid="4327842393369915751">"Добавяне към контакт"</string>
+    <string name="search_shortcut_send_sms_message" msgid="2569304043345025525">"Изпращане на SMS"</string>
+    <string name="search_shortcut_make_video_call" msgid="1265971685034465166">"Провеждане на видеообаждане"</string>
+    <string name="show_call_history" msgid="1141502332266697170">"Преглед на цялата история на обажданията"</string>
+    <string name="num_missed_calls" msgid="8081736535604293886">"<xliff:g id="NUMBER">%s</xliff:g> нови пропуснати обаждания"</string>
+    <string name="speed_dial_empty" msgid="8838921693673366129">"Още нямате контакти за бързо набиране"</string>
+    <string name="speed_dial_empty_add_favorite_action" msgid="7944893641496695770">"Добавяне на любим контакт"</string>
+    <string name="all_contacts_empty" msgid="471370638298229686">"Още нямате контакти"</string>
+    <string name="all_contacts_empty_add_contact_action" msgid="1515782853819374618">"Добавяне на контакт"</string>
+    <string name="contact_tooltip" msgid="2019777545923635266">"Докоснете изображението, за да видите всички номера, или го натиснете и задръжте за пренареждане"</string>
+    <string name="remove_contact" msgid="1080555335283662961">"Премахване"</string>
+    <string name="call_log_action_video_call" msgid="7724301709041128296">"Видеообаждане"</string>
+    <string name="call_log_action_send_message" msgid="2826466379787846163">"Изпращане на съобщение"</string>
+    <string name="call_log_action_details" msgid="701345508704970622">"Подробности за обаждането"</string>
+    <string name="call_log_action_call" msgid="463690849042459842">"Обаждане до <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
+    <string name="description_incoming_missed_call" msgid="2381085098795943627">"Пропуснато обаждане от <xliff:g id="NAMEORNUMBER">^1</xliff:g>, <xliff:g id="TYPEORLOCATION">^2</xliff:g>, <xliff:g id="TIMEOFCALL">^3</xliff:g>, <xliff:g id="PHONEACCOUNT">^4</xliff:g>."</string>
+    <string name="description_incoming_answered_call" msgid="7117665748428816544">"Прието обаждане от <xliff:g id="NAMEORNUMBER">^1</xliff:g>, <xliff:g id="TYPEORLOCATION">^2</xliff:g>, <xliff:g id="TIMEOFCALL">^3</xliff:g>, <xliff:g id="PHONEACCOUNT">^4</xliff:g>."</string>
+    <string name="description_outgoing_call" msgid="6386364390619734734">"Обаждане до <xliff:g id="NAMEORNUMBER">^1</xliff:g>, <xliff:g id="TYPEORLOCATION">^2</xliff:g>, <xliff:g id="TIMEOFCALL">^3</xliff:g>, <xliff:g id="PHONEACCOUNT">^4</xliff:g>."</string>
+    <string name="description_phone_account" msgid="1767072759541443861">"на <xliff:g id="PHONEACCOUNT">^1</xliff:g>"</string>
+    <string name="description_call_log_call_action" msgid="3682561657090693134">"Обаждане"</string>
+    <string name="description_call_action" msgid="4000549004089776147">"Обаждане на <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
+    <string name="description_video_call_action" msgid="7386922428155062213">"Видеообаждане до <xliff:g id="NAMEORNUMBER">^1</xliff:g>."</string>
+    <string name="description_voicemail_action" msgid="8054891873788903063">"Прослушване на гласовата поща от <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
+    <string name="description_voicemail_play" msgid="2689369874037785439">"Пускане на гласовата поща от <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
+    <string name="description_voicemail_pause" msgid="3905259748756919693">"Поставяне на пауза на гласовата поща от <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
+    <string name="description_voicemail_delete" msgid="2025472770630153436">"Изтриване на гласовата поща от <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
+    <plurals name="description_voicemail_unread" formatted="false" msgid="8708346053055570332">
+      <item quantity="other"><xliff:g id="COUNT_1">%d</xliff:g> нови гласови съобщения</item>
+      <item quantity="one"><xliff:g id="COUNT_0">%d</xliff:g> ново гласово съобщение</item>
+    </plurals>
+    <string name="description_create_new_contact_action" msgid="818755978791008167">"Създаване на контакт за <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
+    <string name="description_add_to_existing_contact_action" msgid="6081200053494414351">"Добавяне на <xliff:g id="NAMEORNUMBER">^1</xliff:g> към съществуващ контакт"</string>
+    <string name="description_details_action" msgid="2433827152749491785">"Подробности за обаждането за <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
+    <string name="toast_entry_removed" msgid="8010830299576311534">"Изтрито от историята на обажданията"</string>
+    <string name="call_log_header_today" msgid="3225248682434212981">"Днес"</string>
+    <string name="call_log_header_yesterday" msgid="9139172458834033092">"Вчера"</string>
+    <string name="call_log_header_other" msgid="5769921959940709084">"По-стари"</string>
+    <string name="call_detail_list_header" msgid="3752717059699600861">"Списък с обаждания"</string>
+    <string name="voicemail_speaker_on" msgid="209154030283487068">"Включване на високоговорителя."</string>
+    <string name="voicemail_speaker_off" msgid="7390530056413093958">"Изключване на високоговорителя."</string>
+    <string name="voicemail_play_faster" msgid="3444751008615323006">"По-бързо възпроизвеждане."</string>
+    <string name="voicemail_play_slower" msgid="4544796503902818832">"По-бавно възпроизвеждане."</string>
+    <string name="voicemail_play_start_pause" msgid="3687447935787768983">"Стартиране или поставяне на пауза на възпроизвеждането."</string>
+    <string name="list_delimeter" msgid="4571593167738725100">", "</string>
+    <string name="display_options_title" msgid="7812852361055667468">"Опции за показване"</string>
+    <string name="sounds_and_vibration_title" msgid="1692290115642160845">"Звуци и вибриране"</string>
+    <string name="accessibility_settings_title" msgid="6068141142874046249">"Достъпност"</string>
+    <string name="ringtone_title" msgid="760362035635084653">"Мелодия на телефона"</string>
+    <string name="vibrate_on_ring_title" msgid="3362916460327555241">"Вибриране и при обаждания"</string>
+    <string name="dtmf_tone_enable_title" msgid="6571449695997521615">"Звук при набиране"</string>
+    <string name="dtmf_tone_length_title" msgid="8581125689808919460">"Продължителност на звука при набиране"</string>
+  <string-array name="dtmf_tone_length_entries">
+    <item msgid="1036113889050195575">"Нормално"</item>
+    <item msgid="6177579030803486015">"Продължително"</item>
+  </string-array>
+    <string name="respond_via_sms_setting_title" msgid="1318281521087951580">"Бързи отговори"</string>
+    <string name="call_settings_label" msgid="313434211353070209">"Обаждания"</string>
+    <string name="phone_account_settings_label" msgid="5864322009841175294">"Профили за обаждане"</string>
+    <string name="permission_single_turn_on" msgid="1543391076065465464">"Включване"</string>
+    <string name="permission_multiple_turn_on" msgid="2426278457455950554">"Задаване на разрешенията"</string>
+    <string name="permission_no_speeddial" msgid="7449042208802130085">"За да активирате бързото набиране,\nвключете разрешението за контакти."</string>
+    <string name="permission_no_calllog" msgid="8969825954337678018">"За да видите списъка с обажданията си,\nвключете разрешението за телефон."</string>
+    <string name="permission_no_contacts" msgid="4427828429876890950">"За да видите контактите си,\nвключете разрешението за контакти."</string>
+    <string name="permission_no_voicemail" msgid="7785949850839671813">"За да осъществите достъп до гласовата си поща,\nвключете разрешението за телефон."</string>
+    <string name="permission_no_search" msgid="84152933267902056">"За да търсите в контактите си, включете разрешенията за тях."</string>
+    <string name="permission_place_call" msgid="7588803619716288478">"За да извършите обаждане,\nвключете разрешението за телефон."</string>
+    <string name="toast_cannot_write_system_settings" msgid="5614246168296606709">"Приложението Телефон няма разрешение да записва в системните настройки."</string>
+</resources>

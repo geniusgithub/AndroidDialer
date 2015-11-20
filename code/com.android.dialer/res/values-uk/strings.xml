@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  ~ Copyright (C) 2012 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License
+   -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="applicationLabel" msgid="7762561155467201526">"Телефон"</string>
+    <string name="launcherActivityLabel" msgid="1129729740601172692">"Телефон"</string>
+    <string name="dialerIconLabel" msgid="6500826552823403796">"Тел."</string>
+    <string name="recentCallsIconLabel" msgid="2639489159797075507">"Історія дзвінків"</string>
+    <string name="recentCalls_callNumber" msgid="1756372533999226126">"Набрати <xliff:g id="NAME">%s</xliff:g>"</string>
+    <string name="call_detail_menu_report" msgid="587960283417977382">"Повідомити про невірний номер"</string>
+    <string name="recentCalls_editNumberBeforeCall" msgid="7756171675833267857">"Редаг. номер перед викл."</string>
+    <string name="recentCalls_addToContact" msgid="4570467333422734645">"Додати в контакти"</string>
+    <string name="recentCalls_removeFromRecentList" msgid="5551148439199439404">"Видалити з історії дзвінків"</string>
+    <string name="recentCalls_deleteAll" msgid="5157887960461979812">"Очистити історію дзвінків"</string>
+    <string name="recentCalls_trashVoicemail" msgid="7604696960787435655">"Видалити голосову пошту"</string>
+    <string name="recentCalls_shareVoicemail" msgid="1416112847592942840">"Надіслати голос. повідомлення"</string>
+    <string name="recentCalls_empty" msgid="5934808652605981210">"Журнал дзвінків порожній"</string>
+    <string name="recentCalls_empty_action" msgid="6033275870727664335">"Зателефонувати"</string>
+    <string name="clearCallLogConfirmation_title" msgid="801753155679372984">"Очистити історію дзвінків?"</string>
+    <string name="clearCallLogConfirmation" msgid="7899552396101432827">"З історії буде видалено всі дзвінки"</string>
+    <string name="clearCallLogProgress_title" msgid="3372471156216306132">"Очищення історії дзвінків…"</string>
+    <plurals name="notification_voicemail_title" formatted="false" msgid="9088953961148324851">
+      <item quantity="one"> <xliff:g id="COUNT">%1$d</xliff:g> голосове повідомлення </item>
+      <item quantity="few"> <xliff:g id="COUNT">%1$d</xliff:g> голосові повідомлення </item>
+      <item quantity="many"> <xliff:g id="COUNT">%1$d</xliff:g> голосових повідомлень </item>
+      <item quantity="other"> <xliff:g id="COUNT">%1$d</xliff:g> голосових повідомлень </item>
+    </plurals>
+    <string name="notification_action_voicemail_play" msgid="6113133136977996863">"Відтворити"</string>
+    <string name="notification_voicemail_callers_list" msgid="1153954809339404149">"<xliff:g id="NEWER_CALLERS">%1$s</xliff:g>, <xliff:g id="OLDER_CALLER">%2$s</xliff:g>"</string>
+    <string name="notification_new_voicemail_ticker" msgid="895342132049452081">"Нова голосова пошта від <xliff:g id="CALLER">%1$s</xliff:g>"</string>
+    <string name="voicemail_playback_error" msgid="3356071912353297599">"Не вдалося відтворити голосову пошту"</string>
+    <string name="voicemail_buffering" msgid="738287747618697097">"Буферизація..."</string>
+    <string name="voicemail_fetching_content" msgid="1287895365599580842">"Завантаження голосової пошти…"</string>
+    <string name="voicemail_fetching_timout" msgid="3959428065511972176">"Не вдалося завантажити голосову пошту"</string>
+    <string name="call_log_voicemail_header" msgid="3945407886667089173">"Лише виклики з голосовою поштою"</string>
+    <string name="call_log_incoming_header" msgid="2787722299753674684">"Лише вхідні виклики"</string>
+    <string name="call_log_outgoing_header" msgid="761009180766735769">"Лише вихідні виклики"</string>
+    <string name="call_log_missed_header" msgid="8017148056610855956">"Лише пропущені виклики"</string>
+    <string name="visual_voicemail_title" msgid="4574199312906348905">"Візуальна голосова пошта"</string>
+    <string name="visual_voicemail_text" msgid="164967285234132509">"Переглядайте та слухайте голосову пошту, не телефонуючи. За передавання даних може стягуватися плата."</string>
+    <string name="visual_voicemail_settings" msgid="8090338793118794741">"Налаштування"</string>
+    <string name="voicemail_status_voicemail_not_available" msgid="5222480147701456390">"Нові повідомлення голосової пошти недоступні"</string>
+    <string name="voicemail_status_messages_waiting" msgid="6329544650250068650">"Є нове повідомлення голосової пошти. Помилка завантаження."</string>
+    <string name="voicemail_status_configure_voicemail" msgid="8300808991932816153">"Налаштуйте голосову пошту"</string>
+    <string name="voicemail_status_audio_not_available" msgid="2449801102560158082">"Аудіо недоступне"</string>
+    <string name="voicemail_status_action_configure" msgid="8671796489912239589">"Налаштувати"</string>
+    <string name="voicemail_status_action_call_server" msgid="1824816252288551794">"Дзвон.на голос.пошту"</string>
+    <string name="call_log_item_count_and_date" msgid="7641933305703520787">"(<xliff:g id="COUNT">%1$d</xliff:g>) <xliff:g id="DATE">%2$s</xliff:g>"</string>
+    <string name="sms_disambig_title" msgid="5846266399240630846">"Вибрати номер"</string>
+    <string name="call_disambig_title" msgid="4392886850104795739">"Вибрати номер"</string>
+    <string name="make_primary" msgid="5829291915305113983">"Пам\'ятати цей вибір"</string>
+    <string name="description_search_button" msgid="3660807558587384889">"пошук"</string>
+    <string name="description_dial_button" msgid="1274091017188142646">"дзвон."</string>
+    <string name="description_digits_edittext" msgid="8760207516497016437">"номер для набору"</string>
+    <string name="description_playback_start_stop" msgid="5060732345522492292">"Почати або зупинити відтворення"</string>
+    <string name="description_playback_speakerphone" msgid="6008323900245707504">"Увімкнути або вимкнути гучний зв’язок"</string>
+    <string name="description_playback_seek" msgid="4509404274968530055">"Шукати місце відтворення"</string>
+    <string name="description_rate_decrease" msgid="3161652589401708284">"Зменшити швидкість відтворення"</string>
+    <string name="description_rate_increase" msgid="6324606574127052385">"Збільшити швидкість відтворення"</string>
+    <string name="action_menu_call_history_description" msgid="9018442816219748968">"Історія викликів"</string>
+    <string name="action_menu_overflow_description" msgid="2303272250613084574">"Інші варіанти"</string>
+    <string name="action_menu_dialpad_button" msgid="1425910318049008136">"цифрова клавіатура"</string>
+    <string name="menu_copy" msgid="6108677035381940698">"Копіювати"</string>
+    <string name="menu_show_outgoing_only" msgid="1965570298133301970">"Показувати лише вихідні"</string>
+    <string name="menu_show_incoming_only" msgid="7534206815238877417">"Показувати лише вхідні"</string>
+    <string name="menu_show_missed_only" msgid="154473166059743996">"Показувати лише пропущені"</string>
+    <string name="menu_show_voicemails_only" msgid="1898421289561435703">"Показувати лише голосову пошту"</string>
+    <string name="menu_show_all_calls" msgid="7560347482073345885">"Показувати всі виклики"</string>
+    <string name="add_2sec_pause" msgid="9214012315201040129">"Додати 2-сек. паузу"</string>
+    <string name="add_wait" msgid="3360818652790319634">"Додати паузу"</string>
+    <string name="dialer_settings_label" msgid="4305043242594150479">"Налаштування"</string>
+    <string name="menu_newContact" msgid="1209922412763274638">"Новий контакт"</string>
+    <string name="menu_allContacts" msgid="6948308384034051670">"Усі контакти"</string>
+    <string name="callDetailTitle" msgid="5340227785196217938">"Деталі виклику"</string>
+    <string name="toast_call_detail_error" msgid="6947041258280380832">"Деталі недоступні"</string>
+    <string name="dialer_useDtmfDialpad" msgid="1707548397435075040">"Використовувати тональний набір"</string>
+    <string name="dialer_returnToInCallScreen" msgid="3719386377550913067">"Повернутися до поточного виклику"</string>
+    <string name="dialer_addAnotherCall" msgid="4205688819890074468">"Додати виклик"</string>
+    <string name="type_incoming" msgid="6502076603836088532">"Вхідний виклик"</string>
+    <string name="type_outgoing" msgid="343108709599392641">"Вихідний виклик"</string>
+    <string name="type_missed" msgid="2720502601640509542">"Пропущений виклик"</string>
+    <string name="type_incoming_video" msgid="82323391702796181">"Вхідний відеодзвінок"</string>
+    <string name="type_outgoing_video" msgid="2858140021680755266">"Вихідний відеодзвінок"</string>
+    <string name="type_missed_video" msgid="954396897034220545">"Пропущений відеодзвінок"</string>
+    <string name="type_voicemail" msgid="5153139450668549908">"Голосова пошта"</string>
+    <string name="actionIncomingCall" msgid="6028930669817038600">"Вхідні виклики"</string>
+    <string name="description_call_log_play_button" msgid="651182125650429846">"Відтворити голосову пошту"</string>
+    <string name="description_view_contact" msgid="5205669345700598415">"Переглянути контакт <xliff:g id="NAME">%1$s</xliff:g>"</string>
+    <string name="description_call" msgid="3443678121983852666">"Дзвонити: <xliff:g id="NAME">%1$s</xliff:g>"</string>
+    <string name="description_contact_details" msgid="51229793651342809">"Відомості про контакт <xliff:g id="NAMEORNUMBER">%1$s</xliff:g>"</string>
+    <string name="description_new_voicemail" msgid="2133792360865517746">"Нова голосове повідомлення."</string>
+    <string name="description_num_calls" msgid="1601505153694540074">"Викликів: <xliff:g id="NUMBEROFCALLS">%1$s</xliff:g>."</string>
+    <string name="description_video_call" msgid="2933838090743214204">"Відеодзвінок."</string>
+    <string name="description_send_text_message" msgid="3118485319691414221">"Надіслати SMS контакту <xliff:g id="NAME">%1$s</xliff:g>"</string>
+    <string name="description_call_log_unheard_voicemail" msgid="118101684236996786">"Непрослухана голосова пошта"</string>
+    <string name="description_start_voice_search" msgid="520539488194946012">"Розпочати голосовий пошук"</string>
+    <string name="menu_callNumber" msgid="997146291983360266">"Подзвонити на <xliff:g id="NUMBER">%s</xliff:g>"</string>
+    <string name="unknown" msgid="740067747858270469">"Невідомий"</string>
+    <string name="voicemail" msgid="3851469869202611441">"Голосова пошта"</string>
+    <string name="private_num" msgid="6374339738119166953">"Приватний номер"</string>
+    <string name="payphone" msgid="7726415831153618726">"Таксофон"</string>
+    <string name="callDetailsShortDurationFormat" msgid="3988146235579303592">"<xliff:g id="SECONDS">%s</xliff:g> с"</string>
+    <string name="callDetailsDurationFormat" msgid="6061406028764382234">"<xliff:g id="MINUTES">%s</xliff:g> хв <xliff:g id="SECONDS">%s</xliff:g> с"</string>
+    <string name="dialog_phone_call_prohibited_message" msgid="5730565540182492608">"Не можна телефонувати на цей номер"</string>
+    <string name="dialog_voicemail_not_ready_message" msgid="4384716252789515378">"Щоб налаштувати голосову пошту, перейдіть у Меню &gt; Налаштування."</string>
+    <string name="dialog_voicemail_airplane_mode_message" msgid="530922773669546093">"Щоб перевірити голосову пошту, спочатку вимкніть режим польоту."</string>
+    <string name="contact_list_loading" msgid="5488620820563977329">"Завантаження..."</string>
+    <string name="imei" msgid="3045126336951684285">"IMEI"</string>
+    <string name="meid" msgid="6210568493746275750">"MEID"</string>
+    <string name="simContacts_emptyLoading" msgid="6700035985448642408">"Завантаж. із SIM-карти…"</string>
+    <string name="simContacts_title" msgid="27341688347689769">"Контакти SIM-карти"</string>
+    <string name="add_contact_not_available" msgid="5547311613368004859">"Немає додатка з контактами"</string>
+    <string name="voice_search_not_available" msgid="2977719040254285301">"Голосовий пошук недоступний"</string>
+    <string name="call_not_available" msgid="8941576511946492225">"Не вдається здійснити дзвінок, оскільки додаток Телефон вимкнено."</string>
+    <string name="activity_not_available" msgid="2287665636817987623">"На цьому пристрої немає додатка, який може виконати цю дію"</string>
+    <string name="dialer_hint_find_contact" msgid="1012544667033887519">"Введіть ім’я чи номер телефону"</string>
+    <string name="recentMissed_empty" msgid="6213733029875741604">"Немає пропущених дзвінків."</string>
+    <string name="recentVoicemails_empty" msgid="7345542764648856330">"Немає голосової пошти."</string>
+    <string name="show_favorites_only" msgid="5520072531022614595">"Показати лише вибрані"</string>
+    <string name="call_log_activity_title" msgid="4612824396355272023">"Історія"</string>
+    <string name="call_log_all_title" msgid="3566738938889333307">"Усі"</string>
+    <string name="call_log_missed_title" msgid="4541142293870638971">"Пропущені"</string>
+    <string name="call_log_voicemail_title" msgid="940422274047025948">"Голосова пошта"</string>
+    <string name="tab_speed_dial" msgid="7552166276545648893">"Швидкий набір"</string>
+    <string name="tab_recents" msgid="929949073851377206">"Останні"</string>
+    <string name="tab_all_contacts" msgid="1410922767166533690">"Контакти"</string>
+    <string name="tab_voicemail" msgid="155024725947496746">"Голосова пошта"</string>
+    <string name="favorite_hidden" msgid="5011234945140912047">"Вилучено з вибраного"</string>
+    <string name="favorite_hidden_undo" msgid="2508998611039406474">"Відмінити"</string>
+    <string name="search_shortcut_call_number" msgid="7277194656832895870">"Набрати <xliff:g id="NUMBER">%s</xliff:g>"</string>
+    <string name="search_shortcut_create_new_contact" msgid="1679917465521554093">"Створити новий контакт"</string>
+    <string name="search_shortcut_add_to_contact" msgid="4327842393369915751">"Додати в контакти"</string>
+    <string name="search_shortcut_send_sms_message" msgid="2569304043345025525">"Надіслати SMS"</string>
+    <string name="search_shortcut_make_video_call" msgid="1265971685034465166">"Здійснити відеодзвінок"</string>
+    <string name="show_call_history" msgid="1141502332266697170">"Переглянути всю історію дзвінків"</string>
+    <string name="num_missed_calls" msgid="8081736535604293886">"Нових пропущених дзвінків: <xliff:g id="NUMBER">%s</xliff:g>"</string>
+    <string name="speed_dial_empty" msgid="8838921693673366129">"Немає номерів для швидкого набору"</string>
+    <string name="speed_dial_empty_add_favorite_action" msgid="7944893641496695770">"Додати номер"</string>
+    <string name="all_contacts_empty" msgid="471370638298229686">"Ще немає контактів"</string>
+    <string name="all_contacts_empty_add_contact_action" msgid="1515782853819374618">"Додати контакт"</string>
+    <string name="contact_tooltip" msgid="2019777545923635266">"Торкніться зображення, щоб побачити всі номери, або натисніть і утримуйте, щоб змінити порядок"</string>
+    <string name="remove_contact" msgid="1080555335283662961">"Видалити"</string>
+    <string name="call_log_action_video_call" msgid="7724301709041128296">"Відеодзвінок"</string>
+    <string name="call_log_action_send_message" msgid="2826466379787846163">"Надіслати повідомлення"</string>
+    <string name="call_log_action_details" msgid="701345508704970622">"Деталі виклику"</string>
+    <string name="call_log_action_call" msgid="463690849042459842">"<xliff:g id="NAMEORNUMBER">^1</xliff:g>: телефонувати"</string>
+    <string name="description_incoming_missed_call" msgid="2381085098795943627">"Пропущений дзвінок: <xliff:g id="NAMEORNUMBER">^1</xliff:g>, <xliff:g id="TYPEORLOCATION">^2</xliff:g>, <xliff:g id="TIMEOFCALL">^3</xliff:g>, <xliff:g id="PHONEACCOUNT">^4</xliff:g>."</string>
+    <string name="description_incoming_answered_call" msgid="7117665748428816544">"Прийнятий дзвінок: <xliff:g id="NAMEORNUMBER">^1</xliff:g>, <xliff:g id="TYPEORLOCATION">^2</xliff:g>, <xliff:g id="TIMEOFCALL">^3</xliff:g>, <xliff:g id="PHONEACCOUNT">^4</xliff:g>."</string>
+    <string name="description_outgoing_call" msgid="6386364390619734734">"Вихідний дзвінок: <xliff:g id="NAMEORNUMBER">^1</xliff:g>, <xliff:g id="TYPEORLOCATION">^2</xliff:g>, <xliff:g id="TIMEOFCALL">^3</xliff:g>, <xliff:g id="PHONEACCOUNT">^4</xliff:g>."</string>
+    <string name="description_phone_account" msgid="1767072759541443861">"Обліковий запис: <xliff:g id="PHONEACCOUNT">^1</xliff:g>"</string>
+    <string name="description_call_log_call_action" msgid="3682561657090693134">"Виклик"</string>
+    <string name="description_call_action" msgid="4000549004089776147">"Телефонувати: <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
+    <string name="description_video_call_action" msgid="7386922428155062213">"Запросити контакт <xliff:g id="NAMEORNUMBER">^1</xliff:g> на відеодзвінок."</string>
+    <string name="description_voicemail_action" msgid="8054891873788903063">"Слухати голосову пошту: <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
+    <string name="description_voicemail_play" msgid="2689369874037785439">"<xliff:g id="NAMEORNUMBER">^1</xliff:g>: слухати голосову пошту"</string>
+    <string name="description_voicemail_pause" msgid="3905259748756919693">"<xliff:g id="NAMEORNUMBER">^1</xliff:g>: призупинити голосову пошту"</string>
+    <string name="description_voicemail_delete" msgid="2025472770630153436">"<xliff:g id="NAMEORNUMBER">^1</xliff:g>: видалити голосову пошту"</string>
+    <plurals name="description_voicemail_unread" formatted="false" msgid="8708346053055570332">
+      <item quantity="one"><xliff:g id="COUNT_1">%d</xliff:g> нове повідомлення голосової пошти</item>
+      <item quantity="few"><xliff:g id="COUNT_1">%d</xliff:g> нові повідомлення голосової пошти</item>
+      <item quantity="many"><xliff:g id="COUNT_1">%d</xliff:g> нових повідомлень голосової пошти</item>
+      <item quantity="other"><xliff:g id="COUNT_1">%d</xliff:g> нового повідомлення голосової пошти</item>
+    </plurals>
+    <string name="description_create_new_contact_action" msgid="818755978791008167">"<xliff:g id="NAMEORNUMBER">^1</xliff:g>: створити контакт"</string>
+    <string name="description_add_to_existing_contact_action" msgid="6081200053494414351">"<xliff:g id="NAMEORNUMBER">^1</xliff:g>: додати до наявного контакта"</string>
+    <string name="description_details_action" msgid="2433827152749491785">"<xliff:g id="NAMEORNUMBER">^1</xliff:g>: деталі виклику"</string>
+    <string name="toast_entry_removed" msgid="8010830299576311534">"Видалено з історії дзвінків"</string>
+    <string name="call_log_header_today" msgid="3225248682434212981">"Сьогодні"</string>
+    <string name="call_log_header_yesterday" msgid="9139172458834033092">"Учора"</string>
+    <string name="call_log_header_other" msgid="5769921959940709084">"Старіші"</string>
+    <string name="call_detail_list_header" msgid="3752717059699600861">"Список дзвінків"</string>
+    <string name="voicemail_speaker_on" msgid="209154030283487068">"Увімкнути динамік."</string>
+    <string name="voicemail_speaker_off" msgid="7390530056413093958">"Вимкнути динамік."</string>
+    <string name="voicemail_play_faster" msgid="3444751008615323006">"Відтворювати швидше."</string>
+    <string name="voicemail_play_slower" msgid="4544796503902818832">"Відтворювати повільніше."</string>
+    <string name="voicemail_play_start_pause" msgid="3687447935787768983">"Почати або призупинити відтворення."</string>
+    <string name="list_delimeter" msgid="4571593167738725100">", "</string>
+    <string name="display_options_title" msgid="7812852361055667468">"Параметри відображення"</string>
+    <string name="sounds_and_vibration_title" msgid="1692290115642160845">"Звуки та вібрація"</string>
+    <string name="accessibility_settings_title" msgid="6068141142874046249">"Спеціальні можливості"</string>
+    <string name="ringtone_title" msgid="760362035635084653">"Сигнал дзвінка телефона"</string>
+    <string name="vibrate_on_ring_title" msgid="3362916460327555241">"Також вібрувати для дзвінків"</string>
+    <string name="dtmf_tone_enable_title" msgid="6571449695997521615">"Звуки цифрової клавіатури"</string>
+    <string name="dtmf_tone_length_title" msgid="8581125689808919460">"Тривалість сигналу цифрової клавіатури"</string>
+  <string-array name="dtmf_tone_length_entries">
+    <item msgid="1036113889050195575">"Стандартний сигнал"</item>
+    <item msgid="6177579030803486015">"Довгий сигнал"</item>
+  </string-array>
+    <string name="respond_via_sms_setting_title" msgid="1318281521087951580">"Швидкі відповіді"</string>
+    <string name="call_settings_label" msgid="313434211353070209">"Дзвінки"</string>
+    <string name="phone_account_settings_label" msgid="5864322009841175294">"Обл. записи для дзвінків"</string>
+    <string name="permission_single_turn_on" msgid="1543391076065465464">"Увімкнути"</string>
+    <string name="permission_multiple_turn_on" msgid="2426278457455950554">"Налаштувати дозволи"</string>
+    <string name="permission_no_speeddial" msgid="7449042208802130085">"Щоб активувати швидкий набір,\n увімкніть дозвіл \"Контакти\"."</string>
+    <string name="permission_no_calllog" msgid="8969825954337678018">"Щоб переглянути журнал дзвінків,\n увімкніть дозвіл \"Телефон\"."</string>
+    <string name="permission_no_contacts" msgid="4427828429876890950">"Щоб переглянути контакти,\n увімкніть дозвіл \"Контакти\"."</string>
+    <string name="permission_no_voicemail" msgid="7785949850839671813">"Щоб користуватися голосовою поштою,\n увімкніть дозвіл \"Телефон\"."</string>
+    <string name="permission_no_search" msgid="84152933267902056">"Щоб шукати контакти, увімкніть дозвіл \"Контакти\"."</string>
+    <string name="permission_place_call" msgid="7588803619716288478">"Щоб телефонувати,\n увімкніть дозвіл \"Телефон\"."</string>
+    <string name="toast_cannot_write_system_settings" msgid="5614246168296606709">"Додаток Телефон не має дозволу змінювати системні налаштування."</string>
+</resources>
