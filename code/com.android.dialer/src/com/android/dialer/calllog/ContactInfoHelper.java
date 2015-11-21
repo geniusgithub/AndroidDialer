@@ -343,13 +343,14 @@ public class ContactInfoHelper {
                 needsUpdate = true;
             }
 
-            final Uri updatedPhotoUriContactsOnly =
-                    UriUtils.nullForNonContactsUri(updatedInfo.photoUri);
-            if (!UriUtils.areEqual(updatedPhotoUriContactsOnly, callLogInfo.photoUri)) {
-                values.put(Calls.CACHED_PHOTO_URI,
-                        UriUtils.uriToString(updatedPhotoUriContactsOnly));
-                needsUpdate = true;
-            }
+//            final Uri updatedPhotoUriContactsOnly =
+//                    UriUtils.nullForNonContactsUri(updatedInfo.photoUri);
+//            if (!UriUtils.areEqual(updatedPhotoUriContactsOnly, callLogInfo.photoUri)) {
+//            	   // remove by genius
+//                values.put(Calls.CACHED_PHOTO_URI,
+//                        UriUtils.uriToString(updatedPhotoUriContactsOnly));
+//                needsUpdate = true;
+//            }
 
             if (!TextUtils.equals(updatedInfo.formattedNumber, callLogInfo.formattedNumber)) {
                 values.put(Calls.CACHED_FORMATTED_NUMBER, updatedInfo.formattedNumber);
@@ -364,8 +365,9 @@ public class ContactInfoHelper {
             values.put(Calls.CACHED_MATCHED_NUMBER, updatedInfo.number);
             values.put(Calls.CACHED_NORMALIZED_NUMBER, updatedInfo.normalizedNumber);
             values.put(Calls.CACHED_PHOTO_ID, updatedInfo.photoId);
-            values.put(Calls.CACHED_PHOTO_URI, UriUtils.uriToString(
-                    UriUtils.nullForNonContactsUri(updatedInfo.photoUri)));
+            // remove by genius
+//            values.put(Calls.CACHED_PHOTO_URI, UriUtils.uriToString(
+//                    UriUtils.nullForNonContactsUri(updatedInfo.photoUri)));
             values.put(Calls.CACHED_FORMATTED_NUMBER, updatedInfo.formattedNumber);
             needsUpdate = true;
         }
@@ -427,8 +429,9 @@ public class ContactInfoHelper {
         info.number = matchedNumber == null ? c.getString(CallLogQuery.NUMBER) : matchedNumber;
         info.normalizedNumber = c.getString(CallLogQuery.CACHED_NORMALIZED_NUMBER);
         info.photoId = c.getLong(CallLogQuery.CACHED_PHOTO_ID);
-        info.photoUri = UriUtils.nullForNonContactsUri(
-                UriUtils.parseUriOrNull(c.getString(CallLogQuery.CACHED_PHOTO_URI)));
+//        info.photoUri = UriUtils.nullForNonContactsUri(
+//                UriUtils.parseUriOrNull(c.getString(CallLogQuery.CACHED_PHOTO_URI)));
+        info.photoUri = null; // modify by genius
         info.formattedNumber = c.getString(CallLogQuery.CACHED_FORMATTED_NUMBER);
 
         return info;

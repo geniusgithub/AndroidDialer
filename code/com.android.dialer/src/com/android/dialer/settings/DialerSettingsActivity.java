@@ -44,12 +44,16 @@ public class DialerSettingsActivity extends PreferenceActivity {
         soundSettingsHeader.id = R.id.settings_header_sounds_and_vibration;
         target.add(soundSettingsHeader);
 
-        Header quickResponseSettingsHeader = new Header();
-        Intent quickResponseSettingsIntent =
-                new Intent(TelecomManager.ACTION_SHOW_RESPOND_VIA_SMS_SETTINGS);
-        quickResponseSettingsHeader.titleRes = R.string.respond_via_sms_setting_title;
-        quickResponseSettingsHeader.intent = quickResponseSettingsIntent;
-        target.add(quickResponseSettingsHeader);
+        // modify by genius
+        if(PermissionsUtil.sIsAtLeastM){
+            Header quickResponseSettingsHeader = new Header();
+            Intent quickResponseSettingsIntent =
+                    new Intent(TelecomManager.ACTION_SHOW_RESPOND_VIA_SMS_SETTINGS);
+            quickResponseSettingsHeader.titleRes = R.string.respond_via_sms_setting_title;
+            quickResponseSettingsHeader.intent = quickResponseSettingsIntent;
+            target.add(quickResponseSettingsHeader);
+        }
+
 
         TelephonyManager telephonyManager =
                 (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
@@ -94,14 +98,18 @@ public class DialerSettingsActivity extends PreferenceActivity {
             // If we don't have the permission to write to system settings, go to system sound
             // settings instead. Otherwise, perform the super implementation (which launches our
             // own preference fragment.
-            if (!Settings.System.canWrite(this)) {
-                Toast.makeText(
-                        this,
-                        getResources().getString(R.string.toast_cannot_write_system_settings),
-                        Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(Settings.ACTION_SOUND_SETTINGS));
-                return;
-            }
+        	// modify by genius
+        	   if(PermissionsUtil.sIsAtLeastM){
+        		   if (!Settings.System.canWrite(this)) {
+                       Toast.makeText(
+                               this,
+                               getResources().getString(R.string.toast_cannot_write_system_settings),
+                               Toast.LENGTH_SHORT).show();
+                       startActivity(new Intent(Settings.ACTION_SOUND_SETTINGS));
+                       return;
+                   }
+        	   }
+            
         }
         super.onHeaderClick(header, position);
     }
@@ -124,7 +132,9 @@ public class DialerSettingsActivity extends PreferenceActivity {
      * @return Whether the current user is the primary user.
      */
     private boolean isPrimaryUser() {
-        final UserManager userManager = (UserManager) getSystemService(Context.USER_SERVICE);
-        return userManager.isSystemUser();
+    	return false;
+    	// modify by genius
+//        final UserManager userManager = (UserManager) getSystemService(Context.USER_SERVICE);
+//        return userManager.isSystemUser();
     }
 }

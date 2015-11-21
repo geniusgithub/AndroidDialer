@@ -156,21 +156,31 @@ public class CallLogQueryHandler extends NoNullCursorAsyncQueryHandler {
         List<String> selectionArgs = Lists.newArrayList();
 
         // Ignore voicemails marked as deleted
-        where.append(Voicemails.DELETED);
-        where.append(" = 0");
-
+//	remove by genius        
+//        where.append(Voicemails.DELETED);
+//        where.append(" = 0");
+        boolean isAppend = false;
         if (newOnly) {
-            where.append(" AND ");
+        //    where.append(" AND ");
             where.append(Calls.NEW);
             where.append(" = 1");
+            isAppend = true;
         }
 
         if (callType > CALL_TYPE_ALL) {
-            where.append(" AND ");
+        	if (isAppend){
+                where.append(" AND ");
+        	}
             where.append(String.format("(%s = ?)", Calls.TYPE));
             selectionArgs.add(Integer.toString(callType));
+            isAppend = true;
         } else {
-            where.append(" AND NOT ");
+        	if (isAppend){
+                where.append(" AND NOT ");
+        	}else{
+        		 where.append(" NOT ");
+        	}
+ 
             where.append("(" + Calls.TYPE + " = " + Calls.VOICEMAIL_TYPE + ")");
         }
 
@@ -185,6 +195,8 @@ public class CallLogQueryHandler extends NoNullCursorAsyncQueryHandler {
         Uri uri = TelecomUtil.getCallLogUri(mContext).buildUpon()
                 .appendQueryParameter(Calls.LIMIT_PARAM_KEY, Integer.toString(limit))
                 .build();
+        Log.i(TAG, "getCallLogUri = " + uri.toString() + "\nselection = " + selection);
+       
         startQuery(token, null, uri,
                 CallLogQuery._PROJECTION, selection, selectionArgs.toArray(EMPTY_STRING_ARRAY),
                 Calls.DEFAULT_SORT_ORDER);

@@ -22,7 +22,7 @@
     </style>
 
     <style name="DialpadKeyNumberStyle">
-        <item name="android:textColor">?attr/dialpad_text_color_primary</item>
+        <item name="android:textColor">@color/dialpad_primary_text_color</item>
         <item name="android:textSize">@dimen/dialpad_key_numbers_size</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:layout_width">wrap_content</item>
@@ -30,13 +30,14 @@
         <item name="android:layout_marginBottom">@dimen/dialpad_key_number_margin_bottom</item>
         <item name="android:gravity">center</item>
     </style>
+<!--     <item name="android:textColor">?attr/dialpad_text_color_primary</item> modify by genius-->
 
     <style name="DialpadBottomKeyNumberStyle" parent="DialpadKeyNumberStyle">
         <item name="android:layout_marginBottom">@dimen/dialpad_zero_key_number_margin_bottom</item>
     </style>
 
     <style name="DialpadKeyStarStyle">
-        <item name="android:textColor">?attr/dialpad_text_color_secondary</item>
+        <item name="android:textColor">@color/dialpad_secondary_text_color</item>
         <item name="android:textSize">@dimen/dialpad_key_star_size</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:alpha">0.8</item>
@@ -45,9 +46,10 @@
         <item name="android:layout_marginBottom">@dimen/dialpad_symbol_margin_bottom</item>
         <item name="android:gravity">center</item>
     </style>
+<!--       <item name="android:textColor">?attr/dialpad_text_color_secondary</item> modify by genius-->
 
     <style name="DialpadKeyPoundStyle">
-        <item name="android:textColor">?attr/dialpad_text_color_secondary</item>
+        <item name="android:textColor">@color/dialpad_secondary_text_color</item>
         <item name="android:textSize">@dimen/dialpad_key_pound_size</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:alpha">0.8</item>
@@ -56,16 +58,16 @@
         <item name="android:layout_marginBottom">@dimen/dialpad_symbol_margin_bottom</item>
         <item name="android:gravity">center</item>
     </style>
-
+<!--         <item name="android:textColor">?attr/dialpad_text_color_secondary</item> modify by genius-->
     <style name="DialpadKeyLettersStyle">
-        <item name="android:textColor">?attr/dialpad_text_color_secondary</item>
+        <item name="android:textColor">@color/dialpad_secondary_text_color</item>
         <item name="android:textSize">@dimen/dialpad_key_letters_size</item>
         <item name="android:fontFamily">sans-serif-regular</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center_horizontal</item>
     </style>
-
+<!--         <item name="android:textColor">?attr/dialpad_text_color_secondary</item> modify by genius-->
     <style name="DialpadKeyButtonStyle">
         <item name="android:soundEffectsEnabled">false</item>
         <item name="android:clickable">true</item>
@@ -103,7 +105,8 @@
         <item name="dialpad_text_color_primary">@android:color/white</item>
         <item name="dialpad_text_color_secondary">#ffd4d6d7</item>
         <item name="dialpad_icon_tint">@android:color/white</item>
-        <item name="dialpad_voicemail_tint">?attr/dialpad_text_color_secondary</item>
+        <item name="dialpad_voicemail_tint">#ffd4d6d7</item>
         <item name="dialpad_background">#00000000</item>
     </style>
+<!--        <item name="dialpad_voicemail_tint">?attr/dialpad_text_color_secondary</item>  modify by genius-->
 </resources>

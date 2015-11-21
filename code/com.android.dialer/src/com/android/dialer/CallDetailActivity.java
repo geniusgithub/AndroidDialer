@@ -242,7 +242,12 @@ public class CallDetailActivity extends Activity
 
         mQuickContactBadge = (QuickContactBadge) findViewById(R.id.quick_contact_photo);
         mQuickContactBadge.setOverlay(null);
-        mQuickContactBadge.setPrioritizedMimeType(Phone.CONTENT_ITEM_TYPE);
+        if (PermissionsUtil.sIsAtLeastM){
+        	mQuickContactBadge.setPrioritizedMimeType(Phone.CONTENT_ITEM_TYPE);
+        }else{
+        	
+        }
+
         mCallerName = (TextView) findViewById(R.id.caller_name);
         mCallerNumber = (TextView) findViewById(R.id.caller_number);
         mAccountLabel = (TextView) findViewById(R.id.phone_account_label);

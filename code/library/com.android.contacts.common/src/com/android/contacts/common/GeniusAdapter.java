@@ -13,4 +13,6 @@ public class GeniusAdapter {
 		String result =  (String) PhoneNumberUtils.createTtsSpannable(input.toString());
 		 return result;
 	}
+	
+	
 }

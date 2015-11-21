@@ -149,10 +149,15 @@ public class AllContactsFragment extends ContactEntryListFragment<ContactEntryLi
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         final Uri uri = (Uri) view.getTag();
+        // modify by genius
         if (uri != null) {
-            QuickContact.showQuickContact(getContext(), view, uri, null,
-                    Phone.CONTENT_ITEM_TYPE);
+            if(PermissionsUtil.sIsAtLeastM){
+                QuickContact.showQuickContact(getContext(), view, uri, null, Phone.CONTENT_ITEM_TYPE);
+	        }else{
+	        	 QuickContact.showQuickContact(getActivity(), view, uri, QuickContact.MODE_LARGE, null);
+	        }
         }
+   
     }
 
     @Override

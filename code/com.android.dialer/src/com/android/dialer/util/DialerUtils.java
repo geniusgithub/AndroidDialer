@@ -39,10 +39,12 @@ import android.widget.Toast;
 
 import com.android.contacts.common.ContactsUtils;
 import com.android.contacts.common.interactions.TouchPointManager;
+import com.android.contacts.common.util.PermissionsUtil;
 import com.android.dialer.R;
 import com.android.dialer.widget.EmptyContentView;
 //import com.android.incallui.CallCardFragment;
 //import com.android.incallui.Log;
+
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -85,9 +87,15 @@ public class DialerUtils {
                     extras.putParcelable(TouchPointManager.TOUCH_POINT, touchPoint);
                     intent.putExtra(TelecomManager.EXTRA_OUTGOING_CALL_EXTRAS, extras);
                 }
-                final TelecomManager tm =
-                        (TelecomManager) context.getSystemService(Context.TELECOM_SERVICE);
-                tm.placeCall(intent.getData(), intent.getExtras());
+                // modify by genius
+                if (PermissionsUtil.sIsAtLeastM){
+                    final TelecomManager tm =
+                            (TelecomManager) context.getSystemService(Context.TELECOM_SERVICE);
+                    tm.placeCall(intent.getData(), intent.getExtras());
+                }else{
+                	context.startActivity(intent);
+                }
+
             } else {
                 context.startActivity(intent);
             }

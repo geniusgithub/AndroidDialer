@@ -92,7 +92,6 @@ public class DialpadView extends LinearLayout {
 
     public DialpadView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.Dialpad);
         mRippleColor = a.getColorStateList(R.styleable.Dialpad_dialpad_key_button_touch_tint);
         a.recycle();

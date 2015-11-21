@@ -38,6 +38,7 @@ import com.android.contacts.common.CallUtil;
 import com.android.contacts.common.ContactPhotoManager;
 import com.android.contacts.common.ContactPhotoManager.DefaultImageRequest;
 import com.android.contacts.common.testing.NeededForTesting;
+import com.android.contacts.common.util.PermissionsUtil;
 import com.android.contacts.common.util.UriUtils;
 import com.android.dialer.R;
 import com.android.dialer.calllog.CallLogAsyncTaskUtil;
@@ -183,7 +184,12 @@ public final class CallLogListItemViewHolder extends RecyclerView.ViewHolder
         phoneCallDetailsViews.nameView.setElegantTextHeight(false);
         phoneCallDetailsViews.callLocationAndDate.setElegantTextHeight(false);
 
-        quickContactView.setPrioritizedMimeType(Phone.CONTENT_ITEM_TYPE);
+        if (PermissionsUtil.sIsAtLeastM){
+            quickContactView.setPrioritizedMimeType(Phone.CONTENT_ITEM_TYPE);
+        }else{
+        	
+        }
+
 
         primaryActionButtonView.setOnClickListener(this);
         primaryActionView.setOnClickListener(mExpandCollapseListener);

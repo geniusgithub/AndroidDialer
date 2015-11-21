@@ -357,8 +357,10 @@ public class DialpadFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedState) {
         Trace.beginSection(TAG + " onCreateView");
         Trace.beginSection(TAG + " inflate view");
+ 
         final View fragmentView = inflater.inflate(R.layout.dialpad_fragment, container,
                 false);
+      
         Trace.endSection();
         Trace.beginSection(TAG + " buildLayer");
         fragmentView.buildLayer();

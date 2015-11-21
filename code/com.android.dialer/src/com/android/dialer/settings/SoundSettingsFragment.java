@@ -113,31 +113,42 @@ public class SoundSettingsFragment extends PreferenceFragment
         mPlayDtmfTone.setOnPreferenceChangeListener(this);
         mPlayDtmfTone.setChecked(shouldPlayDtmfTone());
 
-        TelephonyManager telephonyManager =
-                (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
-        if (telephonyManager.canChangeDtmfToneLength()
-                && (telephonyManager.isWorldPhone() || !shouldHideCarrierSettings())) {
-            mDtmfToneLength.setOnPreferenceChangeListener(this);
-            mDtmfToneLength.setValueIndex(
-                    Settings.System.getInt(context.getContentResolver(),
-                        Settings.System.DTMF_TONE_TYPE_WHEN_DIALING,
-                        DTMF_TONE_TYPE_NORMAL));
-        } else {
-            getPreferenceScreen().removePreference(mDtmfToneLength);
-            mDtmfToneLength = null;
+        // modify by genius
+        if(PermissionsUtil.sIsAtLeastM){
+            TelephonyManager telephonyManager =
+                    (TelephonyManager) getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+            if (telephonyManager.canChangeDtmfToneLength()
+                    && (telephonyManager.isWorldPhone() || !shouldHideCarrierSettings())) {
+                mDtmfToneLength.setOnPreferenceChangeListener(this);
+                mDtmfToneLength.setValueIndex(
+                        Settings.System.getInt(context.getContentResolver(),
+                            Settings.System.DTMF_TONE_TYPE_WHEN_DIALING,
+                            DTMF_TONE_TYPE_NORMAL));
+            } else {
+                getPreferenceScreen().removePreference(mDtmfToneLength);
+                mDtmfToneLength = null;
+            }
+        }else{
+        	  getPreferenceScreen().removePreference(mDtmfToneLength);
+              mDtmfToneLength = null;
         }
+ 
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        if (!Settings.System.canWrite(getContext())) {
-            // If the user launches this setting fragment, then toggles the WRITE_SYSTEM_SETTINGS
-            // AppOp, then close the fragment since there is nothing useful to do.
-            getActivity().onBackPressed();
-            return;
+        // modify by genius
+        if(PermissionsUtil.sIsAtLeastM){
+            if (!Settings.System.canWrite(getContext())) {
+                // If the user launches this setting fragment, then toggles the WRITE_SYSTEM_SETTINGS
+                // AppOp, then close the fragment since there is nothing useful to do.
+                getActivity().onBackPressed();
+                return;
+            }
         }
+   
 
         if (mVibrateWhenRinging != null) {
             mVibrateWhenRinging.setChecked(shouldVibrateWhenRinging());
@@ -155,14 +166,17 @@ public class SoundSettingsFragment extends PreferenceFragment
      */
     @Override
     public boolean onPreferenceChange(Preference preference, Object objValue) {
-        if (!Settings.System.canWrite(getContext())) {
-            // A user shouldn't be able to get here, but this protects against monkey crashes.
-            Toast.makeText(
-                    getContext(),
-                    getResources().getString(R.string.toast_cannot_write_system_settings),
-                    Toast.LENGTH_SHORT).show();
-            return true;
-        }
+    	  if(PermissionsUtil.sIsAtLeastM){
+    	        if (!Settings.System.canWrite(getContext())) {
+    	            // A user shouldn't be able to get here, but this protects against monkey crashes.
+    	            Toast.makeText(
+    	                    getContext(),
+    	                    getResources().getString(R.string.toast_cannot_write_system_settings),
+    	                    Toast.LENGTH_SHORT).show();
+    	            return true;
+    	        }
+    	  }
+
         if (preference == mVibrateWhenRinging) {
             boolean doVibrate = (Boolean) objValue;
             Settings.System.putInt(getActivity().getContentResolver(),
@@ -181,13 +195,16 @@ public class SoundSettingsFragment extends PreferenceFragment
      */
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-        if (!Settings.System.canWrite(getContext())) {
-            Toast.makeText(
-                    getContext(),
-                    getResources().getString(R.string.toast_cannot_write_system_settings),
-                    Toast.LENGTH_SHORT).show();
-            return true;
-        }
+    	 if(PermissionsUtil.sIsAtLeastM){
+    	        if (!Settings.System.canWrite(getContext())) {
+    	            Toast.makeText(
+    	                    getContext(),
+    	                    getResources().getString(R.string.toast_cannot_write_system_settings),
+    	                    Toast.LENGTH_SHORT).show();
+    	            return true;
+    	        }
+    	 }
+
         if (preference == mPlayDtmfTone) {
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.DTMF_TONE_WHEN_DIALING,

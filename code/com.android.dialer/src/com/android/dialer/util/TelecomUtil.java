@@ -81,14 +81,17 @@ public class TelecomUtil {
     }
 
     public static Uri getCallLogUri(Context context) {
-        return hasReadWriteVoicemailPermissions(context) ? Calls.CONTENT_URI_WITH_VOICEMAIL
-                : Calls.CONTENT_URI;
+    	return Calls.CONTENT_URI;// modify by genius
+//        return hasReadWriteVoicemailPermissions(context) ? Calls.CONTENT_URI_WITH_VOICEMAIL
+//                : Calls.CONTENT_URI;
     }
 
     public static boolean hasReadWriteVoicemailPermissions(Context context) {
-        return isDefaultDialer(context)
-                || (hasPermission(context, Manifest.permission.READ_VOICEMAIL)
-                        && hasPermission(context, Manifest.permission.WRITE_VOICEMAIL));
+    	return false;
+//	modify by genius    	
+//        return isDefaultDialer(context)
+//                || (hasPermission(context, Manifest.permission.READ_VOICEMAIL)
+//                        && hasPermission(context, Manifest.permission.WRITE_VOICEMAIL));
     }
 
     public static boolean hasModifyPhoneStatePermission(Context context) {

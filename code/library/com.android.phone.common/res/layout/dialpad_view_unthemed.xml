@@ -20,9 +20,10 @@
     android:layout_width="match_parent"
     android:layout_gravity="bottom"
     android:orientation="vertical"
-    android:layoutDirection="ltr"
-    android:background="?attr/dialpad_background"
+    android:layoutDirection="ltr" 
+    android:background="@color/background_dialpad"
     android:clickable="true">
+<!--     android:background="?attr/dialpad_background" modify by genius-->
 
     <!-- Text field where call rate is displayed for ILD calls. -->
     <LinearLayout
@@ -71,7 +72,7 @@
         <ImageButton android:id="@+id/dialpad_overflow"
             android:background="@drawable/btn_dialpad_key"
             android:src="@drawable/ic_overflow_menu"
-            android:tint="?attr/dialpad_icon_tint"
+            android:tint="@color/dialpad_icon_tint"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/dialpad_overflow_margin"
@@ -80,7 +81,7 @@
             android:contentDescription="@string/description_dialpad_overflow"
             android:gravity="center"
             android:visibility="invisible" />
-
+<!--             android:tint="?attr/dialpad_icon_tint" modify by genius-->
         <view class="com.android.phone.common.dialpad.DigitsEditText"
             xmlns:ex="http://schemas.android.com/apk/res-auto"
             android:id="@+id/digits"
@@ -96,16 +97,16 @@
             android:freezesText="true"
             android:focusableInTouchMode="true"
             android:cursorVisible="false"
-            android:textColor="?attr/dialpad_text_color"
+            android:textColor="@color/dialpad_digits_text_color"
             android:textCursorDrawable="@null"
             android:fontFamily="sans-serif"
             android:textStyle="normal"
             ex:resizing_text_min_size="@dimen/dialpad_digits_text_min_size" />
-
+<!--             android:textColor="?attr/dialpad_text_color" -->
         <ImageButton
             android:id="@+id/deleteButton"
             android:background="@drawable/btn_dialpad_key"
-            android:tint="?attr/dialpad_icon_tint"
+            android:tint="@color/dialpad_icon_tint"
             android:paddingLeft="@dimen/dialpad_digits_padding"
             android:paddingRight="@dimen/dialpad_digits_padding"
             android:layout_width="wrap_content"
@@ -113,6 +114,7 @@
             android:state_enabled="false"
             android:contentDescription="@string/description_delete_button"
             android:src="@drawable/ic_dialpad_delete" />
+<!--           android:tint="?attr/dialpad_icon_tint" -->
     </LinearLayout>
 
     <View
