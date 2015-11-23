@@ -18,6 +18,7 @@ package com.android.dialer;
 
 import android.app.Application;
 import android.os.Trace;
+import android.util.Log;
 
 import com.android.contacts.common.extensions.ExtensionsFactory;
 import com.android.contacts.commonbind.analytics.AnalyticsUtil;
@@ -30,6 +31,7 @@ public class DialerApplication extends Application {
     public void onCreate() {
         Trace.beginSection(TAG + " onCreate");
         super.onCreate();
+        Log.i(TAG, "onCreate");
         Trace.beginSection(TAG + " ExtensionsFactory initialization");
         ExtensionsFactory.init(getApplicationContext());
         Trace.endSection();

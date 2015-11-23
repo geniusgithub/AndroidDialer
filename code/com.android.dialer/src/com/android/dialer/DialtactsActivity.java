@@ -305,7 +305,7 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
                 Log.d(TAG, "Previous Query: " + mSearchQuery);
             }
             mSearchQuery = newText;
-
+            Log.d(TAG, "onTextChanged newText = " + newText);
             // Show search fragment only when the query string is changed to non-empty text.
             if (!TextUtils.isEmpty(newText)) {
                 // Call enterSearchUi only if we are switching search modes, or showing a search
@@ -376,7 +376,7 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
     protected void onCreate(Bundle savedInstanceState) {
         Trace.beginSection(TAG + " onCreate");
         super.onCreate(savedInstanceState);
-
+        Log.i(TAG, "onCreate savedInstanceState = " + savedInstanceState);
         mFirstLaunch = true;
 
         final Resources resources = getResources();
@@ -500,7 +500,7 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
     protected void onResume() {
         Trace.beginSection(TAG + " onResume");
         super.onResume();
-
+        Log.i(TAG, "onResume");
         mStateSaved = false;
         if (mFirstLaunch) {
             displayFragment(getIntent());
@@ -556,6 +556,7 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
 
     @Override
     protected void onPause() {
+    	  Log.i(TAG, "onPause");
         if (mClearSearchOnPause) {
             hideDialpadAndSearchUi();
             mClearSearchOnPause = false;
@@ -565,10 +566,20 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
         }
         super.onPause();
     }
-
+    
+    
+    
     @Override
+	protected void onDestroy() {
+		  Log.i(TAG, "onDestroy");
+		super.onDestroy();
+
+	}
+
+	@Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        Log.i(TAG, "onSaveInstanceState");
         outState.putString(KEY_SEARCH_QUERY, mSearchQuery);
         outState.putBoolean(KEY_IN_REGULAR_SEARCH_UI, mInRegularSearch);
         outState.putBoolean(KEY_IN_DIALPAD_SEARCH_UI, mInDialpadSearch);
@@ -580,6 +591,7 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
 
     @Override
     public void onAttachFragment(Fragment fragment) {
+    	  Log.i(TAG, "onAttachFragment");
         if (fragment instanceof DialpadFragment) {
             mDialpadFragment = (DialpadFragment) fragment;
             if (!mIsDialpadShown && !mShowDialpadOnResume) {

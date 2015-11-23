@@ -289,12 +289,12 @@
         <receiver android:name="com.android.incallui.NotificationBroadcastReceiver"
                   android:exported="false" />
 
-        <service android:name="com.android.incallui.InCallServiceImpl"
-                 android:permission="android.permission.BIND_INCALL_SERVICE" >
-            <meta-data android:name="android.telecom.IN_CALL_SERVICE_UI" android:value="true" />
-            <intent-filter>
-                <action android:name="android.telecom.InCallService"/>
-            </intent-filter>
-        </service>
+<!--         <service android:name="com.android.incallui.InCallServiceImpl" -->
+<!--                  android:permission="android.permission.BIND_INCALL_SERVICE" > -->
+<!--             <meta-data android:name="android.telecom.IN_CALL_SERVICE_UI" android:value="true" /> -->
+<!--             <intent-filter> -->
+<!--                 <action android:name="android.telecom.InCallService"/> -->
+<!--             </intent-filter> -->
+<!--         </service> -->
     </application>
 </manifest>
