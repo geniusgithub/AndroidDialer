@@ -10,8 +10,8 @@ public class GeniusAdapter {
 		if (!PermissionsUtil.sIsAtLeastM){
 			return input;
 		}
-		String result =  (String) PhoneNumberUtils.createTtsSpannable(input.toString());
-		 return result;
+		CharSequence result =  (CharSequence) PhoneNumberUtils.createTtsSpannable(input.toString());
+		 return result.toString();
 	}
 	
 	
