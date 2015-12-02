@@ -1,0 +1,1 @@
+include ':com.android.dialer', ':com.android.common', ':com.android.phone.common', ':com.android.contacts.common'

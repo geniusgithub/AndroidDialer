@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AndroidDialer.iml" filepath="$PROJECT_DIR$/AndroidDialer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.android.common/com.android.common.iml" filepath="$PROJECT_DIR$/com.android.common/com.android.common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.android.contacts.common/com.android.contacts.common.iml" filepath="$PROJECT_DIR$/com.android.contacts.common/com.android.contacts.common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.android.dialer/com.android.dialer.iml" filepath="$PROJECT_DIR$/com.android.dialer/com.android.dialer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.android.phone.common/com.android.phone.common.iml" filepath="$PROJECT_DIR$/com.android.phone.common/com.android.phone.common.iml" />
+    </modules>
+  </component>
+</project>
