@@ -14,7 +14,7 @@ Example screenshot below:
 
 ![github](https://github.com/geniusgithub/AndroidDialer/blob/master/images/m5.png?raw=true "github")  
 
-![github](https://github.com/geniusgithub/AndroidDialer/blob/master/images/m28.png?raw=true "github")  
+![github](https://github.com/geniusgithub/AndroidDialer/blob/master/images/m8.png?raw=true "github")  
 
 ![github](https://github.com/geniusgithub/AndroidDialer/blob/master/images/m9.png?raw=true "github")  
 
