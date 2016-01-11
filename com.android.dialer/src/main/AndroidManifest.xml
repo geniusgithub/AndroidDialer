@@ -296,5 +296,20 @@
 <!--                 <action android:name="android.telecom.InCallService"/> -->
 <!--             </intent-filter> -->
 <!--         </service> -->
+
+        <activity android:name=".test.TActivity"
+                  android:icon="@drawable/ic_vm_phone_broadcast_dk"
+                  android:title="testdemo"
+                  android:theme="@style/android:Theme.Material.Light">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+
     </application>
+
+
 </manifest>
