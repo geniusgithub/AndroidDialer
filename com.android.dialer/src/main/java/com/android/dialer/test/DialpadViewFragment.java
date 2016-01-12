@@ -31,6 +31,7 @@ public class DialpadViewFragment extends Fragment{
     private Animation mSlideIn;
     private Animation mSlideOut;
 
+
     AnimationListenerAdapter mSlideInListener = new AnimationListenerAdapter() {
         @Override
         public void onAnimationEnd(Animation animation) {

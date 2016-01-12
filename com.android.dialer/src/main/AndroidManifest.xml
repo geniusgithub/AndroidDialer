@@ -300,7 +300,8 @@
         <activity android:name=".test.TActivity"
                   android:icon="@drawable/ic_vm_phone_broadcast_dk"
                   android:title="testdemo"
-                  android:theme="@style/android:Theme.Material.Light">
+                  android:theme="@style/android:Theme.Material.Light"
+                  android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
