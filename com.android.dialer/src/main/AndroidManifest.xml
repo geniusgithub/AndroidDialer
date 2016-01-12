@@ -282,6 +282,7 @@
 <!--                   android:screenOrientation="nosensor" > -->
 <!--         </activity> -->
 
+
         <!-- BroadcastReceiver for receiving Intents from Notification mechanism. -->
         <receiver android:name="com.android.incallui.NotificationBroadcastReceiver"
                   android:exported="false" />
