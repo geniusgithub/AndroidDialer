@@ -296,7 +296,6 @@
 <!--                 <action android:name="android.telecom.InCallService"/> -->
 <!--             </intent-filter> -->
 <!--         </service> -->
-
         <activity android:name=".test.TActivity"
                   android:icon="@drawable/ic_vm_phone_broadcast_dk"
                   android:title="testdemo"
@@ -309,8 +308,6 @@
             </intent-filter>
         </activity>
 
-
     </application>
-
 
 </manifest>
