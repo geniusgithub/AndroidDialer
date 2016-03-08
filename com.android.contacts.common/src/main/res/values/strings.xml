@@ -736,4 +736,11 @@ a        ren't members of any other group. [CHAR LIMIT=25] -->
 
     <!-- Title for dialog to select Phone Account for outgoing call.  [CHAR LIMIT=40] -->
     <string name="select_phone_account_for_calls">Call with</string>
+
+    <!--add by geniusgithub !-->
+    <string name="permission_introductione" >获取电话，通讯录，位置，存储空间权限</string>
+    <string name="permission_title" >提醒</string>
+    <string name="permission_setting_guidedialog">通讯录的<xliff:g id="permission">%s</xliff:g>被禁用，导致应用无法正常运行，请尝试进入权限管理，打开上述权限后，重新运行。</string>
+    <string name="permission_gosetting" >去设置</string>
+    <string name="permission_know" >知道了</string>
 </resources>

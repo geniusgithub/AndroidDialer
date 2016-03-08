@@ -816,4 +816,7 @@
 
     <!-- Shown as a message that notifies the user that the Phone app cannot write to system settings, which is why the system settings app is being launched directly instead.-->
     <string name="toast_cannot_write_system_settings">Phone app does not have permission to write to system settings.</string>
+
+
+    <string name="required_permissions_promo">通讯录需要同时获得“电话”,“通讯录”,“存储空间”和“位置”的访问权限。"</string>
 </resources>

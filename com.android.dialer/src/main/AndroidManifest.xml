@@ -299,14 +299,28 @@
                   android:title="testdemo"
                   android:theme="@style/android:Theme.Material.Light"
                   android:configChanges="orientation|keyboardHidden|screenSize">
-            <intent-filter>
+<!--            <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+            </intent-filter>-->
         </activity>
 
-		
+
+        <activity android:name=".RequestPermissionsActivity"
+                  android:icon="@drawable/ic_vm_phone_broadcast_dk"
+                  android:title="testdemo"
+                  android:theme="@style/android:Theme.Material.Light"
+                  android:configChanges="orientation|keyboardHidden|screenSize">
+<!--            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>-->
+        </activity>
+
+
+
     </application>
     
 </manifest>

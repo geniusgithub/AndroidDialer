@@ -46,7 +46,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnDragListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -82,11 +81,10 @@ import com.android.dialer.list.SearchFragment;
 import com.android.dialer.list.SmartDialSearchFragment;
 import com.android.dialer.list.SpeedDialFragment;
 import com.android.dialer.settings.DialerSettingsActivity;
-import com.android.dialer.util.IntentUtil;
 import com.android.dialer.util.DialerUtils;
+import com.android.dialer.util.IntentUtil;
 import com.android.dialer.widget.ActionBarController;
 import com.android.dialer.widget.SearchEditTextLayout;
-import com.android.dialer.widget.SearchEditTextLayout.Callback;
 import com.android.dialerbind.DatabaseHelperManager;
 import com.android.phone.common.animation.AnimUtils;
 import com.android.phone.common.animation.AnimationListenerAdapter;
@@ -377,6 +375,14 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
         Trace.beginSection(TAG + " onCreate");
         super.onCreate(savedInstanceState);
         Log.i(TAG, "onCreate savedInstanceState = " + savedInstanceState);
+
+        // add by geniusgithub
+        boolean hasStartPermissionActivity =RequestPermissionsActivity.startPermissionActivity(this);
+
+        // add by geniusgithub
+
+
+
         mFirstLaunch = true;
 
         final Resources resources = getResources();
