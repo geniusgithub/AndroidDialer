@@ -552,6 +552,8 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
         }
 
         Trace.endSection();
+
+        StatisticsUtil.onResume(this);
     }
 
     @Override
@@ -570,6 +572,7 @@ public class DialtactsActivity extends TransactionSafeActivity implements View.O
         if (mSlideOut.hasStarted() && !mSlideOut.hasEnded()) {
             commitDialpadFragmentHide();
         }
+        StatisticsUtil.onPause(this);
         super.onPause();
     }
     

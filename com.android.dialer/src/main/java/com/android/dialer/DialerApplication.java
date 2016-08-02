@@ -22,6 +22,7 @@ import android.util.Log;
 
 import com.android.contacts.common.extensions.ExtensionsFactory;
 import com.android.contacts.commonbind.analytics.AnalyticsUtil;
+import com.umeng.analytics.MobclickAgent;
 
 public class DialerApplication extends Application {
 
@@ -39,5 +40,7 @@ public class DialerApplication extends Application {
         AnalyticsUtil.initialize(this);
         Trace.endSection();
         Trace.endSection();
+
+        MobclickAgent.setDebugMode(true);
     }
 }

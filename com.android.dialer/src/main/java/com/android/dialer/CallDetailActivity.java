@@ -274,6 +274,13 @@ public class CallDetailActivity extends Activity
     public void onResume() {
         super.onResume();
         getCallDetails();
+        StatisticsUtil.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        StatisticsUtil.onPause(this);
+        super.onPause();
     }
 
     public void getCallDetails() {

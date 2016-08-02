@@ -54,7 +54,9 @@
     <!-- This tells the activity manager to not delay any of our activity
      start requests, even if they happen immediately after the user
      presses home. -->
-<!--     <uses-permission android:name="android.permission.STOP_APP_SWITCHES" /> -->	
+<!--     <uses-permission android:name="android.permission.STOP_APP_SWITCHES" /> -->
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:name="DialerApplication"
@@ -67,6 +69,15 @@
 
         <meta-data android:name="com.google.android.backup.api_key"
             android:value="AEdPqrEAAAAIBXgtCEKQ6W0PXVnW-ZVia2KmlV2AxsTw3GjAeQ" />
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="57a0a07167e58ef73a001dd6" >
+        </meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Umeng" >
+        </meta-data>
 
         <!-- The entrance point for Phone UI.
              stateAlwaysHidden is set to suppress keyboard show up on

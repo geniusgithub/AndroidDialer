@@ -27,4 +27,5 @@ dependencies {
     compile 'com.android.support:support-v13:23.1.1'
     compile project(':com.android.contacts.common')
     compile project(':com.android.phone.common')
+    compile 'com.umeng.analytics:analytics:latest.integration'
 }
