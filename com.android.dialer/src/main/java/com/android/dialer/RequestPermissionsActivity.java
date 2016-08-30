@@ -24,9 +24,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.android.contacts.common.util.PermissionsUtil;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 @TargetApi(23)
@@ -34,14 +36,21 @@ public class RequestPermissionsActivity extends Activity{
 	
 	 
 	 private final static String TAG = "RequestPermissionsActivity";
-	 
-	 private final int REQUEST_PHONE_PERMISSION =  0X0001;
+
+	private static final int PERMISSIONS_REQUEST_ALL_PERMISSIONS = 1;
+
+
+/*	 private final int REQUEST_PHONE_PERMISSION =  0X0001;
 	 private final int REQUEST_CONTACT_PERMISSION =  0X0002;
 	 private final int REQUEST_LOCATION_PERMISSION =  0X0003;
-	 private final int REQUEST_STORAGE_PERMISSION =  0X0004;
+	 private final int REQUEST_STORAGE_PERMISSION =  0X0004;*/
 
 	public static final String PREVIOUS_ACTIVITY_INTENT = "previous_intent";
 	private Intent mPreviousActivityIntent;
+	private String[] requiredPermissions;
+	private ArrayList<String> mForbiddenPermissionList = new ArrayList<String>();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +58,7 @@ public class RequestPermissionsActivity extends Activity{
 
 		Intent intent = getIntent();
 		mPreviousActivityIntent = (Intent) intent.getExtras().get(PREVIOUS_ACTIVITY_INTENT);
+		requiredPermissions = PermissionsUtil.sRequiredPermissions;
 
 		ActionBar bar = getActionBar();
         if(bar != null){
@@ -87,23 +97,29 @@ public class RequestPermissionsActivity extends Activity{
 
 
 	private void requestNecessaryRequiredPermissions(){
-		String []permission = new String[]{PermissionsUtil.PHONE,
-											PermissionsUtil.CONTACTS,
-											PermissionsUtil.LOCATION,
-				PermissionsUtil.STORAGE};
-		
-		
-		
-		requestSpecialPermissions(PermissionsUtil.PHONE, REQUEST_PHONE_PERMISSION);
-		
+
+		final ArrayList<String> unsatisfiedPermissions = new ArrayList<>();
+		for (String permission : requiredPermissions) {
+			if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
+				unsatisfiedPermissions.add(permission);
+			}
+		}
+		if (unsatisfiedPermissions.size() == 0) {
+			finish();
+			return;
+		}
+		requestPermissions(unsatisfiedPermissions.toArray(new String[unsatisfiedPermissions
+						.size()]), PERMISSIONS_REQUEST_ALL_PERMISSIONS);
 	}
 
 	
 
+/*
 	private void requestSpecialPermissions(String permission, int requestCode){
 		String []permissions = new String[]{permission};
 		requestPermissions(permissions, requestCode);
 	}
+*/
 
 	
 	@Override
@@ -111,7 +127,7 @@ public class RequestPermissionsActivity extends Activity{
 			String[] permissions, int[] grantResults) {
 		
 		switch(requestCode){
-			case REQUEST_PHONE_PERMISSION:
+/*			case REQUEST_PHONE_PERMISSION:
 				doPhonePermission(grantResults);
 				break;
 			case REQUEST_CONTACT_PERMISSION:
@@ -122,17 +138,44 @@ public class RequestPermissionsActivity extends Activity{
 				break;
 			case REQUEST_STORAGE_PERMISSION:
 				doStoragePermission(grantResults);
+				break;*/
+			case PERMISSIONS_REQUEST_ALL_PERMISSIONS: {
+					mForbiddenPermissionList.clear();
+					if (permissions != null && permissions.length > 0
+							&& isAllGranted(permissions, grantResults, mForbiddenPermissionList)) {
+						redirect();
+					} else {
+						Dialog dialog = PermissionsUtil.createPermissionSettingDialog(this, mForbiddenPermissionList.toString());
+						dialog.show();
+					}
+				}
 				break;
-					
-				default:
-					super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-					break;
+			default:
+				super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+				break;
 		}
 
 
 	}
 
-	private void doPhonePermission(int[] grantResults){
+
+	private boolean isAllGranted(String permissions[], int[] grantResult, ArrayList<String> forbiddenPermissionList ) {
+		boolean isAllGrand = true;
+		for (int i = 0; i < permissions.length; i++) {
+			if (grantResult[i] != PackageManager.PERMISSION_GRANTED
+					&& isPermissionRequired(permissions[i])) {
+				forbiddenPermissionList.add(permissions[i]);
+				isAllGrand = false;
+			}
+		}
+		return isAllGrand;
+	}
+
+	private boolean isPermissionRequired(String p) {
+		return Arrays.asList(requiredPermissions).contains(p);
+	}
+
+/*	private void doPhonePermission(int[] grantResults){
 		if (grantResults[0] == PackageManager.PERMISSION_DENIED){
 			Dialog dialog = PermissionsUtil.createPermissionSettingDialog(this, "电话权限");
 			dialog.show();
@@ -172,5 +215,5 @@ public class RequestPermissionsActivity extends Activity{
 			redirect();
 		}
 	
-	}
+	}*/
 }

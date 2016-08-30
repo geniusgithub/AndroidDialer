@@ -45,15 +45,31 @@ public class PermissionsUtil {
     // only need to check a single permission in each group.
     // Note: This assumes that the app has correctly requested for all the relevant permissions
     // in its Manifest file.
+
     public static final String PHONE = permission.CALL_PHONE;
+    public static final String PHONE_EXTRA1 = permission.READ_CALL_LOG;
+    public static final String PHONE_EXTRA2 = permission.WRITE_CALL_LOG;
+    public static final String PHONE_EXTRA3 = permission.READ_PHONE_STATE;
+    public static final String PHONE_EXTRA4 = permission.PROCESS_OUTGOING_CALLS;
+
+
     public static final String CONTACTS = permission.READ_CONTACTS;
-    public static final String SMS = permission.SEND_SMS;
+    public static final String CONTACTS_EXTRA1 = permission.WRITE_CONTACTS;
+    public static final String CONTACTS_EXTRA2 = permission.GET_ACCOUNTS;
+
+
     public static final String LOCATION = permission.ACCESS_FINE_LOCATION;
-    public static final String STORAGE = permission.READ_EXTERNAL_STORAGE;
+    public static final String LOCATION_EXTRA1 = permission.ACCESS_COARSE_LOCATION;
+
+
+    public static final String STORAGE = permission.WRITE_EXTERNAL_STORAGE;
+
+
+/*    public static final String SMS = permission.SEND_SMS;
     public static final String CALENDAR = permission.READ_CALENDAR;
     public static final String MICROPHONE = permission.RECORD_AUDIO;
     public static final String SENSORS = permission.BODY_SENSORS;
-    public static final String CAMERA = permission.CAMERA;
+    public static final String CAMERA = permission.CAMERA;*/
 
     private static boolean sInitialized = false;
     public static boolean sIsAtLeastM = getApiVersion() >= android.os.Build.VERSION_CODES.M;
@@ -64,7 +80,10 @@ public class PermissionsUtil {
         return android.os.Build.VERSION.SDK_INT;
     }
 
-    public static String[] sRequiredPermissions = new String[] { PHONE, CONTACTS, LOCATION, STORAGE };
+    public static String[] sRequiredPermissions = new String[] { PHONE,PHONE_EXTRA1,PHONE_EXTRA2,PHONE_EXTRA3,PHONE_EXTRA4,
+                                                                    CONTACTS,CONTACTS_EXTRA1,CONTACTS_EXTRA2,
+                                                                    LOCATION,LOCATION_EXTRA1,
+                                                                    STORAGE };
 
 
     public static boolean hasPhonePermissions(Context context) {
@@ -79,15 +98,18 @@ public class PermissionsUtil {
         return hasPermission(context, LOCATION);
     }
 
-    public static boolean hasSmsPermissions(Context context) {
-        return hasPermission(context, SMS);
-    }
-
     public static boolean hasStoragePermissions(Context context) {
         return hasPermission(context, STORAGE);
     }
 
-    public static boolean hasCalendarPermissions(Context context) {
+
+/*    public static boolean hasSmsPermissions(Context context) {
+        return hasPermission(context, SMS);
+    }*/
+
+
+
+/*    public static boolean hasCalendarPermissions(Context context) {
         return hasPermission(context, CALENDAR);
     }
 
@@ -101,7 +123,7 @@ public class PermissionsUtil {
 
     public static boolean hasCameraPermissions(Context context) {
         return hasPermission(context, CAMERA);
-    }
+    }*/
 
 
     public static boolean hasNecessaryRequiredPermissions(Context context) {
