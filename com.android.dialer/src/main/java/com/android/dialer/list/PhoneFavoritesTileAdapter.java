@@ -38,13 +38,13 @@ import android.util.LongSparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.FrameLayout;
 
 import com.android.contacts.common.ContactPhotoManager;
 import com.android.contacts.common.ContactTileLoaderFactory;
 import com.android.contacts.common.list.ContactEntry;
 import com.android.contacts.common.list.ContactTileAdapter.DisplayType;
 import com.android.contacts.common.list.ContactTileView;
+import com.android.contacts.common.preference.ContactsPreferences;
 import com.android.dialer.R;
 
 import java.util.ArrayList;
@@ -70,6 +70,7 @@ public class PhoneFavoritesTileAdapter extends BaseAdapter implements
 
     private Context mContext;
     private Resources mResources;
+    private ContactsPreferences mContactsPreferences;
 
     /** Contact data stored in cache. This is used to populate the associated view. */
     protected ArrayList<ContactEntry> mContactEntries = null;
@@ -92,7 +93,8 @@ public class PhoneFavoritesTileAdapter extends BaseAdapter implements
     protected int mIdIndex;
     protected int mLookupIndex;
     protected int mPhotoUriIndex;
-    protected int mNameIndex;
+    protected int mNamePrimaryIndex;
+    protected int mNameAlternativeIndex;
     protected int mPresenceIndex;
     protected int mStatusIndex;
 
@@ -124,8 +126,16 @@ public class PhoneFavoritesTileAdapter extends BaseAdapter implements
         public int compare(ContactEntry lhs, ContactEntry rhs) {
             return ComparisonChain.start()
                     .compare(lhs.pinned, rhs.pinned)
-                    .compare(lhs.name, rhs.name)
+                    .compare(getPreferredSortName(lhs), getPreferredSortName(rhs))
                     .result();
+        }
+
+        private String getPreferredSortName(ContactEntry contactEntry) {
+            if (mContactsPreferences.getSortOrder() == ContactsPreferences.SORT_ORDER_PRIMARY
+                    || TextUtils.isEmpty(contactEntry.nameAlternative)) {
+                return contactEntry.namePrimary;
+            }
+            return contactEntry.nameAlternative;
         }
     };
 
@@ -140,6 +150,7 @@ public class PhoneFavoritesTileAdapter extends BaseAdapter implements
         mListener = listener;
         mContext = context;
         mResources = context.getResources();
+        mContactsPreferences = new ContactsPreferences(mContext);
         mNumFrequents = 0;
         mContactEntries = new ArrayList<ContactEntry>();
 
@@ -172,19 +183,26 @@ public class PhoneFavoritesTileAdapter extends BaseAdapter implements
      */
     protected void bindColumnIndices() {
         mIdIndex = ContactTileLoaderFactory.CONTACT_ID;
-        mLookupIndex = ContactTileLoaderFactory.LOOKUP_KEY;
-        mPhotoUriIndex = ContactTileLoaderFactory.PHOTO_URI;
-        mNameIndex = ContactTileLoaderFactory.DISPLAY_NAME;
+        mNamePrimaryIndex = ContactTileLoaderFactory.DISPLAY_NAME;
+        mNameAlternativeIndex = ContactTileLoaderFactory.DISPLAY_NAME_ALTERNATIVE;
         mStarredIndex = ContactTileLoaderFactory.STARRED;
-        mPresenceIndex = ContactTileLoaderFactory.CONTACT_PRESENCE;
-        mStatusIndex = ContactTileLoaderFactory.CONTACT_STATUS;
-
+        mPhotoUriIndex = ContactTileLoaderFactory.PHOTO_URI;
+        mLookupIndex = ContactTileLoaderFactory.LOOKUP_KEY;
         mPhoneNumberIndex = ContactTileLoaderFactory.PHONE_NUMBER;
         mPhoneNumberTypeIndex = ContactTileLoaderFactory.PHONE_NUMBER_TYPE;
         mPhoneNumberLabelIndex = ContactTileLoaderFactory.PHONE_NUMBER_LABEL;
-        mIsDefaultNumberIndex = ContactTileLoaderFactory.IS_DEFAULT_NUMBER;
         mPinnedIndex = ContactTileLoaderFactory.PINNED;
         mContactIdIndex = ContactTileLoaderFactory.CONTACT_ID_FOR_DATA;
+
+
+        mPresenceIndex = ContactTileLoaderFactory.CONTACT_PRESENCE;
+        mStatusIndex = ContactTileLoaderFactory.CONTACT_STATUS;
+        mIsDefaultNumberIndex = ContactTileLoaderFactory.IS_DEFAULT_NUMBER;
+    }
+
+    public void refreshContactsPreferences() {
+        mContactsPreferences.refreshValue(ContactsPreferences.DISPLAY_ORDER_KEY);
+        mContactsPreferences.refreshValue(ContactsPreferences.SORT_ORDER_KEY);
     }
 
     /**
@@ -261,15 +279,19 @@ public class PhoneFavoritesTileAdapter extends BaseAdapter implements
             final String photoUri = cursor.getString(mPhotoUriIndex);
             final String lookupKey = cursor.getString(mLookupIndex);
             final int pinned = cursor.getInt(mPinnedIndex);
-            final String name = cursor.getString(mNameIndex);
+            final String name = cursor.getString(mNamePrimaryIndex);
+            final String nameAlternative = cursor.getString(mNameAlternativeIndex);
             final boolean isStarred = cursor.getInt(mStarredIndex) > 0;
             final boolean isDefaultNumber = cursor.getInt(mIsDefaultNumberIndex) > 0;
 
             final ContactEntry contact = new ContactEntry();
 
             contact.id = id;
-            contact.name = (!TextUtils.isEmpty(name)) ? name :
+            contact.namePrimary = (!TextUtils.isEmpty(name)) ? name :
                     mResources.getString(R.string.missing_name);
+            contact.nameAlternative = (!TextUtils.isEmpty(nameAlternative)) ? nameAlternative :
+                    mResources.getString(R.string.missing_name);
+            contact.nameDisplayOrder = mContactsPreferences.getDisplayOrder();
             contact.photoUri = (photoUri != null ? Uri.parse(photoUri) : null);
             contact.lookupKey = lookupKey;
             contact.lookupUri = ContentUris.withAppendedId(

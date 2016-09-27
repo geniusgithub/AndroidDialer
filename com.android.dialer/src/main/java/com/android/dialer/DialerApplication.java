@@ -17,30 +17,45 @@
 package com.android.dialer;
 
 import android.app.Application;
+import android.content.Context;
 import android.os.Trace;
-import android.util.Log;
+import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 
 import com.android.contacts.common.extensions.ExtensionsFactory;
-import com.android.contacts.commonbind.analytics.AnalyticsUtil;
+import com.android.contacts.common.testing.NeededForTesting;
+import com.android.dialer.database.FilteredNumberAsyncQueryHandler;
+import com.android.dialer.filterednumber.BlockedNumbersAutoMigrator;
 import com.umeng.analytics.MobclickAgent;
 
 public class DialerApplication extends Application {
 
     private static final String TAG = "DialerApplication";
 
+    private static Context sContext;
+
     @Override
     public void onCreate() {
+        sContext = this;
         Trace.beginSection(TAG + " onCreate");
         super.onCreate();
-        Log.i(TAG, "onCreate");
         Trace.beginSection(TAG + " ExtensionsFactory initialization");
         ExtensionsFactory.init(getApplicationContext());
         Trace.endSection();
-        Trace.beginSection(TAG + " Analytics initialization");
-        AnalyticsUtil.initialize(this);
-        Trace.endSection();
+        new BlockedNumbersAutoMigrator(PreferenceManager.getDefaultSharedPreferences(this),
+                new FilteredNumberAsyncQueryHandler(getContentResolver())).autoMigrate();
         Trace.endSection();
 
         MobclickAgent.setDebugMode(true);
+    }
+
+    @Nullable
+    public static Context getContext() {
+        return sContext;
+    }
+
+    @NeededForTesting
+    public static void setContextForTest(Context context) {
+        sContext = context;
     }
 }

@@ -162,7 +162,7 @@ public class ContactInfoCache {
                 // The contact info is no longer up to date, we should request it. However, we
                 // do not need to request them immediately.
                 enqueueRequest(number, countryIso, cachedContactInfo, false);
-            } else  if (!callLogInfoMatches(cachedContactInfo, info)) {
+            } else if (!callLogInfoMatches(cachedContactInfo, info)) {
                 // The call log information does not match the one we have, look it up again.
                 // We could simply update the call log directly, but that needs to be done in a
                 // background thread, so it is easier to simply request a new lookup, which will, as
@@ -309,8 +309,7 @@ public class ContactInfoCache {
      * Checks whether the contact info from the call log matches the one from the contacts db.
      */
     private boolean callLogInfoMatches(ContactInfo callLogInfo, ContactInfo info) {
-        // The call log only contains a subset of the fields in the contacts db.
-        // Only check those.
+        // The call log only contains a subset of the fields in the contacts db. Only check those.
         return TextUtils.equals(callLogInfo.name, info.name)
                 && callLogInfo.type == info.type
                 && TextUtils.equals(callLogInfo.label, info.label);

@@ -53,12 +53,17 @@
 
     </LinearLayout>
 
+    <!-- Sets android:importantForAccessibility="no" to avoid being announced when navigating with
+         talkback enabled. It will still be announced when user drag or drop contact onto it.
+         This is required since drag and drop event is only sent to views are visible when drag
+         starts. -->
     <com.android.dialer.list.RemoveView
         android:id="@+id/remove_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tab_height"
         android:layout_marginTop="@dimen/action_bar_height_large"
-        android:layout_alignParentTop="true" >
+        android:contentDescription="@string/remove_contact"
+        android:importantForAccessibility="no" >
 
         <LinearLayout
             android:id="@+id/remove_view_content"
@@ -67,7 +72,7 @@
             android:background="@color/actionbar_background_color"
             android:gravity="center"
             android:orientation="horizontal"
-            android:visibility="gone" >
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -76,7 +81,6 @@
                 android:layout_marginBottom="8dp"
                 android:id="@+id/remove_view_icon"
                 android:src="@drawable/ic_remove"
-                android:contentDescription="@string/remove_contact"
                 android:tint="@color/remove_text_color" />
 
             <TextView

@@ -24,7 +24,8 @@
         android:id="@+id/contact_favorite_card"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:focusable="true" >
+        android:focusable="true"
+        android:nextFocusRight="@+id/contact_tile_secondary_button">
 
         <com.android.contacts.common.widget.LayoutSuppressingImageView
             android:id="@+id/contact_tile_image"
@@ -102,8 +103,7 @@
             android:id="@+id/contact_tile_push_state"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:focusable="true"
-            android:nextFocusRight="@+id/contact_tile_secondary_button"
+            android:importantForAccessibility="no"
             android:background="@drawable/item_background_material_dark" />
 
         <ImageButton

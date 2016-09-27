@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.DragEvent;
+import android.view.accessibility.AccessibilityEvent;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -53,6 +54,9 @@ public class RemoveView extends FrameLayout {
         final int action = event.getAction();
         switch (action) {
             case DragEvent.ACTION_DRAG_ENTERED:
+                // TODO: This is temporary solution and should be removed once accessibility for
+                // drag and drop is supported by framework(b/26871588).
+                sendAccessibilityEvent(AccessibilityEvent.TYPE_ANNOUNCEMENT);
                 setAppearanceHighlighted();
                 break;
             case DragEvent.ACTION_DRAG_EXITED:
@@ -65,6 +69,7 @@ public class RemoveView extends FrameLayout {
                 }
                 break;
             case DragEvent.ACTION_DROP:
+                sendAccessibilityEvent(AccessibilityEvent.TYPE_ANNOUNCEMENT);
                 if (mDragDropController != null) {
                     mDragDropController.handleDragFinished((int) event.getX(), (int) event.getY(),
                             true);

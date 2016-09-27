@@ -16,6 +16,7 @@
 
 package com.android.dialer.dialpad;
 
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.android.dialer.dialpad.SmartDialPrefix.PhoneNumberTokens;
@@ -123,7 +124,11 @@ public class SmartDialNameMatcher {
      *         SmartDialMatchPosition with the matching positions otherwise
      */
     @VisibleForTesting
+    @Nullable
     public SmartDialMatchPosition matchesNumber(String phoneNumber, String query, boolean useNanp) {
+        if (TextUtils.isEmpty(phoneNumber)) {
+            return null;
+        }
         StringBuilder builder = new StringBuilder();
         constructEmptyMask(builder, phoneNumber.length());
         mPhoneNumberMatchMask = builder.toString();
@@ -276,9 +281,7 @@ public class SmartDialNameMatcher {
 
         // The current character in the query we are trying to match the displayName against
         int queryStart = 0;
-        // add by geniusgithub begin
-        int firstInvalidStart = -1;
-        // add by geniusgithub end
+
         // The start position of the current token we are inspecting
         int tokenStart = 0;
 
@@ -315,8 +318,7 @@ public class SmartDialNameMatcher {
                     // Yo-Yoghurt because the query match would fail on the 3rd character, and
                     // then skip to the end of the "Yoghurt" token.
 
-                    // change by geniusgithub begin, for yu-yuymira, it will not  mathed by query yuym, it's a problem.
- /*                   if (queryStart == 0 || mMap.isValidDialpadCharacter(mMap.normalizeCharacter(
+                    if (queryStart == 0 || mMap.isValidDialpadCharacter(mMap.normalizeCharacter(
                             displayName.charAt(nameStart - 1)))) {
                         // skip to the next token, in the case of 1 or 2.
                         while (nameStart < nameLength &&
@@ -325,24 +327,10 @@ public class SmartDialNameMatcher {
                             nameStart++;
                         }
                         nameStart++;
-                    }*/
-                    if (firstInvalidStart == -1){
-                        while (nameStart < nameLength &&
-                                mMap.isValidDialpadCharacter(mMap.normalizeCharacter(
-                                        displayName.charAt(nameStart)))) {
-                            nameStart++;
-                        }
-                        nameStart++;
-                    }else{
-                        nameStart = firstInvalidStart + 1;
                     }
-                    // change by geniusgithub end
 
                     // Restart the query and set the correct token position
                     queryStart = 0;
-                    // add by geniusgithub begin
-                    firstInvalidStart = -1;
-                    // add by geniusgithub end
                     seperatorCount = 0;
                     tokenStart = nameStart;
                 } else {
@@ -394,11 +382,6 @@ public class SmartDialNameMatcher {
                     // continue and see if the rest of the characters match
                 }
             } else {
-                // add by geniusgithub begin
-                if (firstInvalidStart == -1){
-                    firstInvalidStart = nameStart;
-                }
-                // add by geniusgithub end
                 // found a separator, we skip this character and continue to the next one
                 nameStart++;
                 if (queryStart == 0) {

@@ -16,18 +16,18 @@
 
 package com.android.contacts.common.widget;
 
-import android.telecom.PhoneAccount;
-import android.telecom.PhoneAccountHandle;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.drawable.Icon;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
+import android.telecom.PhoneAccount;
+import android.telecom.PhoneAccountHandle;
 import android.telecom.TelecomManager;
-import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,8 +40,9 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
-import com.android.contacts.common.GeniusAdapter;
 import com.android.contacts.common.R;
+import com.android.contacts.common.compat.PhoneAccountCompat;
+import com.android.contacts.common.compat.PhoneNumberUtilsCompat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -254,15 +255,12 @@ public class SelectPhoneAccountDialogFragment extends DialogFragment {
                 holder.numberTextView.setVisibility(View.GONE);
             } else {
                 holder.numberTextView.setVisibility(View.VISIBLE);
-//                holder.numberTextView.setText(
-//                        PhoneNumberUtils.createTtsSpannable(
-//                                account.getAddress().getSchemeSpecificPart()));
                 holder.numberTextView.setText(
-                        GeniusAdapter.createTtsSpannable(
+                        PhoneNumberUtilsCompat.createTtsSpannable(
                                 account.getAddress().getSchemeSpecificPart()));
             }
-            holder.imageView.setImageDrawable(account.getIcon() != null
-                    ? account.getIcon().loadDrawable(getContext()) : null);
+            holder.imageView.setImageDrawable(PhoneAccountCompat.createIconDrawable(account,
+                    getContext()));
             return rowView;
         }
 

@@ -57,7 +57,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/background_dialer_white"
-                    android:textSize="@dimen/call_log_secondary_text_size"
+                    android:textSize="@dimen/call_log_detail_text_size"
                     android:text="@string/visual_voicemail_text"
                     android:lineSpacingExtra="@dimen/promo_card_line_spacing"
                     android:singleLine="false"/>
@@ -79,20 +79,20 @@
             android:gravity="end">
 
             <TextView
-                android:id="@+id/settings_action"
+                android:id="@+id/secondary_action"
                 style="@style/PromoCardActionStyle"
                 android:background="?android:attr/selectableItemBackground"
                 android:text="@string/visual_voicemail_settings"
                 android:nextFocusLeft="@+id/promo_card"
-                android:nextFocusRight="@+id/ok_action"
+                android:nextFocusRight="@+id/primary_action"
                 android:paddingEnd="@dimen/promo_card_action_between_padding"/>
 
             <TextView
-                android:id="@+id/ok_action"
+                android:id="@+id/primary_action"
                 style="@style/PromoCardActionStyle"
                 android:background="?android:attr/selectableItemBackground"
                 android:text="@android:string/ok"
-                android:nextFocusLeft="@+id/settings_action"
+                android:nextFocusLeft="@+id/secondary_action"
                 android:nextFocusRight="@+id/promo_card"/>
         </LinearLayout>
     </LinearLayout>

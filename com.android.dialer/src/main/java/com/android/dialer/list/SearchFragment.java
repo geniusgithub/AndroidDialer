@@ -15,8 +15,6 @@
  */
 package com.android.dialer.list;
 
-import static android.Manifest.permission.READ_CONTACTS;
-
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorListenerAdapter;
@@ -25,13 +23,10 @@ import android.app.DialogFragment;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Interpolator;
@@ -47,9 +42,8 @@ import com.android.contacts.common.list.OnPhoneNumberPickerActionListener;
 import com.android.contacts.common.list.PhoneNumberPickerFragment;
 import com.android.contacts.common.util.PermissionsUtil;
 import com.android.contacts.common.util.ViewUtil;
-import com.android.contacts.commonbind.analytics.AnalyticsUtil;
-import com.android.dialer.dialpad.DialpadFragment.ErrorDialogFragment;
 import com.android.dialer.R;
+import com.android.dialer.dialpad.DialpadFragment.ErrorDialogFragment;
 import com.android.dialer.util.DialerUtils;
 import com.android.dialer.util.IntentUtil;
 import com.android.dialer.widget.EmptyContentView;
@@ -105,8 +99,8 @@ public class SearchFragment extends PhoneNumberPickerFragment {
         try {
             mActivityScrollListener = (OnListFragmentScrolledListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnListFragmentScrolledListener");
+            Log.d(TAG, activity.toString() + " doesn't implement OnListFragmentScrolledListener. " +
+                    "Ignoring.");
         }
     }
 
@@ -140,10 +134,17 @@ public class SearchFragment extends PhoneNumberPickerFragment {
         listView.setBackgroundColor(res.getColor(R.color.background_dialer_results));
         listView.setClipToPadding(false);
         setVisibleScrollbarEnabled(false);
+
+        //Turn of accessibility live region as the list constantly update itself and spam messages.
+        listView.setAccessibilityLiveRegion(View.ACCESSIBILITY_LIVE_REGION_NONE);
+        ContentChangedFilter.addToParent(listView);
+
         listView.setOnScrollListener(new OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-                mActivityScrollListener.onListFragmentScrollStateChange(scrollState);
+                if (mActivityScrollListener != null) {
+                    mActivityScrollListener.onListFragmentScrollStateChange(scrollState);
+                }
             }
 
             @Override
@@ -229,6 +230,7 @@ public class SearchFragment extends PhoneNumberPickerFragment {
         DialerPhoneNumberListAdapter adapter = new DialerPhoneNumberListAdapter(getActivity());
         adapter.setDisplayPhotos(true);
         adapter.setUseCallableUri(super.usesCallableUri());
+        adapter.setListener(this);
         return adapter;
     }
 
@@ -250,7 +252,8 @@ public class SearchFragment extends PhoneNumberPickerFragment {
                 number = adapter.getQueryString();
                 listener = getOnPhoneNumberPickerListener();
                 if (listener != null && !checkForProhibitedPhoneNumber(number)) {
-                    listener.onCallNumberDirectly(number);
+                    listener.onPickPhoneNumber(number, false /* isVideoCall */,
+                            getCallInitiationType(false /* isRemoteDirectory */));
                 }
                 break;
             case DialerPhoneNumberListAdapter.SHORTCUT_CREATE_NEW_CONTACT:
@@ -272,10 +275,12 @@ public class SearchFragment extends PhoneNumberPickerFragment {
                 DialerUtils.startActivityWithErrorToast(getActivity(), intent);
                 break;
             case DialerPhoneNumberListAdapter.SHORTCUT_MAKE_VIDEO_CALL:
-                number = adapter.getQueryString();
+                number = TextUtils.isEmpty(mAddToContactNumber) ?
+                        adapter.getQueryString() : mAddToContactNumber;
                 listener = getOnPhoneNumberPickerListener();
                 if (listener != null && !checkForProhibitedPhoneNumber(number)) {
-                    listener.onCallNumberDirectly(number, true /* isVideoCall */);
+                    listener.onPickPhoneNumber(number, true /* isVideoCall */,
+                            getCallInitiationType(false /* isRemoteDirectory */));
                 }
                 break;
         }
@@ -289,12 +294,12 @@ public class SearchFragment extends PhoneNumberPickerFragment {
     public void updatePosition(boolean animate) {
         // Use negative shadow height instead of 0 to account for the 9-patch's shadow.
         int startTranslationValue =
-                mActivity.isDialpadShown() ? mActionBarHeight - mShadowHeight: -mShadowHeight;
+                mActivity.isDialpadShown() ? mActionBarHeight - mShadowHeight : -mShadowHeight;
         int endTranslationValue = 0;
         // Prevents ListView from being translated down after a rotation when the ActionBar is up.
         if (animate || mActivity.isActionBarShowing()) {
             endTranslationValue =
-                    mActivity.isDialpadShown() ? 0 : mActionBarHeight -mShadowHeight;
+                    mActivity.isDialpadShown() ? 0 : mActionBarHeight - mShadowHeight;
         }
         if (animate) {
             // If the dialpad will be shown, then this animation involves sliding the list up.
@@ -353,7 +358,11 @@ public class SearchFragment extends PhoneNumberPickerFragment {
 
     @Override
     protected void startLoading() {
-        if (PermissionsUtil.hasPermission(getActivity(), READ_CONTACTS)) {
+        if (getActivity() == null) {
+            return;
+        }
+
+        if (PermissionsUtil.hasContactsPermissions(getActivity())) {
             super.startLoading();
         } else if (TextUtils.isEmpty(getQueryString())) {
             // Clear out any existing call shortcuts.

@@ -21,6 +21,8 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 import com.android.contacts.common.CallUtil;
+import com.android.contacts.common.ContactsUtils;
+import com.android.contacts.common.compat.DirectoryCompat;
 import com.android.contacts.common.list.DirectoryPartition;
 import com.android.contacts.common.util.PhoneNumberHelper;
 import com.android.dialer.calllog.ContactInfo;
@@ -31,7 +33,7 @@ import com.android.dialer.service.CachedNumberLookupService.CachedContactInfo;
  * List adapter to display regular search results.
  */
 public class RegularSearchListAdapter extends DialerPhoneNumberListAdapter {
-    private boolean mIsQuerySipAddress;
+    protected boolean mIsQuerySipAddress;
 
     public RegularSearchListAdapter(Context context) {
         super(context);
@@ -45,21 +47,33 @@ public class RegularSearchListAdapter extends DialerPhoneNumberListAdapter {
         CachedContactInfo cacheInfo = lookupService.buildCachedContactInfo(info);
         final Cursor item = (Cursor) getItem(position);
         if (item != null) {
+            final DirectoryPartition partition =
+                (DirectoryPartition) getPartition(getPartitionForPosition(position));
+            final long directoryId = partition.getDirectoryId();
+            final boolean isExtendedDirectory = isExtendedDirectory(directoryId);
+
             info.name = item.getString(PhoneQuery.DISPLAY_NAME);
             info.type = item.getInt(PhoneQuery.PHONE_TYPE);
             info.label = item.getString(PhoneQuery.PHONE_LABEL);
             info.number = item.getString(PhoneQuery.PHONE_NUMBER);
             final String photoUriStr = item.getString(PhoneQuery.PHOTO_URI);
             info.photoUri = photoUriStr == null ? null : Uri.parse(photoUriStr);
+            /*
+             * An extended directory is custom directory in the app, but not a directory provided by
+             * framework. So it can't be USER_TYPE_WORK.
+             *
+             * When a search result is selected, RegularSearchFragment calls getContactInfo and
+             * cache the resulting @{link ContactInfo} into local db. Set usertype to USER_TYPE_WORK
+             * only if it's NOT extended directory id and is enterprise directory.
+             */
+            info.userType = !isExtendedDirectory
+                    && DirectoryCompat.isEnterpriseDirectoryId(directoryId)
+                            ? ContactsUtils.USER_TYPE_WORK : ContactsUtils.USER_TYPE_CURRENT;
 
             cacheInfo.setLookupKey(item.getString(PhoneQuery.LOOKUP_KEY));
 
-            final int partitionIndex = getPartitionForPosition(position);
-            final DirectoryPartition partition =
-                (DirectoryPartition) getPartition(partitionIndex);
-            final long directoryId = partition.getDirectoryId();
             final String sourceName = partition.getLabel();
-            if (isExtendedDirectory(directoryId)) {
+            if (isExtendedDirectory) {
                 cacheInfo.setExtendedSource(sourceName, directoryId);
             } else {
                 cacheInfo.setDirectorySource(sourceName, directoryId);
@@ -82,18 +96,22 @@ public class RegularSearchListAdapter extends DialerPhoneNumberListAdapter {
         // Don't show actions if the query string contains a letter.
         final boolean showNumberShortcuts = !TextUtils.isEmpty(getFormattedQueryString())
                 && hasDigitsInQueryString();
-        // Email addresses that could be SIP addresses are an exception.
         mIsQuerySipAddress = PhoneNumberHelper.isUriNumber(queryString);
+
+        if (isChanged(showNumberShortcuts)) {
+            notifyDataSetChanged();
+        }
+        super.setQueryString(queryString);
+    }
+
+    protected boolean isChanged(boolean showNumberShortcuts) {
         boolean changed = false;
         changed |= setShortcutEnabled(SHORTCUT_DIRECT_CALL,
                 showNumberShortcuts || mIsQuerySipAddress);
         changed |= setShortcutEnabled(SHORTCUT_SEND_SMS_MESSAGE, showNumberShortcuts);
         changed |= setShortcutEnabled(SHORTCUT_MAKE_VIDEO_CALL,
                 showNumberShortcuts && CallUtil.isVideoEnabled(getContext()));
-        if (changed) {
-            notifyDataSetChanged();
-        }
-        super.setQueryString(queryString);
+        return changed;
     }
 
     /**

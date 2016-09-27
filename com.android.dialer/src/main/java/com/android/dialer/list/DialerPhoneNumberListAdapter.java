@@ -2,15 +2,19 @@ package com.android.dialer.list;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.telephony.PhoneNumberUtils;
 import android.text.BidiFormatter;
 import android.text.TextDirectionHeuristics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.contacts.common.CallUtil;
 import com.android.contacts.common.GeoUtil;
 import com.android.contacts.common.list.ContactListItemView;
 import com.android.contacts.common.list.PhoneNumberListAdapter;
+import com.android.contacts.common.util.ContactDisplayUtils;
 import com.android.dialer.R;
 
 /**
@@ -33,17 +37,20 @@ public class DialerPhoneNumberListAdapter extends PhoneNumberListAdapter {
     public final static int SHORTCUT_ADD_TO_EXISTING_CONTACT = 2;
     public final static int SHORTCUT_SEND_SMS_MESSAGE = 3;
     public final static int SHORTCUT_MAKE_VIDEO_CALL = 4;
+    public final static int SHORTCUT_BLOCK_NUMBER = 5;
 
-    public final static int SHORTCUT_COUNT = 5;
+    public final static int SHORTCUT_COUNT = 6;
 
     private final boolean[] mShortcutEnabled = new boolean[SHORTCUT_COUNT];
 
     private final BidiFormatter mBidiFormatter = BidiFormatter.getInstance();
+    private boolean mVideoCallingEnabled = false;
 
     public DialerPhoneNumberListAdapter(Context context) {
         super(context);
 
         mCountryIso = GeoUtil.getCurrentCountryIso(context);
+        mVideoCallingEnabled = CallUtil.isVideoEnabled(context);
     }
 
     @Override
@@ -93,13 +100,24 @@ public class DialerPhoneNumberListAdapter extends PhoneNumberListAdapter {
                 assignShortcutToView((ContactListItemView) convertView, shortcutType);
                 return convertView;
             } else {
-                final ContactListItemView v = new ContactListItemView(getContext(), null);
+                final ContactListItemView v = new ContactListItemView(getContext(), null,
+                        mVideoCallingEnabled);
                 assignShortcutToView(v, shortcutType);
                 return v;
             }
         } else {
             return super.getView(position, convertView, parent);
         }
+    }
+
+    @Override
+    protected ContactListItemView newView(
+            Context context, int partition, Cursor cursor, int position, ViewGroup parent) {
+        final ContactListItemView view = super.newView(context, partition, cursor, position,
+                parent);
+
+        view.setSupportVideoCallIcon(mVideoCallingEnabled);
+        return view;
     }
 
     /**
@@ -146,7 +164,7 @@ public class DialerPhoneNumberListAdapter extends PhoneNumberListAdapter {
         final String number = getFormattedQueryString();
         switch (shortcutType) {
             case SHORTCUT_DIRECT_CALL:
-                text = resources.getString(
+                text = ContactDisplayUtils.getTtsSpannedPhoneNumber(resources,
                         R.string.search_shortcut_call_number,
                         mBidiFormatter.unicodeWrap(number, TextDirectionHeuristics.LTR));
                 drawableId = R.drawable.ic_search_phone;
@@ -166,6 +184,10 @@ public class DialerPhoneNumberListAdapter extends PhoneNumberListAdapter {
             case SHORTCUT_MAKE_VIDEO_CALL:
                 text = resources.getString(R.string.search_shortcut_make_video_call);
                 drawableId = R.drawable.ic_videocam;
+                break;
+            case SHORTCUT_BLOCK_NUMBER:
+                text = resources.getString(R.string.search_shortcut_block_number);
+                drawableId = R.drawable.ic_not_interested_googblue_24dp;
                 break;
             default:
                 throw new IllegalArgumentException("Invalid shortcut type");

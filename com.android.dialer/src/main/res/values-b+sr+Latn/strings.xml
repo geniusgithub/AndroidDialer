@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  ~ Copyright (C) 2012 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License
+   -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="applicationLabel" msgid="7762561155467201526">"Telefon"</string>
+    <string name="launcherActivityLabel" msgid="1129729740601172692">"Telefon"</string>
+    <string name="launcherDialpadActivityLabel" msgid="3959809805046059167">"Numerička tastatura telefona"</string>
+    <string name="dialerIconLabel" msgid="6500826552823403796">"Telefon"</string>
+    <string name="callHistoryIconLabel" msgid="3734413397291301223">"Istorija poziva"</string>
+    <string name="action_report_number" msgid="4635403959812186162">"Prijavi netačan broj"</string>
+    <string name="action_copy_number_text" msgid="588249522108594155">"Kopiraj broj"</string>
+    <string name="copy_transcript_text" msgid="5652787482893879382">"Kopiraj transkripciju"</string>
+    <string name="action_block_number" msgid="1482657602262262134">"Blokiraj broj"</string>
+    <string name="snackbar_number_blocked" msgid="939830142765936021">"<xliff:g id="NUMBER">%1$s</xliff:g> je blokiran"</string>
+    <string name="action_unblock_number" msgid="3043777622269776127">"Deblokiraj broj"</string>
+    <string name="snackbar_number_unblocked" msgid="4854738171099045912">"<xliff:g id="NUMBER">%1$s</xliff:g> je deblokiran"</string>
+    <string name="block_number_undo" msgid="591338370336724156">"OPOZOVI"</string>
+    <string name="call_details_delete" msgid="1833359621896346955">"Izbriši"</string>
+    <string name="action_edit_number_before_call" msgid="3100221149873436485">"Izmeni broj pre poziva"</string>
+    <string name="call_log_delete_all" msgid="4677609108288680411">"Obriši istoriju poziva"</string>
+    <string name="call_log_trash_voicemail" msgid="1283948488625129019">"Izbriši govornu poruku"</string>
+    <string name="call_log_archive_voicemail" msgid="9072936797223284265">"Arhiviraj govornu poštu"</string>
+    <string name="call_log_share_voicemail" msgid="7272635349055945546">"Deli govornu poruku"</string>
+    <string name="snackbar_voicemail_deleted" msgid="5098542835986188582">"Gov. pošta je izbrisana"</string>
+    <string name="snackbar_voicemail_archived" msgid="7442340403660554373">"Govorna pošta je arhivirana"</string>
+    <string name="snackbar_voicemail_deleted_undo" msgid="3741811385891289167">"OPOZOVI"</string>
+    <string name="snackbar_voicemail_archived_goto" msgid="9186182602955185448">"ARHIVA"</string>
+    <string name="clearCallLogConfirmation_title" msgid="801753155679372984">"Želite da obrišete istoriju poziva?"</string>
+    <string name="clearCallLogConfirmation" msgid="7899552396101432827">"Ovo će izbrisati sve pozive iz istorije"</string>
+    <string name="clearCallLogProgress_title" msgid="3372471156216306132">"Briše se istorija poziva…"</string>
+    <string name="userCallActivityLabel" product="default" msgid="6652512551977445095">"Telefon"</string>
+    <string name="notification_missedCallTitle" msgid="2078223183024451723">"Propušten poziv"</string>
+    <string name="notification_missedWorkCallTitle" msgid="8418335304394771688">"Propušten poziv za Work"</string>
+    <string name="notification_missedCallsTitle" msgid="4948840634672742797">"Propušteni pozivi"</string>
+    <string name="notification_missedCallsMsg" msgid="158790423221579961">"Broj propuštenih poziva: <xliff:g id="NUM_MISSED_CALLS">%s</xliff:g>"</string>
+    <string name="notification_missedCall_call_back" msgid="1991552423738343203">"Uzvrati poziv"</string>
+    <string name="notification_missedCall_message" msgid="3042123733754151052">"Pošalji SMS"</string>
+    <plurals name="notification_voicemail_title" formatted="false" msgid="9088953961148324851">
+      <item quantity="one"> <xliff:g id="COUNT">%1$d</xliff:g> govorna poruka </item>
+      <item quantity="few"> <xliff:g id="COUNT">%1$d</xliff:g> govorne poruke </item>
+      <item quantity="other"> <xliff:g id="COUNT">%1$d</xliff:g> govornih poruka </item>
+    </plurals>
+    <string name="notification_action_voicemail_play" msgid="6113133136977996863">"Pusti"</string>
+    <string name="notification_voicemail_callers_list" msgid="1153954809339404149">"<xliff:g id="NEWER_CALLERS">%1$s</xliff:g>, <xliff:g id="OLDER_CALLER">%2$s</xliff:g>"</string>
+    <string name="notification_new_voicemail_ticker" msgid="895342132049452081">"Nova govorna poruka od <xliff:g id="CALLER">%1$s</xliff:g>"</string>
+    <string name="voicemail_playback_error" msgid="3356071912353297599">"Puštanje govorne pošte nije uspelo"</string>
+    <string name="voicemail_fetching_content" msgid="1287895365599580842">"Govorna pošta se učitava…"</string>
+    <string name="voicemail_archiving_content" msgid="722322091690281157">"Govorna pošta se arhivira…"</string>
+    <string name="voicemail_fetching_timout" msgid="3959428065511972176">"Učitavanje govorne pošte nije uspelo"</string>
+    <string name="call_log_voicemail_header" msgid="3945407886667089173">"Samo pozivi sa govornom poštom"</string>
+    <string name="call_log_incoming_header" msgid="2787722299753674684">"Samo dolazni pozivi"</string>
+    <string name="call_log_outgoing_header" msgid="761009180766735769">"Samo odlazni pozivi"</string>
+    <string name="call_log_missed_header" msgid="8017148056610855956">"Samo propušteni pozivi"</string>
+    <string name="visual_voicemail_title" msgid="4574199312906348905">"Vizuelna govorna pošta"</string>
+    <string name="visual_voicemail_text" msgid="164967285234132509">"Pregledajte i slušajte govornu poštu bez pozivanja broja. Možda će biti naplaćeni troškovi za prenos podataka."</string>
+    <string name="visual_voicemail_settings" msgid="8090338793118794741">"Podešavanja"</string>
+    <string name="voicemail_status_voicemail_not_available" msgid="5222480147701456390">"Ažuriranja govorne pošte nisu dostupna"</string>
+    <string name="voicemail_status_messages_waiting" msgid="6329544650250068650">"Imate novu govornu poštu. Trenutno ne može da se učita."</string>
+    <string name="voicemail_status_configure_voicemail" msgid="8300808991932816153">"Podesite govornu poštu"</string>
+    <string name="voicemail_status_audio_not_available" msgid="2449801102560158082">"Audio nije dostupan"</string>
+    <string name="voicemail_status_action_configure" msgid="8671796489912239589">"Podesi"</string>
+    <string name="voicemail_status_action_call_server" msgid="1824816252288551794">"Zovi govornu poštu"</string>
+    <string name="call_log_item_count_and_date" msgid="7641933305703520787">"(<xliff:g id="COUNT">%1$d</xliff:g>) <xliff:g id="DATE">%2$s</xliff:g>"</string>
+    <string name="sms_disambig_title" msgid="5846266399240630846">"Izbor broja"</string>
+    <string name="call_disambig_title" msgid="4392886850104795739">"Izbor broja"</string>
+    <string name="make_primary" msgid="5829291915305113983">"Zapamti ovaj izbor"</string>
+    <string name="description_search_button" msgid="3660807558587384889">"pretraži"</string>
+    <string name="description_dial_button" msgid="1274091017188142646">"biranje"</string>
+    <string name="description_digits_edittext" msgid="8760207516497016437">"broj za biranje"</string>
+    <string name="description_playback_start_stop" msgid="5060732345522492292">"Pokretanje ili zaustavljanje reprodukcije"</string>
+    <string name="description_playback_speakerphone" msgid="6008323900245707504">"Uključivanje ili isključivanje spikerfona"</string>
+    <string name="description_playback_seek" msgid="4509404274968530055">"Traženje pozicije u reprodukciji"</string>
+    <string name="description_rate_decrease" msgid="3161652589401708284">"Smanjivanje brzine reprodukcije"</string>
+    <string name="description_rate_increase" msgid="6324606574127052385">"Povećavanje brzine reprodukcije"</string>
+    <string name="action_menu_call_history_description" msgid="9018442816219748968">"Istorija poziva"</string>
+    <string name="action_menu_overflow_description" msgid="2303272250613084574">"Još opcija"</string>
+    <string name="action_menu_dialpad_button" msgid="1425910318049008136">"numerička tastatura"</string>
+    <string name="menu_show_outgoing_only" msgid="1965570298133301970">"Prikaži samo odlazne"</string>
+    <string name="menu_show_incoming_only" msgid="7534206815238877417">"Prikaži samo dolazne"</string>
+    <string name="menu_show_missed_only" msgid="154473166059743996">"Prikaži samo propuštene"</string>
+    <string name="menu_show_voicemails_only" msgid="1898421289561435703">"Prikaži samo govorne poruke"</string>
+    <string name="menu_show_all_calls" msgid="7560347482073345885">"Prikaži sve pozive"</string>
+    <string name="add_2sec_pause" msgid="9214012315201040129">"Dodaj pauzu od 2 sekunde"</string>
+    <string name="add_wait" msgid="3360818652790319634">"Dodaj čekanje"</string>
+    <string name="dialer_settings_label" msgid="4305043242594150479">"Podešavanja"</string>
+    <string name="menu_newContact" msgid="1209922412763274638">"Novi kontakt"</string>
+    <string name="menu_allContacts" msgid="6948308384034051670">"Svi kontakti"</string>
+    <string name="callDetailTitle" msgid="5340227785196217938">"Detalji poziva"</string>
+    <string name="toast_call_detail_error" msgid="6947041258280380832">"Detalji nisu dostupni"</string>
+    <string name="dialer_useDtmfDialpad" msgid="1707548397435075040">"Upotrebite brojčanik za tonsko biranje"</string>
+    <string name="dialer_returnToInCallScreen" msgid="3719386377550913067">"Vrati se na poziv koji je u toku"</string>
+    <string name="dialer_addAnotherCall" msgid="4205688819890074468">"Dodaj poziv"</string>
+    <string name="type_incoming" msgid="6502076603836088532">"Dolazni poziv"</string>
+    <string name="type_outgoing" msgid="343108709599392641">"Odlazni poziv"</string>
+    <string name="type_missed" msgid="2720502601640509542">"Propušten poziv"</string>
+    <string name="type_incoming_video" msgid="82323391702796181">"Dolazni video poziv"</string>
+    <string name="type_outgoing_video" msgid="2858140021680755266">"Odlazni video poziv"</string>
+    <string name="type_missed_video" msgid="954396897034220545">"Propušten video poziv"</string>
+    <string name="type_voicemail" msgid="5153139450668549908">"Govorna pošta"</string>
+    <string name="type_rejected" msgid="7783201828312472691">"Odbijen poziv"</string>
+    <string name="type_blocked" msgid="3521686227115330015">"Blokiran poziv"</string>
+    <string name="actionIncomingCall" msgid="6028930669817038600">"Dolazni pozivi"</string>
+    <string name="description_call_log_play_button" msgid="651182125650429846">"Puštanje govorne pošte"</string>
+    <string name="description_view_contact" msgid="5205669345700598415">"Prikaži kontakt <xliff:g id="NAME">%1$s</xliff:g>"</string>
+    <string name="description_call" msgid="3443678121983852666">"Pozovi korisnika <xliff:g id="NAME">%1$s</xliff:g>"</string>
+    <string name="description_contact_details" msgid="51229793651342809">"Detalji o kontaktu za <xliff:g id="NAMEORNUMBER">%1$s</xliff:g>"</string>
+    <string name="description_num_calls" msgid="1601505153694540074">"<xliff:g id="NUMBEROFCALLS">%1$s</xliff:g> poziva."</string>
+    <string name="description_video_call" msgid="2933838090743214204">"Video poziv."</string>
+    <string name="description_send_text_message" msgid="3118485319691414221">"Slanje SMS-a za <xliff:g id="NAME">%1$s</xliff:g>"</string>
+    <string name="description_call_log_unheard_voicemail" msgid="118101684236996786">"Nepreslušana govorna pošta"</string>
+    <string name="description_start_voice_search" msgid="520539488194946012">"Pokretanje glasovne pretrage"</string>
+    <string name="menu_callNumber" msgid="997146291983360266">"Pozovi <xliff:g id="NUMBER">%s</xliff:g>"</string>
+    <string name="unknown" msgid="740067747858270469">"Nepoznato"</string>
+    <string name="voicemail" msgid="3851469869202611441">"Govorna pošta"</string>
+    <string name="private_num" msgid="6374339738119166953">"Privatan broj"</string>
+    <string name="payphone" msgid="7726415831153618726">"Telefonska govornica"</string>
+    <string name="callDetailsShortDurationFormat" msgid="3988146235579303592">"<xliff:g id="SECONDS">%s</xliff:g> sek"</string>
+    <string name="callDetailsDurationFormat" msgid="6061406028764382234">"<xliff:g id="MINUTES">%s</xliff:g> min <xliff:g id="SECONDS">%s</xliff:g> sek"</string>
+    <!-- no translation found for voicemailCallLogToday (682363079840402849) -->
+    <skip />
+    <string name="voicemailCallLogDateTimeFormat" msgid="4388070029056487713">"<xliff:g id="DATE">%1$s</xliff:g> u <xliff:g id="TIME">%2$s</xliff:g>"</string>
+    <string name="voicemailDurationFormat" msgid="228211252076289564">"<xliff:g id="MINUTES">%1$02d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
+    <string name="voicemailCallLogDateTimeFormatWithDuration" msgid="5118563814451588397">"<xliff:g id="DATEANDTIME">%1$s</xliff:g> • <xliff:g id="DURATION">%2$s</xliff:g>"</string>
+    <string name="dialog_phone_call_prohibited_message" msgid="5730565540182492608">"Nije moguće pozvati ovaj broj"</string>
+    <string name="dialog_voicemail_not_ready_message" msgid="4384716252789515378">"Da biste podesili govornu poštu, idite u Meni &gt; Podešavanja."</string>
+    <string name="dialog_voicemail_airplane_mode_message" msgid="530922773669546093">"Da biste pozvali govornu poštu, prvo isključite režim aviona."</string>
+    <string name="contact_list_loading" msgid="5488620820563977329">"Učitava se…"</string>
+    <string name="imei" msgid="3045126336951684285">"IMEI"</string>
+    <string name="meid" msgid="6210568493746275750">"MEID"</string>
+    <string name="simContacts_emptyLoading" msgid="6700035985448642408">"Učitava se sa SIM kartice…"</string>
+    <string name="simContacts_title" msgid="27341688347689769">"Kontakti na SIM kartici"</string>
+    <string name="add_contact_not_available" msgid="5547311613368004859">"Nema dostupne aplikacije za kontakte"</string>
+    <string name="voice_search_not_available" msgid="2977719040254285301">"Glasovna pretraga nije dostupna"</string>
+    <string name="call_not_available" msgid="8941576511946492225">"Nije moguće uputiti telefonski poziv jer je aplikacija Telefon onemogućena."</string>
+    <string name="activity_not_available" msgid="2287665636817987623">"Na ovom uređaju nema aplikacija za to"</string>
+    <string name="dialer_hint_find_contact" msgid="3574350254520035364">"Pretražite kontakte"</string>
+    <string name="block_number_search_hint" msgid="5409571607043872758">"Dodajte broj ili pretražite kontakte"</string>
+    <string name="call_log_all_empty" msgid="8357417710416340920">"Istorija poziva je prazna"</string>
+    <string name="call_log_all_empty_action" msgid="9093210119068366147">"Pozovi"</string>
+    <string name="call_log_missed_empty" msgid="3927274175205520135">"Nemate nijedan propušten poziv."</string>
+    <string name="call_log_voicemail_empty" msgid="8383585074222277550">"Prijemno sanduče govorne pošte je prazno."</string>
+    <string name="voicemail_archive_empty" msgid="1087408796679056787">"Arhiva govorne pošte je prazna."</string>
+    <string name="show_favorites_only" msgid="5520072531022614595">"Prikaži samo omiljene"</string>
+    <string name="call_log_activity_title" msgid="7949633151371183580">"Istorija poziva"</string>
+    <string name="voicemail_archive_activity_title" msgid="2638669189424535229">"Arhiva govorne pošte"</string>
+    <string name="call_log_all_title" msgid="3566738938889333307">"Svi"</string>
+    <string name="call_log_missed_title" msgid="4541142293870638971">"Propušteni"</string>
+    <string name="call_log_voicemail_title" msgid="940422274047025948">"Govorna pošta"</string>
+    <string name="migrate_blocked_numbers_dialog_title" msgid="2039363199438872626">"Novo, jednostavnije blokiranje"</string>
+    <string name="migrate_blocked_numbers_dialog_message" msgid="5598530398682662860">"Telefon treba da promeni način na koji blokiranje funkcioniše da bi vam pružio bolju zaštitu. Sa blokiranih brojeva više nećete primati ni pozive ni SMS-ove, ali možete da ih delite sa drugim aplikacijama."</string>
+    <string name="migrate_blocked_numbers_dialog_allow_button" msgid="3116140286537760629">"Dozvoli"</string>
+    <string name="block_number_confirmation_title" msgid="6862219558186931304">"Želite li da blokirate <xliff:g id="NUMBER">%1$s</xliff:g>?"</string>
+    <string name="block_number_confirmation_message_vvm" msgid="5655646611437082611">"Pozivi sa ovog broja će biti blokirani i poruke govorne pošte će se automatski brisati."</string>
+    <string name="block_number_confirmation_message_no_vvm" msgid="4511900601491718173">"Pozivi sa ovog broja će biti blokirani, ali pozivalac i dalje može da vam ostavlja poruke govorne pošte."</string>
+    <string name="block_number_confirmation_message_new_filtering" msgid="4524854769790960179">"Više nećete primati pozive ni SMS-ove sa ovog broja."</string>
+    <string name="block_number_ok" msgid="770551992296781873">"BLOKIRAJ"</string>
+    <string name="unblock_number_confirmation_title" msgid="252824779504084354">"Želite li da deblokirate <xliff:g id="NUMBER">%1$s</xliff:g>?"</string>
+    <string name="unblock_number_ok" msgid="6449899182699684786">"DEBLOKIRAJ"</string>
+    <string name="tab_speed_dial" msgid="7552166276545648893">"Brzo biranje"</string>
+    <string name="tab_history" msgid="2563144697322434940">"Istorija poziva"</string>
+    <string name="tab_all_contacts" msgid="1410922767166533690">"Kontakti"</string>
+    <string name="tab_voicemail" msgid="155024725947496746">"Govorna pošta"</string>
+    <string name="favorite_hidden" msgid="5011234945140912047">"Uklonjeno je iz omiljenih"</string>
+    <string name="favorite_hidden_undo" msgid="2508998611039406474">"Opozovi"</string>
+    <string name="search_shortcut_call_number" msgid="7277194656832895870">"Pozovi <xliff:g id="NUMBER">%s</xliff:g>"</string>
+    <string name="search_shortcut_create_new_contact" msgid="1679917465521554093">"Napravi novi kontakt"</string>
+    <string name="search_shortcut_add_to_contact" msgid="4327842393369915751">"Dodaj u kontakt"</string>
+    <string name="search_shortcut_send_sms_message" msgid="2569304043345025525">"Pošalji SMS"</string>
+    <string name="search_shortcut_make_video_call" msgid="1265971685034465166">"Uputi video poziv"</string>
+    <string name="search_shortcut_block_number" msgid="4787156645163436072">"Blokiraj broj"</string>
+    <string name="num_missed_calls" msgid="8081736535604293886">"Novih propuštenih poziva: <xliff:g id="NUMBER">%s</xliff:g>"</string>
+    <string name="speed_dial_empty" msgid="8838921693673366129">"Nemate nijedan kontakt na brzom biranju"</string>
+    <string name="speed_dial_empty_add_favorite_action" msgid="7944893641496695770">"Dodaj omiljen kontakt"</string>
+    <string name="all_contacts_empty" msgid="471370638298229686">"Još uvek nemate nijedan kontakt"</string>
+    <string name="all_contacts_empty_add_contact_action" msgid="1515782853819374618">"Dodaj kontakt"</string>
+    <string name="contact_tooltip" msgid="2019777545923635266">"Dodirnite sliku da biste videli sve brojeve ili dodirnite i zadržite da biste promenili raspored"</string>
+    <string name="remove_contact" msgid="1080555335283662961">"Ukloni"</string>
+    <string name="call_log_action_video_call" msgid="7724301709041128296">"Video poziv"</string>
+    <string name="call_log_action_send_message" msgid="5679719296905285131">"Pošalji poruku"</string>
+    <string name="call_log_action_details" msgid="701345508704970622">"Detalji poziva"</string>
+    <string name="call_log_action_call" msgid="463690849042459842">"Pozovi <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
+    <string name="description_incoming_missed_call" msgid="2381085098795943627">"Propušteni poziv: <xliff:g id="NAMEORNUMBER">^1</xliff:g>, <xliff:g id="TYPEORLOCATION">^2</xliff:g>, <xliff:g id="TIMEOFCALL">^3</xliff:g>, <xliff:g id="PHONEACCOUNT">^4</xliff:g>."</string>
+    <string name="description_incoming_answered_call" msgid="7117665748428816544">"Primljeni poziv: <xliff:g id="NAMEORNUMBER">^1</xliff:g>, <xliff:g id="TYPEORLOCATION">^2</xliff:g>, <xliff:g id="TIMEOFCALL">^3</xliff:g>, <xliff:g id="PHONEACCOUNT">^4</xliff:g>."</string>
+    <string name="description_unread_voicemail" msgid="5826351827625665597">"Nepročitana govorna poruka od <xliff:g id="NAMEORNUMBER">^1</xliff:g>, <xliff:g id="TYPEORLOCATION">^2</xliff:g>, <xliff:g id="TIMEOFCALL">^3</xliff:g>, <xliff:g id="PHONEACCOUNT">^4</xliff:g>."</string>
+    <string name="description_read_voicemail" msgid="133974208364152610">"Govorna poruka od <xliff:g id="NAMEORNUMBER">^1</xliff:g>, <xliff:g id="TYPEORLOCATION">^2</xliff:g>, <xliff:g id="TIMEOFCALL">^3</xliff:g>, <xliff:g id="PHONEACCOUNT">^4</xliff:g>."</string>
+    <string name="description_outgoing_call" msgid="6386364390619734734">"Pozvali ste: <xliff:g id="NAMEORNUMBER">^1</xliff:g>, <xliff:g id="TYPEORLOCATION">^2</xliff:g>, <xliff:g id="TIMEOFCALL">^3</xliff:g>, <xliff:g id="PHONEACCOUNT">^4</xliff:g>."</string>
+    <string name="description_phone_account" msgid="1767072759541443861">"na nalogu <xliff:g id="PHONEACCOUNT">^1</xliff:g>"</string>
+    <string name="description_via_number" msgid="3503311803959108316">"preko <xliff:g id="NUMBER">%1$s</xliff:g>"</string>
+    <string name="call_log_via_number" msgid="8373282986443543296">"preko <xliff:g id="NUMBER">%1$s</xliff:g>"</string>
+    <string name="description_via_number_phone_account" msgid="5426866894799626474">"na <xliff:g id="PHONEACCOUNT">%1$s</xliff:g>, preko <xliff:g id="NUMBER">%2$s</xliff:g>"</string>
+    <string name="call_log_via_number_phone_account" msgid="4394943791173578941">"<xliff:g id="PHONEACCOUNT">%1$s</xliff:g> preko <xliff:g id="NUMBER">%2$s</xliff:g>"</string>
+    <string name="description_call_log_call_action" msgid="3682561657090693134">"Pozovi"</string>
+    <string name="description_call_action" msgid="4000549004089776147">"Pozovi <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
+    <string name="description_video_call_action" msgid="7386922428155062213">"Uputite video poziv kontaktu <xliff:g id="NAMEORNUMBER">^1</xliff:g>."</string>
+    <string name="description_voicemail_action" msgid="8054891873788903063">"Pusti govornu poštu od <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
+    <string name="description_voicemail_play" msgid="2689369874037785439">"Reprodukuj govornu poštu kontakta <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
+    <string name="description_voicemail_pause" msgid="3905259748756919693">"Pauziraj govornu poštu kontakta <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
+    <string name="description_voicemail_delete" msgid="2025472770630153436">"Izbriši govornu poštu kontakta <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
+    <plurals name="description_voicemail_unread" formatted="false" msgid="8708346053055570332">
+      <item quantity="one"><xliff:g id="COUNT_1">%d</xliff:g> nova poruka govorne pošte</item>
+      <item quantity="few"><xliff:g id="COUNT_1">%d</xliff:g> nove poruke govorne pošte</item>
+      <item quantity="other"><xliff:g id="COUNT_1">%d</xliff:g> novih poruka govorne pošte</item>
+    </plurals>
+    <string name="description_create_new_contact_action" msgid="818755978791008167">"Napravite kontakt za <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
+    <string name="description_add_to_existing_contact_action" msgid="6081200053494414351">"Dodajte <xliff:g id="NAMEORNUMBER">^1</xliff:g> postojećem kontaktu"</string>
+    <string name="description_details_action" msgid="2433827152749491785">"Detalji poziva za <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
+    <string name="toast_entry_removed" msgid="8010830299576311534">"Izbrisano iz istorije poziva"</string>
+    <string name="call_log_header_today" msgid="3225248682434212981">"Danas"</string>
+    <string name="call_log_header_yesterday" msgid="9139172458834033092">"Juče"</string>
+    <string name="call_log_header_other" msgid="5769921959940709084">"Stariji"</string>
+    <string name="call_detail_list_header" msgid="3752717059699600861">"Lista poziva"</string>
+    <string name="voicemail_speaker_on" msgid="209154030283487068">"Uključite zvučnik."</string>
+    <string name="voicemail_speaker_off" msgid="7390530056413093958">"Isključite zvučnik."</string>
+    <string name="voicemail_play_faster" msgid="3444751008615323006">"Brža reprodukcija."</string>
+    <string name="voicemail_play_slower" msgid="4544796503902818832">"Sporija reprodukcija."</string>
+    <string name="voicemail_play_start_pause" msgid="3687447935787768983">"Započnite ili pauzirajte reprodukciju."</string>
+    <string name="list_delimeter" msgid="4571593167738725100">", "</string>
+    <string name="display_options_title" msgid="7812852361055667468">"Opcije prikaza"</string>
+    <string name="sounds_and_vibration_title" msgid="1692290115642160845">"Zvuci i vibracija"</string>
+    <string name="accessibility_settings_title" msgid="6068141142874046249">"Pristupačnost"</string>
+    <string name="ringtone_title" msgid="760362035635084653">"Zvuk zvona telefona"</string>
+    <string name="vibrate_on_ring_title" msgid="3362916460327555241">"Vibriraj i za pozive"</string>
+    <string name="dtmf_tone_enable_title" msgid="6571449695997521615">"Zvuci numeričke tastature"</string>
+    <string name="dtmf_tone_length_title" msgid="8581125689808919460">"Trajanje tonova numeričke tastature"</string>
+  <string-array name="dtmf_tone_length_entries">
+    <item msgid="1036113889050195575">"Normalno"</item>
+    <item msgid="6177579030803486015">"Dugačko"</item>
+  </string-array>
+    <string name="respond_via_sms_setting_title" msgid="1318281521087951580">"Brzi odgovori"</string>
+    <string name="call_settings_label" msgid="313434211353070209">"Pozivi"</string>
+    <string name="manage_blocked_numbers_label" msgid="5959801428936629196">"Blokiranje poziva"</string>
+    <string name="blocked_numbers_disabled_emergency_header_label" msgid="7870947220238070418">"Blokiranje poziva je privremeno isključeno"</string>
+    <string name="blocked_numbers_disabled_emergency_desc" msgid="7755803249073401381">"Blokiranje poziva je onemogućeno zato što ste kontaktirali službe za pomoć u hitnim slučajevima sa ovog telefona u poslednjih 48 sati. Automatski će biti ponovo omogućeno kada istekne period od 48 sati."</string>
+    <string name="import_send_to_voicemail_numbers_label" msgid="1606601823746799926">"Uvezi brojeve"</string>
+    <string name="blocked_call_settings_import_description" msgid="8640906226815125906">"Ranije ste označili neke pozivaoce koje automatski treba preusmeriti na govornu poštu preko drugih aplikacija."</string>
+    <string name="blocked_call_settings_view_numbers_button" msgid="6698986720875955935">"Prikaži brojeve"</string>
+    <string name="blocked_call_settings_import_button" msgid="178821255125295473">"Uvezi"</string>
+    <string name="send_to_voicemail_import_failed" msgid="5547202002133560069">"Uvoz nije uspeo"</string>
+    <string name="voicemail_archive_failed" msgid="6263467962738772223">"Arhiviranje govorne pošte nije uspelo."</string>
+    <string name="description_blocked_number_list_delete" msgid="3240093199107796792">"Deblokiraj broj"</string>
+    <string name="addBlockedNumber" msgid="6064812257482886526">"Dodaj broj"</string>
+    <string name="block_number_footer_message_vvm" msgid="5387302253765439712">"Pozivi sa ovih brojeva će biti blokirani i poruke govorne pošte će se automatski brisati."</string>
+    <string name="block_number_footer_message_no_vvm" msgid="223238617533822381">"Pozivi sa ovih brojeva će biti blokirani, ali pozivaoci sa ovih brojeva će i dalje moći da vam ostavljaju poruke govorne pošte."</string>
+    <string name="block_list" msgid="7760188925338078011">"Blokirani brojevi"</string>
+    <string name="invalidNumber" msgid="619058581062192851">"<xliff:g id="NUMBER">%1$s</xliff:g> je nevažeći."</string>
+    <string name="alreadyBlocked" msgid="282340105563646876">"<xliff:g id="NUMBER">%1$s</xliff:g> je već blokiran."</string>
+    <string name="call_blocking_disabled_notification_title" msgid="8185193413377920194">"Blokiranje poziva je onemogućeno na 48 sati"</string>
+    <string name="call_blocking_disabled_notification_text" msgid="5330772013626378526">"Onemogućeno je zato što je upućen hitan poziv."</string>
+    <string name="phone_account_settings_label" msgid="5864322009841175294">"Nalozi za pozivanje"</string>
+    <string name="permission_single_turn_on" msgid="1543391076065465464">"Uključi"</string>
+    <string name="permission_multiple_turn_on" msgid="2426278457455950554">"Podesi dozvole"</string>
+    <string name="permission_no_speeddial" msgid="6882563445996184051">"Da biste omogućili brzo biranje, uključite dozvolu za Kontakte."</string>
+    <string name="permission_no_calllog" msgid="555711464287041043">"Da biste videli evidenciju poziva, uključite dozvolu za Telefon."</string>
+    <string name="permission_no_contacts" msgid="6237980143178936279">"Da biste videli kontakte, uključite dozvolu za Kontakte."</string>
+    <string name="permission_no_voicemail" msgid="8306280257799917574">"Da biste pristupili govornoj pošti, uključite dozvolu za Telefon."</string>
+    <string name="permission_no_search" msgid="84152933267902056">"Da biste pretražili kontakte, uključite dozvole za Kontakte."</string>
+    <string name="permission_place_call" msgid="2101287782615887547">"Da biste uputili poziv, uključite dozvolu za Telefon."</string>
+    <string name="toast_cannot_write_system_settings" msgid="5614246168296606709">"Aplikacija Telefon nema dozvolu za upisivanje u sistemska podešavanja."</string>
+    <string name="blocked_number_call_log_label" msgid="8912042441473014712">"Blokiran"</string>
+    <string name="accessibility_call_is_active" msgid="2297282583928508760">"<xliff:g id="NAMEORNUMBER">^1</xliff:g> je aktivan"</string>
+</resources>

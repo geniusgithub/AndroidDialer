@@ -17,7 +17,6 @@
 package com.android.contacts.common.util;
 
 import android.Manifest.permission;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AppOpsManager;
@@ -25,13 +24,13 @@ import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Process;
 import android.provider.Settings;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 
 import com.android.contacts.common.R;
@@ -45,46 +44,9 @@ public class PermissionsUtil {
     // only need to check a single permission in each group.
     // Note: This assumes that the app has correctly requested for all the relevant permissions
     // in its Manifest file.
-
     public static final String PHONE = permission.CALL_PHONE;
-    public static final String PHONE_EXTRA1 = permission.READ_CALL_LOG;
-    public static final String PHONE_EXTRA2 = permission.WRITE_CALL_LOG;
-    public static final String PHONE_EXTRA3 = permission.READ_PHONE_STATE;
-    public static final String PHONE_EXTRA4 = permission.PROCESS_OUTGOING_CALLS;
-
-
     public static final String CONTACTS = permission.READ_CONTACTS;
-    public static final String CONTACTS_EXTRA1 = permission.WRITE_CONTACTS;
-    public static final String CONTACTS_EXTRA2 = permission.GET_ACCOUNTS;
-
-
     public static final String LOCATION = permission.ACCESS_FINE_LOCATION;
-    public static final String LOCATION_EXTRA1 = permission.ACCESS_COARSE_LOCATION;
-
-
-    public static final String STORAGE = permission.WRITE_EXTERNAL_STORAGE;
-
-
-/*    public static final String SMS = permission.SEND_SMS;
-    public static final String CALENDAR = permission.READ_CALENDAR;
-    public static final String MICROPHONE = permission.RECORD_AUDIO;
-    public static final String SENSORS = permission.BODY_SENSORS;
-    public static final String CAMERA = permission.CAMERA;*/
-
-    private static boolean sInitialized = false;
-    public static boolean sIsAtLeastM = getApiVersion() >= android.os.Build.VERSION_CODES.M;
-    public static final String PACKAGE_URI_PREFIX = "package:";
-    public static final String SECURITY_INTENT = "com.android.SETTINGS";
-
-    public static int getApiVersion() {
-        return android.os.Build.VERSION.SDK_INT;
-    }
-
-    public static String[] sRequiredPermissions = new String[] { PHONE,PHONE_EXTRA1,PHONE_EXTRA2,PHONE_EXTRA3,PHONE_EXTRA4,
-                                                                    CONTACTS,CONTACTS_EXTRA1,CONTACTS_EXTRA2,
-                                                                    LOCATION,LOCATION_EXTRA1,
-                                                                    STORAGE };
-
 
     public static boolean hasPhonePermissions(Context context) {
         return hasPermission(context, PHONE);
@@ -98,56 +60,9 @@ public class PermissionsUtil {
         return hasPermission(context, LOCATION);
     }
 
-    public static boolean hasStoragePermissions(Context context) {
-        return hasPermission(context, STORAGE);
-    }
-
-
-/*    public static boolean hasSmsPermissions(Context context) {
-        return hasPermission(context, SMS);
-    }*/
-
-
-
-/*    public static boolean hasCalendarPermissions(Context context) {
-        return hasPermission(context, CALENDAR);
-    }
-
-    public static boolean hasMicrophonePermissions(Context context) {
-        return hasPermission(context, MICROPHONE);
-    }
-
-    public static boolean hasSensorsPermissions(Context context) {
-        return hasPermission(context, SENSORS);
-    }
-
-    public static boolean hasCameraPermissions(Context context) {
-        return hasPermission(context, CAMERA);
-    }*/
-
-
-    public static boolean hasNecessaryRequiredPermissions(Context context) {
-        return hasPermissions(context, sRequiredPermissions);
-    }
-
-    @SuppressLint("NewApi")
     public static boolean hasPermission(Context context, String permission) {
-
-        if (!sIsAtLeastM)
-            return true;
-        return context.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED;
-
-    }
-
-    public static boolean hasPermissions(Context context,
-                                         final String... permissions) {
-        for (final String permission : permissions) {
-            if (!hasPermission(context, permission)) {
-                return false;
-            }
-        }
-        return true;
-
+        return ContextCompat.checkSelfPermission(context, permission)
+                == PackageManager.PERMISSION_GRANTED;
     }
 
     public static boolean hasAppOp(Context context, String appOp) {
@@ -158,47 +73,6 @@ public class PermissionsUtil {
         return mode == AppOpsManager.MODE_ALLOWED;
     }
 
-    public static Dialog createPermissionSettingDialog(final Activity activity,
-                                                       String forbiddenPermissions) {
-        if (forbiddenPermissions.length() > 1) {
-            forbiddenPermissions = forbiddenPermissions.substring(0,
-                    forbiddenPermissions.length() - 1);
-        }
-        Dialog dialog = new AlertDialog.Builder(activity)
-                .setTitle(R.string.permission_title)
-                .setMessage(
-                        activity.getString(
-                                R.string.permission_setting_guidedialog,
-                                forbiddenPermissions))
-                .setPositiveButton(R.string.permission_gosetting,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                                int which) {
-                                final Intent intentnew = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                                        Uri.parse(PermissionsUtil.PACKAGE_URI_PREFIX + activity.getPackageName()));
-                                activity.startActivity(intentnew);
-                            }
-                        })
-                .setNegativeButton(R.string.permission_know,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                                int which) {
-                                dialog.dismiss();
-                            }
-                        }).create();
-        dialog.setOnDismissListener(new OnDismissListener() {
-
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                // TODO Auto-generated method stub
-                activity.finish();
-            }
-        });
-        dialog.setCanceledOnTouchOutside(false);
-        return dialog;
-    }
     /**
      * Rudimentary methods wrapping the use of a LocalBroadcastManager to simplify the process
      * of notifying other classes when a particular fragment is notified that a permission is
@@ -239,4 +113,87 @@ public class PermissionsUtil {
         final Intent intent = new Intent(permission);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
+
+
+
+
+    // add by geniugithub begin
+    public static final String PACKAGE_URI_PREFIX = "package:";
+
+    public static final String PHONE_EXTRA1 = permission.READ_CALL_LOG;
+    public static final String PHONE_EXTRA2 = permission.WRITE_CALL_LOG;
+    public static final String PHONE_EXTRA3 = permission.READ_PHONE_STATE;
+    public static final String PHONE_EXTRA4 = permission.PROCESS_OUTGOING_CALLS;
+
+
+    public static final String CONTACTS_EXTRA1 = permission.WRITE_CONTACTS;
+    public static final String CONTACTS_EXTRA2 = permission.GET_ACCOUNTS;
+
+    public static final String LOCATION_EXTRA1 = permission.ACCESS_COARSE_LOCATION;
+
+
+    public static final String STORAGE = permission.WRITE_EXTERNAL_STORAGE;
+    public static String[] sRequiredPermissions = new String[] { PHONE,PHONE_EXTRA1,PHONE_EXTRA2,PHONE_EXTRA3,PHONE_EXTRA4,
+            CONTACTS,CONTACTS_EXTRA1,CONTACTS_EXTRA2,
+            LOCATION,LOCATION_EXTRA1,
+            STORAGE };
+
+    public static boolean hasNecessaryRequiredPermissions(Context context) {
+        return hasPermissions(context, sRequiredPermissions);
+    }
+
+    public static boolean hasPermissions(Context context,
+                                         final String... permissions) {
+        for (final String permission : permissions) {
+            if (!hasPermission(context, permission)) {
+                return false;
+            }
+        }
+        return true;
+
+    }
+
+
+    public static Dialog createPermissionSettingDialog(final Activity activity,
+                                                       String forbiddenPermissions) {
+        if (forbiddenPermissions.length() > 1) {
+            forbiddenPermissions = forbiddenPermissions.substring(0,
+                    forbiddenPermissions.length() - 1);
+        }
+        Dialog dialog = new AlertDialog.Builder(activity)
+                .setTitle(R.string.permission_title)
+                .setMessage(
+                        activity.getString(
+                                R.string.permission_setting_guidedialog,
+                                forbiddenPermissions))
+                .setPositiveButton(R.string.permission_gosetting,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                final Intent intentnew = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                                        Uri.parse(PermissionsUtil.PACKAGE_URI_PREFIX + activity.getPackageName()));
+                                activity.startActivity(intentnew);
+                            }
+                        })
+                .setNegativeButton(R.string.permission_know,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                dialog.dismiss();
+                            }
+                        }).create();
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                // TODO Auto-generated method stub
+                activity.finish();
+            }
+        });
+        dialog.setCanceledOnTouchOutside(false);
+        return dialog;
+    }
+    // add by geniugithub end
 }

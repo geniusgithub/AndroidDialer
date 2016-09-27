@@ -26,6 +26,9 @@
          used in the Launcher icon. -->
     <string name="launcherActivityLabel">Phone</string>
 
+
+    <!-- Title for the activity that dials the phone, when launched directly into the dialpad -->
+    <string name="launcherDialpadActivityLabel">Phone Dialpad</string>
     <!-- The description text for the dialer tab.
 
     Note: AccessibilityServices use this attribute to announce what the view represents.
@@ -40,40 +43,64 @@
     This is especially valuable for views without textual representation like ImageView.
 
     [CHAR LIMIT=NONE] -->
-    <string name="recentCallsIconLabel">Call history</string>
+    <string name="callHistoryIconLabel">Call history</string>
 
-    <!-- Menu item used to call a contact from the call log -->
-    <string name="recentCalls_callNumber">Call
-        <xliff:g id="name">%s</xliff:g>
-    </string>
+    <!-- Text for a menu item to report a call as having been incorrectly identified. [CHAR LIMIT=48] -->
+    <string name="action_report_number">Report inaccurate number</string>
 
-    <!-- Text for a menu item to report a call as having been incorrectly identified.
-         [CHAR LIMIT=30] -->
-    <string name="call_detail_menu_report">Report inaccurate number</string>
+    <!-- Option displayed in context menu to copy long pressed phone number. [CHAR LIMIT=48] -->
+    <string name="action_copy_number_text">Copy number</string>
 
-    <!-- Menu item used to copy a number from the call log to the dialer so it can be edited before calling it -->
-    <string name="recentCalls_editNumberBeforeCall">Edit number before call</string>
+    <!-- Option displayed in context menu to copy long pressed voicemail transcription. [CHAR LIMIT=48] -->
+    <string name="copy_transcript_text">Copy transcription</string>
 
-    <!-- Menu item used to add a number from the call log to contacts -->
-    <string name="recentCalls_addToContact">Add to a contact</string>
+    <!-- Label for action to block a number. [CHAR LIMIT=48] -->
+    <string name="action_block_number">Block number</string>
 
-    <!-- Menu item used to remove a single call from the call log -->
-    <string name="recentCalls_removeFromRecentList">Delete from call history</string>
+    <!-- Text for snackbar to undo blocking a number. [CHAR LIMIT=64] -->
+    <string name="snackbar_number_blocked">
+        <xliff:g id="number" example="(555) 555-5555">%1$s</xliff:g> blocked</string>
+
+    <!-- Label for action to unblock a number [CHAR LIMIT=48]-->
+    <string name="action_unblock_number">Unblock number</string>
+
+    <!-- Text for snackbar to undo unblocking a number. [CHAR LIMIT=64] -->
+    <string name="snackbar_number_unblocked">
+        <xliff:g id="number" example="(555) 555-5555">%1$s</xliff:g>
+        unblocked</string>
+
+    <!-- Text for undo button in snackbar for blocking/unblocking number. [CHAR LIMIT=10] -->
+    <string name="block_number_undo">UNDO</string>
+
+    <!-- Menu item in call details used to remove a call or voicemail from the call log. -->
+    <string name="call_details_delete">Delete</string>
+
+    <!-- Label for action to edit a number before calling it. [CHAR LIMIT=48] -->
+    <string name="action_edit_number_before_call">Edit number before call</string>
 
     <!-- Menu item used to remove all calls from the call log -->
-    <string name="recentCalls_deleteAll">Clear call history</string>
+    <string name="call_log_delete_all">Clear call history</string>
 
     <!-- Menu item used to delete a voicemail. [CHAR LIMIT=30] -->
-    <string name="recentCalls_trashVoicemail">Delete voicemail</string>
+    <string name="call_log_trash_voicemail">Delete voicemail</string>
 
-    <!-- Menu item used to share a voicemail. [CHAR LIMIT=30] -->
-    <string name="recentCalls_shareVoicemail">Share voicemail</string>
+    <!-- Menu item used to archive a voicemail. [CHAR LIMIT=30] -->
+    <string name="call_log_archive_voicemail">Archive voicemail</string>
 
-    <!-- Text displayed when the call log is empty. -->
-    <string name="recentCalls_empty">Your call log is empty</string>
+    <!-- Menu item used to send a voicemail through other applications [CHAR LIMIT=30] -->
+    <string name="call_log_share_voicemail">Share voicemail</string>
 
-    <!-- Label of the button displayed when the call log is empty. Allows the user to make a call. -->
-    <string name="recentCalls_empty_action">Make a call</string>
+    <!-- Text for snackbar to undo a voicemail delete. [CHAR LIMIT=30] -->
+    <string name="snackbar_voicemail_deleted">Voicemail deleted</string>
+
+    <!-- Text for snackbar to undo a voicemail archive. [CHAR LIMIT=30] -->
+    <string name="snackbar_voicemail_archived">Voicemail archived</string>
+
+    <!-- Text for undo button in snackbar for voicemail deletion. [CHAR LIMIT=10] -->
+    <string name="snackbar_voicemail_deleted_undo">UNDO</string>
+
+    <!-- Text for going to archive button in snackbar for voicemail archive. [CHAR LIMIT=10] -->
+    <string name="snackbar_voicemail_archived_goto">GOTO ARCHIVE</string>
 
     <!-- Title of the confirmation dialog for clearing the call log. [CHAR LIMIT=37]  -->
     <string name="clearCallLogConfirmation_title">Clear call history?</string>
@@ -83,6 +110,30 @@
 
     <!-- Title of the "Clearing call log" progress-dialog [CHAR LIMIT=35] -->
     <string name="clearCallLogProgress_title">Clearing call history\u2026</string>
+
+    <!-- Title used for the activity for placing a call. This name appears
+         in activity disambig dialogs -->
+    <string name="userCallActivityLabel" product="default">Phone</string>
+
+    <!-- Notification strings -->
+    <!-- Missed call notification label, used when there's exactly one missed call -->
+    <string name="notification_missedCallTitle">Missed call</string>
+    <!-- Missed call notification label, used when there's exactly one missed call from work contact -->
+    <string name="notification_missedWorkCallTitle">Missed work call</string>
+    <!-- Missed call notification label, used when there are two or more missed calls -->
+    <string name="notification_missedCallsTitle">Missed calls</string>
+    <!-- Missed call notification message used when there are multiple missed calls -->
+    <string name="notification_missedCallsMsg"><xliff:g id="num_missed_calls">%s</xliff:g> missed calls</string>
+    <!-- Message for "call back" Action, which is displayed in the missed call notificaiton.
+         The user will be able to call back to the person or the phone number.
+         [CHAR LIMIT=18] -->
+    <string name="notification_missedCall_call_back">Call back</string>
+    <!-- Message for "reply via sms" action, which is displayed in the missed call notification.
+         The user will be able to send text messages using the phone number.
+         [CHAR LIMIT=18] -->
+    <string name="notification_missedCall_message">Message</string>
+        <!-- DO NOT TRANSLATE. Hardcoded number used for restricted incoming phone numbers. -->
+    <string name="handle_restricted">RESTRICTED</string>
 
     <!-- Title of the notification of new voicemails. [CHAR LIMIT=30] -->
     <plurals name="notification_voicemail_title">
@@ -116,11 +167,11 @@
     <!-- Message to show when there is an error playing back the voicemail. [CHAR LIMIT=40] -->
     <string name="voicemail_playback_error">Couldn\'t play voicemail</string>
 
-    <!-- Message to display before we have prepared the media player, i.e. before we know duration. [CHAR LIMIT=40] -->
-    <string name="voicemail_buffering">Buffering\u2026</string>
-
     <!-- Message to display whilst we are waiting for the content to be fetched. [CHAR LIMIT=40] -->
     <string name="voicemail_fetching_content">Loading voicemail\u2026</string>
+
+    <!-- Message to display whilst we are waiting for the content to be archived. [CHAR LIMIT=40] -->
+    <string name="voicemail_archiving_content">Archiving voicemail\u2026</string>
 
     <!-- Message to display if we fail to get content within a suitable time period. [CHAR LIMIT=40] -->
     <string name="voicemail_fetching_timout">Couldn\'t load voicemail</string>
@@ -247,9 +298,6 @@
          [CHAR LIMIT=NONE] -->
     <string name="action_menu_dialpad_button">dial pad</string>
 
-    <!-- Menu item to copy something [CHAR_LIMIT=10] -->
-    <string name="menu_copy">Copy</string>
-
     <!-- Menu item used to show only outgoing in the call log. [CHAR LIMIT=30] -->
     <string name="menu_show_outgoing_only">Show outgoing only</string>
 
@@ -299,13 +347,13 @@
          is already in progress.) -->
     <string name="dialer_addAnotherCall">Add call</string>
 
-    <!-- Title for incoming call details screen -->
+    <!-- Title for incoming call type. [CHAR LIMIT=40] -->
     <string name="type_incoming">Incoming call</string>
 
-    <!-- Title for outgoing call details screen -->
+    <!-- Title for outgoing call type. [CHAR LIMIT=40] -->
     <string name="type_outgoing">Outgoing call</string>
 
-    <!-- Title for missed call details screen -->
+    <!-- Title for missed call type. [CHAR LIMIT=40] -->
     <string name="type_missed">Missed call</string>
 
     <!-- Title for incoming video call in call details screen [CHAR LIMIT=60] -->
@@ -319,6 +367,12 @@
 
     <!-- Title for voicemail details screen -->
     <string name="type_voicemail">Voicemail</string>
+
+    <!-- Title for rejected call type. [CHAR LIMIT=40] -->
+    <string name="type_rejected">Declined call</string>
+
+    <!-- Title for blocked call type. [CHAR LIMIT=40] -->
+    <string name="type_blocked">Blocked call</string>
 
     <!-- Description for incoming calls going to voice mail vs. not -->
     <string name="actionIncomingCall">Incoming calls</string>
@@ -350,13 +404,6 @@
               This is especially valuable for views without textual representation like ImageView.
     -->
     <string name="description_contact_details">Contact details for <xliff:g id="nameOrNumber">%1$s</xliff:g></string>
-
-    <!-- String indicating a call log entry has an associated voicemail.
-
-    Note: AccessibilityServices use this attribute to announce what the view represents.
-          This is especially valuable for views without textual representation like ImageView.
-    -->
-    <string name="description_new_voicemail">New voicemail.</string>
 
     <!-- String indicating the number of calls to/from a caller in the call log.
 
@@ -414,6 +461,21 @@
     <!-- A nicely formatted call duration displayed when viewing call details. For example "42 min 28 sec" -->
     <string name="callDetailsDurationFormat"><xliff:g id="minutes" example="42">%s</xliff:g> min <xliff:g id="seconds" example="28">%s</xliff:g> sec</string>
 
+    <!-- The string 'Today'. This value is used in the voicemailCallLogDateTimeFormat rather than an
+         explicit date string, e.g. Jul 25, 2014, in the event that a voicemail was created on the
+         current day -->
+    <string name="voicemailCallLogToday">@string/call_log_header_today</string>
+
+    <!-- A format string used for displaying the date and time for a voicemail call log. For example: Jul 25, 2014 at 2:49 PM
+         The date will be replaced by 'Today' for voicemails created on the current day. For example: Today at 2:49 PM -->
+    <string name="voicemailCallLogDateTimeFormat"><xliff:g id="date" example="Jul 25, 2014">%1$s</xliff:g> at <xliff:g id="time" example="2:49 PM">%2$s</xliff:g></string>
+
+    <!-- Format for duration of voicemails which are displayed when viewing voicemail logs. For example "01:22" -->
+    <string name="voicemailDurationFormat"><xliff:g id="minutes" example="10">%1$02d</xliff:g>:<xliff:g id="seconds" example="20">%2$02d</xliff:g></string>
+
+    <!-- A format string used for displaying the date, time and duration for a voicemail call log. For example: Jul 25, 2014 at 2:49 PM • 00:34 -->
+    <string name="voicemailCallLogDateTimeFormatWithDuration"><xliff:g id="dateAndTime" example="Jul 25, 2014 at 2:49PM">%1$s</xliff:g> \u2022 <xliff:g id="duration" example="01:22">%2$s</xliff:g></string>
+
     <!-- Dialog message which is shown when the user tries to make a phone call
          to prohibited phone numbers [CHAR LIMIT=NONE] -->
     <string name="dialog_phone_call_prohibited_message" msgid="4313552620858880999">Can\'t call this number</string>
@@ -458,7 +520,11 @@
 
     <!-- Hint displayed in dialer search box when there is no query that is currently typed.
          [CHAR LIMIT=30] -->
-    <string name="dialer_hint_find_contact">Enter a name or phone number</string>
+    <string name="dialer_hint_find_contact">Search contacts</string>
+
+    <!-- Hint displayed in add blocked number search box when there is no query typed.
+         [CHAR LIMIT=45] -->
+    <string name="block_number_search_hint">Add number or search contacts</string>
 
     <!-- String resource for the font-family to use for the call log activity's title
          Do not translate. -->
@@ -468,17 +534,29 @@
          Do not translate. -->
     <string name="view_full_call_history_font_family">sans-serif</string>
 
+    <!-- Text displayed when the call log is empty. -->
+    <string name="call_log_all_empty">Your call history is empty</string>
+
+    <!-- Label of the button displayed when the call history is empty. Allows the user to make a call. -->
+    <string name="call_log_all_empty_action">Make a call</string>
+
     <!-- Text displayed when the list of missed calls is empty -->
-    <string name="recentMissed_empty">You have no missed calls.</string>
+    <string name="call_log_missed_empty">You have no missed calls.</string>
 
     <!-- Text displayed when the list of voicemails is empty -->
-    <string name="recentVoicemails_empty">Your voicemail inbox is empty.</string>
+    <string name="call_log_voicemail_empty">Your voicemail inbox is empty.</string>
+
+    <!-- Text displayed when the list of voicemail archives is empty -->
+    <string name="voicemail_archive_empty">Your voicemail archive is empty.</string>
 
     <!--  Menu option to show favorite contacts only -->
     <string name="show_favorites_only">Show favorites only</string>
 
     <!--  Title of activity that displays a list of all calls -->
-    <string name="call_log_activity_title">History</string>
+    <string name="call_log_activity_title">Call History</string>
+
+    <!--  Title of activity that displays a list of all archived voicemails -->
+    <string name="voicemail_archive_activity_title">Voicemail Archive</string>
 
     <!-- Title for the call log tab containing the list of all voicemails and calls
          [CHAR LIMIT=30] -->
@@ -492,12 +570,56 @@
          [CHAR LIMIT=30] -->
     <string name="call_log_voicemail_title">Voicemail</string>
 
+    <!-- Title for dialog which opens when the user needs to migrate to the framework blocking implementation [CHAR LIMIT=30]-->
+    <string name="migrate_blocked_numbers_dialog_title">New, simplified blocking</string>
+
+    <!-- Body text for dialog which opens when the user needs to migrate to the framework blocking implementation [CHAR LIMIT=NONE]-->
+    <string name="migrate_blocked_numbers_dialog_message">To better protect you, Phone needs to change how blocking works. Your blocked numbers will now stop both calls and texts and may be shared with other apps.</string>
+
+    <!-- Positive confirmation button for the dialog which opens when the user needs to migrate to the framework blocking implementation [CHAR LIMIT=NONE]-->
+    <string name="migrate_blocked_numbers_dialog_allow_button">Allow</string>
+
+    <!-- Do not translate -->
+    <string name="migrate_blocked_numbers_dialog_cancel_button">@android:string/cancel</string>
+
+    <!-- Confirmation dialog title for blocking a number. [CHAR LIMIT=NONE] -->
+    <string name="block_number_confirmation_title">Block
+        <xliff:g id="number" example="(555) 555-5555">%1$s</xliff:g>?</string>
+
+    <!-- Confirmation dialog message for blocking a number with visual voicemail active.
+         [CHAR LIMIT=NONE] -->
+    <string name="block_number_confirmation_message_vvm">
+        Calls from this number will be blocked and voicemails will be automatically deleted.
+    </string>
+
+    <!-- Confirmation dialog message for blocking a number with no visual voicemail.
+         [CHAR LIMIT=NONE] -->
+    <string name="block_number_confirmation_message_no_vvm">
+        Calls from this number will be blocked, but the caller may still be able to leave you voicemails.
+    </string>
+
+    <!-- Confirmation dialog message for blocking a number with new filtering enabled.
+         [CHAR LIMIT=NONE] -->
+    <string name="block_number_confirmation_message_new_filtering">
+        You will no longer receive calls or texts from this number.
+    </string>
+
+    <!-- Block number alert dialog button [CHAR LIMIT=32] -->
+    <string name="block_number_ok">BLOCK</string>
+
+    <!-- Confirmation dialog for unblocking a number. [CHAR LIMIT=NONE] -->
+    <string name="unblock_number_confirmation_title">Unblock
+        <xliff:g id="number" example="(555) 555-5555">%1$s</xliff:g>?</string>
+
+    <!-- Unblock number alert dialog button [CHAR LIMIT=32] -->
+    <string name="unblock_number_ok">UNBLOCK</string>
+
     <!-- Accessibility text for the tab showing recent and favorite contacts who can be called.
          [CHAR LIMIT=40] -->
     <string name="tab_speed_dial">Speed dial</string>
 
-    <!-- Accessibility text for the tab showing the call log of recent calls. [CHAR LIMIT=40] -->
-    <string name="tab_recents">Recents</string>
+    <!-- Accessibility text for the tab showing the call history. [CHAR LIMIT=40] -->
+    <string name="tab_history">Call History</string>
 
     <!-- Accessibility text for the tab showing the user's contacts. [CHAR LIMIT=40] -->
     <string name="tab_all_contacts">Contacts</string>
@@ -529,8 +651,8 @@
     <!-- Shortcut item used to make a video call directly from search. [CHAR LIMIT=25] -->
     <string name="search_shortcut_make_video_call">Make video call</string>
 
-    <!-- Title for the call log list item that brings users to the full call history when clicked -->
-    <string name="show_call_history">View full call history</string>
+    <!-- Shortcut item used to block a number directly from search. [CHAR LIMIT=25] -->
+    <string name="search_shortcut_block_number">Block number</string>
 
     <!-- Number of missed calls shown on call card [CHAR LIMIT=40] -->
     <string name="num_missed_calls"><xliff:g id="number">%s</xliff:g> new missed calls</string>
@@ -564,7 +686,7 @@
     <!-- Button text for a button displayed underneath an entry in the call log, which opens up a
          messaging app to send a SMS to the number represented by the call log entry.
          [CHAR LIMIT=30] -->
-    <string name="call_log_action_send_message">Send Message</string>
+    <string name="call_log_action_send_message">Send a message</string>
 
     <!-- Button text for the button displayed underneath an entry in the call log.
          Tapping navigates the user to the call details screen where the user can view details for
@@ -587,6 +709,16 @@
          [CHAR LIMIT=NONE] -->
     <string name="description_incoming_answered_call">Answered call from <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g>, <xliff:g id="typeOrLocation" example="Mobile">^2</xliff:g>, <xliff:g id="timeOfCall" example="2 min ago">^3</xliff:g>, <xliff:g id="phoneAccount" example="on SIM 1">^4</xliff:g>.</string>
 
+    <!-- String describing an "unread" voicemail entry in the voicemails tab.
+         Note: AccessibilityServices use this attribute to announce what the view represents.
+         [CHAR LIMIT=NONE] -->
+    <string name="description_unread_voicemail">Unread voicemail from <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g>, <xliff:g id="typeOrLocation" example="Mobile">^2</xliff:g>, <xliff:g id="timeOfCall" example="2 min ago">^3</xliff:g>, <xliff:g id="phoneAccount" example="on SIM 1">^4</xliff:g>.</string>
+
+    <!-- String describing a "read" voicemail entry in the voicemails tab.
+     Note: AccessibilityServices use this attribute to announce what the view represents.
+     [CHAR LIMIT=NONE] -->
+    <string name="description_read_voicemail">Voicemail from <xliff:g id="nameOrNumber" example="John Smith">^1</xliff:g>, <xliff:g id="typeOrLocation" example="Mobile">^2</xliff:g>, <xliff:g id="timeOfCall" example="2 min ago">^3</xliff:g>, <xliff:g id="phoneAccount" example="on SIM 1">^4</xliff:g>.</string>
+
     <!-- String describing an outgoing call entry in the call log.
          Note: AccessibilityServices uses this attribute to announce what the view represents.
          [CHAR LIMIT=NONE] -->
@@ -598,6 +730,26 @@
          Note: AccessibilityServices uses this attribute to announce what the view represents.
          [CHAR LIMIT=NONE] -->
     <string name="description_phone_account">on <xliff:g id="phoneAccount" example="SIM 1">^1</xliff:g></string>
+
+    <!-- String describing the secondary line number the call was received via.
+         Note: AccessibilityServices use this attribute to announce what the view represents.
+         [CHAR LIMIT=NONE]-->
+    <string name="description_via_number">via <xliff:g id="number" example="(555) 555-5555">%1$s</xliff:g></string>
+
+    <!-- TextView text item showing the secondary line number the call was received via.
+         [CHAR LIMIT=NONE]-->
+    <string name="call_log_via_number">via <xliff:g id="number" example="(555) 555-5555">%1$s</xliff:g></string>
+
+    <!-- String describing the PhoneAccount and via number that a call was received on, if both are
+         visible.
+         Note: AccessibilityServices use this attribute to announce what the view represents.
+         [CHAR LIMIT=NONE]-->
+    <string name="description_via_number_phone_account">on <xliff:g id="phoneAccount" example="SIM 1">%1$s</xliff:g>, via <xliff:g id="number" example="(555) 555-5555">%2$s</xliff:g></string>
+
+    <!-- The order of the PhoneAccount and via number that a call was received on,
+         if both are visible.
+         [CHAR LIMIT=NONE]-->
+    <string name="call_log_via_number_phone_account"><xliff:g id="phoneAccount" example="SIM 1">%1$s</xliff:g> via <xliff:g id="number" example="(555) 555-5555">%2$s</xliff:g></string>
 
     <!-- String describing the phone icon on a call log list item. When tapped, it will place a
          call to the number represented by that call log entry. [CHAR LIMIT=NONE]-->
@@ -778,6 +930,95 @@
     <!-- Label for the call settings section [CHAR LIMIT=30] -->
     <string name="call_settings_label">Calls</string>
 
+    <!-- Label for the blocked numbers settings section [CHAR LIMIT=30] -->
+    <string name="manage_blocked_numbers_label">Call blocking</string>
+
+    <!-- Label for a section describing that call blocking is temporarily disabled because an
+         emergency call was made. [CHAR LIMIT=50] -->
+    <string name="blocked_numbers_disabled_emergency_header_label">
+        Call blocking temporarily off
+    </string>
+
+    <!-- Description that call blocking is temporarily disabled because the user called an
+         emergency number, and explains that call blocking will be re-enabled after a buffer
+         period has passed. [CHAR LIMIT=NONE] -->
+    <string name="blocked_numbers_disabled_emergency_desc">
+        Call blocking has been disabled because you contacted emergency services from this phone
+        within the last 48 hours. It will be automatically reenabled once the 48 hour period
+        expires.
+    </string>
+
+    <!-- Label for fragment to import numbers from contacts marked as send to voicemail.
+         [CHAR_LIMIT=30] -->
+    <string name="import_send_to_voicemail_numbers_label">Import numbers</string>
+
+    <!-- Text informing the user they have previously marked contacts to be sent to voicemail.
+         This will be followed by two buttons, 1) to view who is marked to be sent to voicemail
+         and 2) importing these settings to Dialer's block list. [CHAR LIMIT=NONE] -->
+    <string name="blocked_call_settings_import_description">
+        You previously marked some callers to be automatically sent to voicemail via other apps.
+    </string>
+
+    <!-- Label for button to view numbers of contacts previous marked to be sent to voicemail.
+         [CHAR_LIMIT=20] -->
+    <string name="blocked_call_settings_view_numbers_button">View Numbers</string>
+
+    <!-- Label for button to import settings for sending contacts to voicemail into Dialer's block
+         list. [CHAR_LIMIT=20] -->
+    <string name="blocked_call_settings_import_button">Import</string>
+
+    <!-- Error toast message for when send to voicemail import fails. [CHAR LIMIT=40] -->
+    <string name="send_to_voicemail_import_failed">Import failed</string>
+
+    <!-- Error toast message for when voicemail archive fails. [CHAR LIMIT=40] -->
+    <string name="voicemail_archive_failed">Failed to archive voicemail.</string>
+
+    <!-- String describing the delete icon on a blocked number list item.
+        When tapped, it will show a dialog confirming the unblocking of the number.
+        [CHAR LIMIT=NONE]-->
+    <string name="description_blocked_number_list_delete">Unblock number</string>
+
+    <!-- Button to bring up UI to add a number to the blocked call list. [CHAR LIMIT=40] -->
+    <string name="addBlockedNumber">Add number</string>
+
+    <!-- Footer message of number blocking screen with visual voicemail active.
+        [CHAR LIMIT=NONE] -->
+    <string name="block_number_footer_message_vvm">
+        Calls from these numbers will be blocked and voicemails will be automatically deleted.
+    </string>
+
+    <!-- Footer message of number blocking screen with no visual voicemail.
+         [CHAR LIMIT=NONE] -->
+    <string name="block_number_footer_message_no_vvm">
+         Calls from these numbers will be blocked, but they may still be able to leave you voicemails.
+    </string>
+
+    <!-- Heading for the block list in the "Spam and blocked cal)ls" settings. [CHAR LIMIT=64] -->
+    <string name="block_list">Blocked numbers</string>
+
+    <!-- Error message shown when user tries to add invalid number to the block list.
+        [CHAR LIMIT=64] -->
+    <string name="invalidNumber"><xliff:g id="number" example="(555) 555-5555">%1$s</xliff:g>
+        is invalid.</string>
+
+    <!-- Error message shown when user tries to add a number to the block list that was already
+        blocked. [CHAR LIMIT=64] -->
+    <string name="alreadyBlocked"><xliff:g id="number" example="(555) 555-5555">%1$s</xliff:g>
+        is already blocked.</string>
+
+    <!-- Title of notification telling the user that call blocking has been temporarily disabled.
+         [CHAR LIMIT=56] -->
+    <string name="call_blocking_disabled_notification_title">
+        Call blocking disabled for 48 hours
+    </string>
+
+    <!-- Text for notification which provides the reason that call blocking has been temporarily
+         disabled. Namely, we disable call blocking after an emergency call in case of return
+         phone calls made by emergency services. [CHAR LIMIT=64] -->
+    <string name="call_blocking_disabled_notification_text">
+        Disabled because an emergency call was made.
+    </string>
+
     <!-- Label for the phone account settings [CHAR LIMIT=30] -->
     <string name="phone_account_settings_label">Calling accounts</string>
 
@@ -790,33 +1031,40 @@
     <!-- DO NOT TRANSLATE. Internal key for DTMF tone length preference. -->
     <string name="dtmf_tone_length_preference_key" translatable="false">button_dtmf_settings</string>
 
-    <!-- The label of the button used to turn on a single permission -->
+    <!-- The label of the button used to turn on a single permission [CHAR LIMIT=30]-->
     <string name="permission_single_turn_on">Turn on</string>
 
-    <!--  The label of the button used to turn on multiple permissions -->
+    <!--  The label of the button used to turn on multiple permissions [CHAR LIMIT=30]-->
     <string name="permission_multiple_turn_on">Set permissions</string>
 
-    <!-- Shown as a prompt to turn on the contacts permission to enable speed dial -->
-    <string name="permission_no_speeddial">To enable speed dial,\n turn on the Contacts permission.</string>
+    <!-- Shown as a prompt to turn on the contacts permission to enable speed dial [CHAR LIMIT=NONE]-->
+    <string name="permission_no_speeddial">To enable speed dial, turn on the Contacts permission.</string>
 
-    <!-- Shown as a prompt to turn on the phone permission to enable the call log -->
-    <string name="permission_no_calllog">To see your call log,\n turn on the Phone permission.</string>
+    <!-- Shown as a prompt to turn on the phone permission to enable the call log [CHAR LIMIT=NONE]-->
+    <string name="permission_no_calllog">To see your call log, turn on the Phone permission.</string>
 
-    <!-- Shown as a prompt to turn on the contacts permission to show all contacts -->
-    <string name="permission_no_contacts">To see your contacts,\n turn on the Contacts permission.</string>
+    <!-- Shown as a prompt to turn on the contacts permission to show all contacts [CHAR LIMIT=NONE]-->
+    <string name="permission_no_contacts">To see your contacts, turn on the Contacts permission.</string>
 
-    <!-- Shown as a prompt to turn on the phone permission to show voicemails -->
-    <string name="permission_no_voicemail">To access your voicemail,\n turn on the Phone permission.</string>
+    <!-- Shown as a prompt to turn on the phone permission to show voicemails [CHAR LIMIT=NONE]-->
+    <string name="permission_no_voicemail">To access your voicemail, turn on the Phone permission.</string>
 
-    <!-- Shown as a prompt to turn on contacts permissions to allow contact search -->
+    <!-- Shown as a prompt to turn on contacts permissions to allow contact search [CHAR LIMIT=NONE]-->
     <string name="permission_no_search">To search your contacts, turn on the Contacts permissions.</string>
 
-    <!-- Shown as a prompt to turn on the phone permission to allow a call to be placed -->
-    <string name="permission_place_call">To place a call,\n turn on the Phone permission.</string>
+    <!-- Shown as a prompt to turn on the phone permission to allow a call to be placed [CHAR LIMIT=NONE]-->
+    <string name="permission_place_call">To place a call, turn on the Phone permission.</string>
 
-    <!-- Shown as a message that notifies the user that the Phone app cannot write to system settings, which is why the system settings app is being launched directly instead.-->
+    <!-- Shown as a message that notifies the user that the Phone app cannot write to system settings, which is why the system settings app is being launched directly instead. [CHAR LIMIT=NONE]-->
     <string name="toast_cannot_write_system_settings">Phone app does not have permission to write to system settings.</string>
 
+    <!-- Label under the name of a blocked number in the call log. [CHAR LIMIT=15] -->
+    <string name="blocked_number_call_log_label">Blocked</string>
 
-    <string name="required_permissions_promo">通讯录需要同时获得“电话”,“通讯录”,“存储空间”和“位置”的访问权限。"</string>
+    <!-- Accessibility announcement to indicate which call is active -->
+    <string name="accessibility_call_is_active"><xliff:g id="nameOrNumber">^1</xliff:g> is active</string>
+
+    <!--add by geniugithub -->
+    <string name="required_permissions_promo">Contacts need to be "telephone", "address book", "storage space" and "location" access.</string>
+
 </resources>

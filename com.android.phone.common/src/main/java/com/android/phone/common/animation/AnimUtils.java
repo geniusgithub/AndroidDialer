@@ -22,7 +22,8 @@ import android.animation.ValueAnimator;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
 import android.view.animation.Interpolator;
-import android.view.animation.PathInterpolator;
+
+import com.android.phone.common.compat.PathInterpolatorCompat;
 
 import java.lang.Float;
 
@@ -30,9 +31,12 @@ public class AnimUtils {
     public static final int DEFAULT_DURATION = -1;
     public static final int NO_DELAY = 0;
 
-    public static final Interpolator EASE_IN = new PathInterpolator(0.0f, 0.0f, 0.2f, 1.0f);
-    public static final Interpolator EASE_OUT = new PathInterpolator(0.4f, 0.0f, 1.0f, 1.0f);
-    public static final Interpolator EASE_OUT_EASE_IN = new PathInterpolator(0.4f, 0, 0.2f, 1);
+    public static final Interpolator EASE_IN = PathInterpolatorCompat.create(
+            0.0f, 0.0f, 0.2f, 1.0f);
+    public static final Interpolator EASE_OUT = PathInterpolatorCompat.create(
+            0.4f, 0.0f, 1.0f, 1.0f);
+    public static final Interpolator EASE_OUT_EASE_IN = PathInterpolatorCompat.create(
+            0.4f, 0, 0.2f, 1);
 
     public static class AnimationCallback {
         public void onAnimationEnd() {}

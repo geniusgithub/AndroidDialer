@@ -17,10 +17,8 @@
 package com.android.dialer.calllog;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.provider.CallLog.Calls;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.android.dialer.R;
 import com.android.dialer.util.PhoneNumberUtil;
@@ -67,6 +65,7 @@ public class PhoneNumberDisplayUtil {
             CharSequence number,
             int presentation,
             CharSequence formattedNumber,
+            CharSequence postDialDigits,
             boolean isVoicemail) {
         final CharSequence displayName = getDisplayName(context, number, presentation, isVoicemail);
         if (!TextUtils.isEmpty(displayName)) {
@@ -76,9 +75,9 @@ public class PhoneNumberDisplayUtil {
         if (!TextUtils.isEmpty(formattedNumber)) {
             return formattedNumber;
         } else if (!TextUtils.isEmpty(number)) {
-            return number;
+            return number.toString() + postDialDigits;
         } else {
-            return "";
+            return context.getResources().getString(R.string.unknown);
         }
     }
 }

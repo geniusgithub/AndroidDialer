@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  ~ Copyright (C) 2012 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License
+   -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="applicationLabel" msgid="7762561155467201526">"Тэлефон"</string>
+    <string name="launcherActivityLabel" msgid="1129729740601172692">"Тэлефон"</string>
+    <string name="launcherDialpadActivityLabel" msgid="3959809805046059167">"Панэль набору тэлефона"</string>
+    <string name="dialerIconLabel" msgid="6500826552823403796">"Тэлефон"</string>
+    <string name="callHistoryIconLabel" msgid="3734413397291301223">"Гісторыя выклікаў"</string>
+    <string name="action_report_number" msgid="4635403959812186162">"Паведаміць аб недакладным нумары"</string>
+    <string name="action_copy_number_text" msgid="588249522108594155">"Скапіраваць нумар"</string>
+    <string name="copy_transcript_text" msgid="5652787482893879382">"Капіраваць транскрыпцыю"</string>
+    <string name="action_block_number" msgid="1482657602262262134">"Заблакіраваць нумар"</string>
+    <string name="snackbar_number_blocked" msgid="939830142765936021">"<xliff:g id="NUMBER">%1$s</xliff:g> заблакіраваны"</string>
+    <string name="action_unblock_number" msgid="3043777622269776127">"Разблакіраваць нумар"</string>
+    <string name="snackbar_number_unblocked" msgid="4854738171099045912">"<xliff:g id="NUMBER">%1$s</xliff:g> разблакіраваны"</string>
+    <string name="block_number_undo" msgid="591338370336724156">"АДРАБІЦЬ"</string>
+    <string name="call_details_delete" msgid="1833359621896346955">"Выдаліць"</string>
+    <string name="action_edit_number_before_call" msgid="3100221149873436485">"Змяніць нумар перад тым, як тэлефанаваць"</string>
+    <string name="call_log_delete_all" msgid="4677609108288680411">"Ачысціць гісторыю выклікаў"</string>
+    <string name="call_log_trash_voicemail" msgid="1283948488625129019">"Выдаліць галас. паведамленне"</string>
+    <string name="call_log_archive_voicemail" msgid="9072936797223284265">"Архіваванне галас.паведамлення"</string>
+    <string name="call_log_share_voicemail" msgid="7272635349055945546">"Абагуліць галасавую пошту"</string>
+    <string name="snackbar_voicemail_deleted" msgid="5098542835986188582">"Павед.галасавой пошты выдалена"</string>
+    <string name="snackbar_voicemail_archived" msgid="7442340403660554373">"Галас. паведамленне архівавана"</string>
+    <string name="snackbar_voicemail_deleted_undo" msgid="3741811385891289167">"АДРАБІЦЬ"</string>
+    <string name="snackbar_voicemail_archived_goto" msgid="9186182602955185448">"ПЕРАЙСЦІ Ў АРХІЎ"</string>
+    <string name="clearCallLogConfirmation_title" msgid="801753155679372984">"Ачысціць гісторыю выклікаў?"</string>
+    <string name="clearCallLogConfirmation" msgid="7899552396101432827">"Гэта выдаліць усе выклікі з вашай гісторыі"</string>
+    <string name="clearCallLogProgress_title" msgid="3372471156216306132">"Ачыстка гісторыі выклікаў…"</string>
+    <string name="userCallActivityLabel" product="default" msgid="6652512551977445095">"Патэлефанаваць"</string>
+    <string name="notification_missedCallTitle" msgid="2078223183024451723">"Прапушчаны выклік"</string>
+    <string name="notification_missedWorkCallTitle" msgid="8418335304394771688">"Прапушчаны выклік па працы"</string>
+    <string name="notification_missedCallsTitle" msgid="4948840634672742797">"Прапушчаныя выклікі"</string>
+    <string name="notification_missedCallsMsg" msgid="158790423221579961">"Прапушчаных выклікаў: <xliff:g id="NUM_MISSED_CALLS">%s</xliff:g>"</string>
+    <string name="notification_missedCall_call_back" msgid="1991552423738343203">"Перазваніць"</string>
+    <string name="notification_missedCall_message" msgid="3042123733754151052">"Паведамленне"</string>
+    <plurals name="notification_voicemail_title" formatted="false" msgid="9088953961148324851">
+      <item quantity="one"> <xliff:g id="COUNT">%1$d</xliff:g> Паведамленне галасавой пошты </item>
+      <item quantity="few"> <xliff:g id="COUNT">%1$d</xliff:g> Паведамленні галасавой пошты </item>
+      <item quantity="many"> <xliff:g id="COUNT">%1$d</xliff:g> Паведамленняў галасавой пошты </item>
+      <item quantity="other"> <xliff:g id="COUNT">%1$d</xliff:g> Паведамлення галасавой пошты </item>
+    </plurals>
+    <string name="notification_action_voicemail_play" msgid="6113133136977996863">"Прайграць"</string>
+    <string name="notification_voicemail_callers_list" msgid="1153954809339404149">"<xliff:g id="NEWER_CALLERS">%1$s</xliff:g>, <xliff:g id="OLDER_CALLER">%2$s</xliff:g>"</string>
+    <string name="notification_new_voicemail_ticker" msgid="895342132049452081">"Новае паведамл. ад <xliff:g id="CALLER">%1$s</xliff:g>"</string>
+    <string name="voicemail_playback_error" msgid="3356071912353297599">"Не ўдалося прайграць галасавую пошту"</string>
+    <string name="voicemail_fetching_content" msgid="1287895365599580842">"Загрузка галасавой пошты…"</string>
+    <string name="voicemail_archiving_content" msgid="722322091690281157">"Архіваванне галасавой пошты..."</string>
+    <string name="voicemail_fetching_timout" msgid="3959428065511972176">"Не ўдалося загрузіць галасавую пошту"</string>
+    <string name="call_log_voicemail_header" msgid="3945407886667089173">"Толькi выклiкі з галасавой поштай"</string>
+    <string name="call_log_incoming_header" msgid="2787722299753674684">"Толькi ўваходныя выклiкi"</string>
+    <string name="call_log_outgoing_header" msgid="761009180766735769">"Толькi выходныя выклiкi"</string>
+    <string name="call_log_missed_header" msgid="8017148056610855956">"Толькі прапушчаныя выклiкi"</string>
+    <string name="visual_voicemail_title" msgid="4574199312906348905">"Візуальная галасавая пошта"</string>
+    <string name="visual_voicemail_text" msgid="164967285234132509">"Праглядайце і праслухоўвайце свае паведамленні галасавой пошты без неабходнасці набіраць нумар. Могуць спаганяцца плацяжы за перадачу даных."</string>
+    <string name="visual_voicemail_settings" msgid="8090338793118794741">"Налады"</string>
+    <string name="voicemail_status_voicemail_not_available" msgid="5222480147701456390">"Абнаўленні галасавой пошты недаступныя"</string>
+    <string name="voicemail_status_messages_waiting" msgid="6329544650250068650">"Чакаецца новае галас.паведамленне. Немагчыма загрузіць яго зараз"</string>
+    <string name="voicemail_status_configure_voicemail" msgid="8300808991932816153">"Наладзьце сваю галасавую пошту"</string>
+    <string name="voicemail_status_audio_not_available" msgid="2449801102560158082">"Аўдыя недаступнае"</string>
+    <string name="voicemail_status_action_configure" msgid="8671796489912239589">"Стварыць"</string>
+    <string name="voicemail_status_action_call_server" msgid="1824816252288551794">"Выкл. гал. пошту"</string>
+    <string name="call_log_item_count_and_date" msgid="7641933305703520787">"( <xliff:g id="COUNT">%1$d</xliff:g> ) <xliff:g id="DATE">%2$s</xliff:g>"</string>
+    <string name="sms_disambig_title" msgid="5846266399240630846">"Выбар нумару"</string>
+    <string name="call_disambig_title" msgid="4392886850104795739">"Выбар нумару"</string>
+    <string name="make_primary" msgid="5829291915305113983">"Запомніць гэты выбар"</string>
+    <string name="description_search_button" msgid="3660807558587384889">"пошук"</string>
+    <string name="description_dial_button" msgid="1274091017188142646">"набор"</string>
+    <string name="description_digits_edittext" msgid="8760207516497016437">"нумар для набору"</string>
+    <string name="description_playback_start_stop" msgid="5060732345522492292">"Пачаць ці спыніць прайграванне"</string>
+    <string name="description_playback_speakerphone" msgid="6008323900245707504">"Уключыць ці адключыць гучную сувязь"</string>
+    <string name="description_playback_seek" msgid="4509404274968530055">"Шукаць становішча прайгравання"</string>
+    <string name="description_rate_decrease" msgid="3161652589401708284">"Панізіць хуткасць прайгравання"</string>
+    <string name="description_rate_increase" msgid="6324606574127052385">"Павялічыць хуткасць прайгравання"</string>
+    <string name="action_menu_call_history_description" msgid="9018442816219748968">"Гісторыя выклікаў"</string>
+    <string name="action_menu_overflow_description" msgid="2303272250613084574">"Дадатковыя параметры"</string>
+    <string name="action_menu_dialpad_button" msgid="1425910318049008136">"панэль набору"</string>
+    <string name="menu_show_outgoing_only" msgid="1965570298133301970">"Паказаць толькі выходныя"</string>
+    <string name="menu_show_incoming_only" msgid="7534206815238877417">"Паказаць толькі ўваходныя"</string>
+    <string name="menu_show_missed_only" msgid="154473166059743996">"Паказаць толькі прапушчаныя"</string>
+    <string name="menu_show_voicemails_only" msgid="1898421289561435703">"Паказаць толькі галас. пошту"</string>
+    <string name="menu_show_all_calls" msgid="7560347482073345885">"Паказаць усе выклікі"</string>
+    <string name="add_2sec_pause" msgid="9214012315201040129">"Дадаць 2-секундную паўзу"</string>
+    <string name="add_wait" msgid="3360818652790319634">"Дадаць чаканне"</string>
+    <string name="dialer_settings_label" msgid="4305043242594150479">"Налады"</string>
+    <string name="menu_newContact" msgid="1209922412763274638">"Новы кантакт"</string>
+    <string name="menu_allContacts" msgid="6948308384034051670">"Усе кантакты"</string>
+    <string name="callDetailTitle" msgid="5340227785196217938">"Падрабязнасці выкліку"</string>
+    <string name="toast_call_detail_error" msgid="6947041258280380832">"Падрабязнасцей няма"</string>
+    <string name="dialer_useDtmfDialpad" msgid="1707548397435075040">"Выкарыстанне тонавай клавіятуры"</string>
+    <string name="dialer_returnToInCallScreen" msgid="3719386377550913067">"Звярнуцца да бягучага выкліку"</string>
+    <string name="dialer_addAnotherCall" msgid="4205688819890074468">"Дадаць выклік"</string>
+    <string name="type_incoming" msgid="6502076603836088532">"Уваходны выклік"</string>
+    <string name="type_outgoing" msgid="343108709599392641">"Выходны выклік"</string>
+    <string name="type_missed" msgid="2720502601640509542">"Прапушчаны выклік"</string>
+    <string name="type_incoming_video" msgid="82323391702796181">"Уваходны відэавыклік"</string>
+    <string name="type_outgoing_video" msgid="2858140021680755266">"Выходны відэавыклік"</string>
+    <string name="type_missed_video" msgid="954396897034220545">"Прапушчаны відэавыклік"</string>
+    <string name="type_voicemail" msgid="5153139450668549908">"Галасавая пошта"</string>
+    <string name="type_rejected" msgid="7783201828312472691">"Адхілены выклік"</string>
+    <string name="type_blocked" msgid="3521686227115330015">"Заблакіраваны выклік"</string>
+    <string name="actionIncomingCall" msgid="6028930669817038600">"Уваходныя выклікі"</string>
+    <string name="description_call_log_play_button" msgid="651182125650429846">"Прайграць паведамленне галасавой пошты"</string>
+    <string name="description_view_contact" msgid="5205669345700598415">"Прагледзець кантакт <xliff:g id="NAME">%1$s</xliff:g>"</string>
+    <string name="description_call" msgid="3443678121983852666">"Выклік карыстальнiка <xliff:g id="NAME">%1$s</xliff:g>"</string>
+    <string name="description_contact_details" msgid="51229793651342809">"Падрабязнасці кантакту для <xliff:g id="NAMEORNUMBER">%1$s</xliff:g>"</string>
+    <string name="description_num_calls" msgid="1601505153694540074">"Выклікаў: <xliff:g id="NUMBEROFCALLS">%1$s</xliff:g>."</string>
+    <string name="description_video_call" msgid="2933838090743214204">"Відэавыклік."</string>
+    <string name="description_send_text_message" msgid="3118485319691414221">"Адправіць SMS абаненту <xliff:g id="NAME">%1$s</xliff:g>"</string>
+    <string name="description_call_log_unheard_voicemail" msgid="118101684236996786">"Непраслуханая галасавая пошта"</string>
+    <string name="description_start_voice_search" msgid="520539488194946012">"Пачаць галасавы пошук"</string>
+    <string name="menu_callNumber" msgid="997146291983360266">"Выклікаць <xliff:g id="NUMBER">%s</xliff:g>"</string>
+    <string name="unknown" msgid="740067747858270469">"Невядомы"</string>
+    <string name="voicemail" msgid="3851469869202611441">"Галасавая пошта"</string>
+    <string name="private_num" msgid="6374339738119166953">"Прыватны нумар"</string>
+    <string name="payphone" msgid="7726415831153618726">"Таксафон"</string>
+    <string name="callDetailsShortDurationFormat" msgid="3988146235579303592">"<xliff:g id="SECONDS">%s</xliff:g> с"</string>
+    <string name="callDetailsDurationFormat" msgid="6061406028764382234">"<xliff:g id="MINUTES">%s</xliff:g> хв <xliff:g id="SECONDS">%s</xliff:g> с"</string>
+    <!-- no translation found for voicemailCallLogToday (682363079840402849) -->
+    <skip />
+    <string name="voicemailCallLogDateTimeFormat" msgid="4388070029056487713">"<xliff:g id="DATE">%1$s</xliff:g> у <xliff:g id="TIME">%2$s</xliff:g>"</string>
+    <string name="voicemailDurationFormat" msgid="228211252076289564">"<xliff:g id="MINUTES">%1$02d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
+    <string name="voicemailCallLogDateTimeFormatWithDuration" msgid="5118563814451588397">"<xliff:g id="DATEANDTIME">%1$s</xliff:g> • <xliff:g id="DURATION">%2$s</xliff:g>"</string>
+    <string name="dialog_phone_call_prohibited_message" msgid="5730565540182492608">"Немагчыма выклікаць гэты нумар"</string>
+    <string name="dialog_voicemail_not_ready_message" msgid="4384716252789515378">"Каб наладзіць галасавую пошту, націсніце \"Меню\" i перайдзiце ў налады."</string>
+    <string name="dialog_voicemail_airplane_mode_message" msgid="530922773669546093">"Каб зрабiць выклік галасавой пошты, спачатку адключыце рэжым палёту."</string>
+    <string name="contact_list_loading" msgid="5488620820563977329">"Загрузка..."</string>
+    <string name="imei" msgid="3045126336951684285">"IMEI"</string>
+    <string name="meid" msgid="6210568493746275750">"MEID"</string>
+    <string name="simContacts_emptyLoading" msgid="6700035985448642408">"Загрузка з SIM-карты..."</string>
+    <string name="simContacts_title" msgid="27341688347689769">"Кантакты SIM-карты"</string>
+    <string name="add_contact_not_available" msgid="5547311613368004859">"Праграмы для аперацый з кантактамі няма"</string>
+    <string name="voice_search_not_available" msgid="2977719040254285301">"Галасавы пошук недаступны"</string>
+    <string name="call_not_available" msgid="8941576511946492225">"Немагчыма зрабіць выклік па тэлефоне, таму што праграма Тэлефон была адключана."</string>
+    <string name="activity_not_available" msgid="2287665636817987623">"На прыладзе няма праграмы для гэтага"</string>
+    <string name="dialer_hint_find_contact" msgid="3574350254520035364">"Пошук у кантактах"</string>
+    <string name="block_number_search_hint" msgid="5409571607043872758">"Дадайце нумар ці шукайце ў кантактах"</string>
+    <string name="call_log_all_empty" msgid="8357417710416340920">"Ваша гісторыя выклікаў пустая"</string>
+    <string name="call_log_all_empty_action" msgid="9093210119068366147">"Зрабіць выклік"</string>
+    <string name="call_log_missed_empty" msgid="3927274175205520135">"У вас няма прапушчаных выклікаў."</string>
+    <string name="call_log_voicemail_empty" msgid="8383585074222277550">"Ваша галасавая пошта пустая."</string>
+    <string name="voicemail_archive_empty" msgid="1087408796679056787">"Ваш архіў галасавой пошты пусты."</string>
+    <string name="show_favorites_only" msgid="5520072531022614595">"Паказаць толькі ўпадабаныя"</string>
+    <string name="call_log_activity_title" msgid="7949633151371183580">"Гісторыя выклікаў"</string>
+    <string name="voicemail_archive_activity_title" msgid="2638669189424535229">"Архіў галасавой пошты"</string>
+    <string name="call_log_all_title" msgid="3566738938889333307">"Усе"</string>
+    <string name="call_log_missed_title" msgid="4541142293870638971">"Прапушчаныя"</string>
+    <string name="call_log_voicemail_title" msgid="940422274047025948">"Галасавая пошта"</string>
+    <string name="migrate_blocked_numbers_dialog_title" msgid="2039363199438872626">"Новае спрошчанае блакіраванне"</string>
+    <string name="migrate_blocked_numbers_dialog_message" msgid="5598530398682662860">"Каб лепш вас абараняць, Тэлефон павінен змяніць спосаб блакіроўкі. Зараз вашы заблакіраваныя нумары не могуць выкарыстоўвацца для выклікаў і перадачы тэкставых паведамленняў і могуць выкарыстоўвацца сумесна з іншымі праграмамі."</string>
+    <string name="migrate_blocked_numbers_dialog_allow_button" msgid="3116140286537760629">"Дазволіць"</string>
+    <string name="block_number_confirmation_title" msgid="6862219558186931304">"Заблакіраваць <xliff:g id="NUMBER">%1$s</xliff:g>?"</string>
+    <string name="block_number_confirmation_message_vvm" msgid="5655646611437082611">"Выклікі з гэтага нумара будуць блакіравацца, а паведамленні галасавой пошты - аўтаматычна выдаляцца."</string>
+    <string name="block_number_confirmation_message_no_vvm" msgid="4511900601491718173">"Выклікі з гэтага нумара будуць блакіравацца, але абанент усё яшчэ зможа пакінуць вам паведамленне галасавой пошты."</string>
+    <string name="block_number_confirmation_message_new_filtering" msgid="4524854769790960179">"Вы больш не будзеце атрымліваць выклікі або SMS з гэтага нумара."</string>
+    <string name="block_number_ok" msgid="770551992296781873">"БЛАКІРАВАЦЬ"</string>
+    <string name="unblock_number_confirmation_title" msgid="252824779504084354">"Разблакіраваць <xliff:g id="NUMBER">%1$s</xliff:g>?"</string>
+    <string name="unblock_number_ok" msgid="6449899182699684786">"РАЗБЛАКІРАВАЦЬ"</string>
+    <string name="tab_speed_dial" msgid="7552166276545648893">"Хуткі набор"</string>
+    <string name="tab_history" msgid="2563144697322434940">"Гісторыя выклікаў"</string>
+    <string name="tab_all_contacts" msgid="1410922767166533690">"Кантакты"</string>
+    <string name="tab_voicemail" msgid="155024725947496746">"Галасавая пошта"</string>
+    <string name="favorite_hidden" msgid="5011234945140912047">"Выдалена з выбранага"</string>
+    <string name="favorite_hidden_undo" msgid="2508998611039406474">"Адрабіць"</string>
+    <string name="search_shortcut_call_number" msgid="7277194656832895870">"Выклікаць <xliff:g id="NUMBER">%s</xliff:g>"</string>
+    <string name="search_shortcut_create_new_contact" msgid="1679917465521554093">"Стварыць новы кантакт"</string>
+    <string name="search_shortcut_add_to_contact" msgid="4327842393369915751">"Дадаць у кантакт"</string>
+    <string name="search_shortcut_send_sms_message" msgid="2569304043345025525">"Адправiць SMS"</string>
+    <string name="search_shortcut_make_video_call" msgid="1265971685034465166">"Зрабіць відэавыклік"</string>
+    <string name="search_shortcut_block_number" msgid="4787156645163436072">"Заблакіраваць нумар"</string>
+    <string name="num_missed_calls" msgid="8081736535604293886">"Новых прапушчаных выклікаў: <xliff:g id="NUMBER">%s</xliff:g>"</string>
+    <string name="speed_dial_empty" msgid="8838921693673366129">"У вас пакуль нікога няма на хуткім наборы"</string>
+    <string name="speed_dial_empty_add_favorite_action" msgid="7944893641496695770">"Дадаць улюбёны"</string>
+    <string name="all_contacts_empty" msgid="471370638298229686">"У вас пакуль няма ніякіх кантактаў"</string>
+    <string name="all_contacts_empty_add_contact_action" msgid="1515782853819374618">"Дадаць кантакт"</string>
+    <string name="contact_tooltip" msgid="2019777545923635266">"Дакраніцеся да відарыса, каб пабачыць усе нумары, ці націсніце і ўтрымлівайце, каб змяніць іх парадак"</string>
+    <string name="remove_contact" msgid="1080555335283662961">"Выдаліць"</string>
+    <string name="call_log_action_video_call" msgid="7724301709041128296">"Відэавыклік"</string>
+    <string name="call_log_action_send_message" msgid="5679719296905285131">"Адправiць паведамленне"</string>
+    <string name="call_log_action_details" msgid="701345508704970622">"Падрабязнасці выкліку"</string>
+    <string name="call_log_action_call" msgid="463690849042459842">"Выклікаць <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
+    <string name="description_incoming_missed_call" msgid="2381085098795943627">"Прапушчаны выклік ад <xliff:g id="NAMEORNUMBER">^1</xliff:g>, <xliff:g id="TYPEORLOCATION">^2</xliff:g>, <xliff:g id="TIMEOFCALL">^3</xliff:g>, <xliff:g id="PHONEACCOUNT">^4</xliff:g>."</string>
+    <string name="description_incoming_answered_call" msgid="7117665748428816544">"Адказаны выклік ад <xliff:g id="NAMEORNUMBER">^1</xliff:g>, <xliff:g id="TYPEORLOCATION">^2</xliff:g>, <xliff:g id="TIMEOFCALL">^3</xliff:g>, <xliff:g id="PHONEACCOUNT">^4</xliff:g>."</string>
+    <string name="description_unread_voicemail" msgid="5826351827625665597">"Непрачытанае паведамленне галасавой пошты ад <xliff:g id="NAMEORNUMBER">^1</xliff:g>, <xliff:g id="TYPEORLOCATION">^2</xliff:g>, <xliff:g id="TIMEOFCALL">^3</xliff:g>, <xliff:g id="PHONEACCOUNT">^4</xliff:g>."</string>
+    <string name="description_read_voicemail" msgid="133974208364152610">"Паведамленне галасавой пошты ад <xliff:g id="NAMEORNUMBER">^1</xliff:g>, <xliff:g id="TYPEORLOCATION">^2</xliff:g>, <xliff:g id="TIMEOFCALL">^3</xliff:g>, <xliff:g id="PHONEACCOUNT">^4</xliff:g>."</string>
+    <string name="description_outgoing_call" msgid="6386364390619734734">"Выклік абаненту <xliff:g id="NAMEORNUMBER">^1</xliff:g>, <xliff:g id="TYPEORLOCATION">^2</xliff:g>, <xliff:g id="TIMEOFCALL">^3</xliff:g>, <xliff:g id="PHONEACCOUNT">^4</xliff:g>."</string>
+    <string name="description_phone_account" msgid="1767072759541443861">"на <xliff:g id="PHONEACCOUNT">^1</xliff:g>"</string>
+    <string name="description_via_number" msgid="3503311803959108316">"праз <xliff:g id="NUMBER">%1$s</xliff:g>"</string>
+    <string name="call_log_via_number" msgid="8373282986443543296">"праз <xliff:g id="NUMBER">%1$s</xliff:g>"</string>
+    <string name="description_via_number_phone_account" msgid="5426866894799626474">"на <xliff:g id="PHONEACCOUNT">%1$s</xliff:g>, праз <xliff:g id="NUMBER">%2$s</xliff:g>"</string>
+    <string name="call_log_via_number_phone_account" msgid="4394943791173578941">"<xliff:g id="PHONEACCOUNT">%1$s</xliff:g> праз <xliff:g id="NUMBER">%2$s</xliff:g>"</string>
+    <string name="description_call_log_call_action" msgid="3682561657090693134">"Выклікаць"</string>
+    <string name="description_call_action" msgid="4000549004089776147">"Выклікаць <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
+    <string name="description_video_call_action" msgid="7386922428155062213">"Відэавыклік ад <xliff:g id="NAMEORNUMBER">^1</xliff:g>."</string>
+    <string name="description_voicemail_action" msgid="8054891873788903063">"Праслухаць галасавое паведамленне ад <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
+    <string name="description_voicemail_play" msgid="2689369874037785439">"Прайграць галасавое паведамленне ад <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
+    <string name="description_voicemail_pause" msgid="3905259748756919693">"Прыпыніць галасавое паведамленне ад <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
+    <string name="description_voicemail_delete" msgid="2025472770630153436">"Выдаліць галасавое паведамленне ад <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
+    <plurals name="description_voicemail_unread" formatted="false" msgid="8708346053055570332">
+      <item quantity="one"><xliff:g id="COUNT_1">%d</xliff:g> новае паведамленне галасавой пошты</item>
+      <item quantity="few"><xliff:g id="COUNT_1">%d</xliff:g> новыя паведамленні галасавой пошты</item>
+      <item quantity="many"><xliff:g id="COUNT_1">%d</xliff:g> новых паведамленняў галасавой пошты</item>
+      <item quantity="other"><xliff:g id="COUNT_1">%d</xliff:g> новага паведамлення галасавой пошты</item>
+    </plurals>
+    <string name="description_create_new_contact_action" msgid="818755978791008167">"Стварыць кантакт для <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
+    <string name="description_add_to_existing_contact_action" msgid="6081200053494414351">"Дадаць <xliff:g id="NAMEORNUMBER">^1</xliff:g> да існуючага кантакту"</string>
+    <string name="description_details_action" msgid="2433827152749491785">"Падрабязнасці кантакту для <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
+    <string name="toast_entry_removed" msgid="8010830299576311534">"Выдалена з гісторыі выклікаў."</string>
+    <string name="call_log_header_today" msgid="3225248682434212981">"Сёння"</string>
+    <string name="call_log_header_yesterday" msgid="9139172458834033092">"Учора"</string>
+    <string name="call_log_header_other" msgid="5769921959940709084">"Больш старыя"</string>
+    <string name="call_detail_list_header" msgid="3752717059699600861">"Спіс выклікаў"</string>
+    <string name="voicemail_speaker_on" msgid="209154030283487068">"Уключыць дынамік."</string>
+    <string name="voicemail_speaker_off" msgid="7390530056413093958">"Адключыць дынамік."</string>
+    <string name="voicemail_play_faster" msgid="3444751008615323006">"Прайграваць хутчэй."</string>
+    <string name="voicemail_play_slower" msgid="4544796503902818832">"Прайграваць павольней."</string>
+    <string name="voicemail_play_start_pause" msgid="3687447935787768983">"Пачаць ці прыпыніць прайграванне."</string>
+    <string name="list_delimeter" msgid="4571593167738725100">", "</string>
+    <string name="display_options_title" msgid="7812852361055667468">"Параметры адлюстравання"</string>
+    <string name="sounds_and_vibration_title" msgid="1692290115642160845">"Гукі і вібрацыя"</string>
+    <string name="accessibility_settings_title" msgid="6068141142874046249">"Спецыяльныя магчымасці"</string>
+    <string name="ringtone_title" msgid="760362035635084653">"Рынгтон тэлефона"</string>
+    <string name="vibrate_on_ring_title" msgid="3362916460327555241">"Уключыць вібрацыю для выклікаў"</string>
+    <string name="dtmf_tone_enable_title" msgid="6571449695997521615">"Гукі панэлі набору"</string>
+    <string name="dtmf_tone_length_title" msgid="8581125689808919460">"Даўжыня гукаў панэлі набору"</string>
+  <string-array name="dtmf_tone_length_entries">
+    <item msgid="1036113889050195575">"Звычайны"</item>
+    <item msgid="6177579030803486015">"Доўгі"</item>
+  </string-array>
+    <string name="respond_via_sms_setting_title" msgid="1318281521087951580">"Хуткія адказы"</string>
+    <string name="call_settings_label" msgid="313434211353070209">"Выклікі"</string>
+    <string name="manage_blocked_numbers_label" msgid="5959801428936629196">"Блакіраванне выклікаў"</string>
+    <string name="blocked_numbers_disabled_emergency_header_label" msgid="7870947220238070418">"Блакіроўка выклікаў часова адключана"</string>
+    <string name="blocked_numbers_disabled_emergency_desc" msgid="7755803249073401381">"Блакіроўка выклікаў будзе адключана, таму што вы выклікалі экстранныя службы з гэтага тэлефона на працягу апошніх 48 гадзін. Яна будзе аўтаматычна адноўлена пасля заканчэння перыяду ў 48 гадзін."</string>
+    <string name="import_send_to_voicemail_numbers_label" msgid="1606601823746799926">"Імпартаваць нумары"</string>
+    <string name="blocked_call_settings_import_description" msgid="8640906226815125906">"Вы пазначалі праз іншыя праграмы некаторых абанентаў, якіх трэба аўтаматычна адпраўляць у галасавую пошту ."</string>
+    <string name="blocked_call_settings_view_numbers_button" msgid="6698986720875955935">"Прагледзець нумары"</string>
+    <string name="blocked_call_settings_import_button" msgid="178821255125295473">"Імпартаваць"</string>
+    <string name="send_to_voicemail_import_failed" msgid="5547202002133560069">"Імпарт не ўдаўся"</string>
+    <string name="voicemail_archive_failed" msgid="6263467962738772223">"Не ўдалося архіваваць галасавую пошту."</string>
+    <string name="description_blocked_number_list_delete" msgid="3240093199107796792">"Разблакіраваць нумар"</string>
+    <string name="addBlockedNumber" msgid="6064812257482886526">"Дадаць нумар"</string>
+    <string name="block_number_footer_message_vvm" msgid="5387302253765439712">"Выклікі з гэтых нумароў будуць блакіравацца, а паведамленні галасавой пошты - аўтаматычна выдаляцца."</string>
+    <string name="block_number_footer_message_no_vvm" msgid="223238617533822381">"Выклікі з гэтых нумароў будуць блакіравацца, але з іх яшчэ можна пакінуць вам паведамленні галасавой пошты."</string>
+    <string name="block_list" msgid="7760188925338078011">"Заблакіраваныя нумары"</string>
+    <string name="invalidNumber" msgid="619058581062192851">"<xliff:g id="NUMBER">%1$s</xliff:g> несапраўдны."</string>
+    <string name="alreadyBlocked" msgid="282340105563646876">"<xliff:g id="NUMBER">%1$s</xliff:g> ужо заблакіраваны."</string>
+    <string name="call_blocking_disabled_notification_title" msgid="8185193413377920194">"Блакіроўка выклікаў адключана на 48 гадзін"</string>
+    <string name="call_blocking_disabled_notification_text" msgid="5330772013626378526">"Адключана, таму што быў зроблены экстранны выклік."</string>
+    <string name="phone_account_settings_label" msgid="5864322009841175294">"Уліковыя запісы для выклікаў"</string>
+    <string name="permission_single_turn_on" msgid="1543391076065465464">"Уключыць"</string>
+    <string name="permission_multiple_turn_on" msgid="2426278457455950554">"Задаць дазволы"</string>
+    <string name="permission_no_speeddial" msgid="6882563445996184051">"Каб уключыць хуткі набор, уключыце дазвол для Кантактаў."</string>
+    <string name="permission_no_calllog" msgid="555711464287041043">"Каб прагледзець свой журнал выклікаў, уключыце дазволы Тэлефона."</string>
+    <string name="permission_no_contacts" msgid="6237980143178936279">"Каб бачыць свае кантакты, уключыце дазвол для Кантактаў."</string>
+    <string name="permission_no_voicemail" msgid="8306280257799917574">"Каб атрымаць доступ да галасавой пошты, уключыце дазвол для Тэлефона."</string>
+    <string name="permission_no_search" msgid="84152933267902056">"Каб шукаць свае кантакты, уключыце дазвол для Кантактаў."</string>
+    <string name="permission_place_call" msgid="2101287782615887547">"Каб зрабіць выклік, уключыце дазвол для Тэлефона."</string>
+    <string name="toast_cannot_write_system_settings" msgid="5614246168296606709">"Праграма Тэлефон не мае дазволу на запіс у налады сістэмы."</string>
+    <string name="blocked_number_call_log_label" msgid="8912042441473014712">"Заблакiраваны"</string>
+    <string name="accessibility_call_is_active" msgid="2297282583928508760">"Актыўная размова з <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
+</resources>

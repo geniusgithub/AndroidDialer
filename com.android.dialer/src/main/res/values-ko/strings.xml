@@ -19,21 +19,37 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="applicationLabel" msgid="7762561155467201526">"전화"</string>
     <string name="launcherActivityLabel" msgid="1129729740601172692">"전화"</string>
+    <string name="launcherDialpadActivityLabel" msgid="3959809805046059167">"전화 다이얼패드"</string>
     <string name="dialerIconLabel" msgid="6500826552823403796">"휴대전화"</string>
-    <string name="recentCallsIconLabel" msgid="2639489159797075507">"통화 기록"</string>
-    <string name="recentCalls_callNumber" msgid="1756372533999226126">"전화걸기: <xliff:g id="NAME">%s</xliff:g>"</string>
-    <string name="call_detail_menu_report" msgid="587960283417977382">"적절하지 않은 번호 신고하기"</string>
-    <string name="recentCalls_editNumberBeforeCall" msgid="7756171675833267857">"통화하기 전에 번호 수정"</string>
-    <string name="recentCalls_addToContact" msgid="4570467333422734645">"연락처에 추가"</string>
-    <string name="recentCalls_removeFromRecentList" msgid="5551148439199439404">"통화 기록에서 삭제"</string>
-    <string name="recentCalls_deleteAll" msgid="5157887960461979812">"통화 기록 삭제"</string>
-    <string name="recentCalls_trashVoicemail" msgid="7604696960787435655">"음성사서함 삭제"</string>
-    <string name="recentCalls_shareVoicemail" msgid="1416112847592942840">"음성사서함 공유"</string>
-    <string name="recentCalls_empty" msgid="5934808652605981210">"통화 기록이 비어있습니다."</string>
-    <string name="recentCalls_empty_action" msgid="6033275870727664335">"전화 걸기"</string>
+    <string name="callHistoryIconLabel" msgid="3734413397291301223">"통화 기록"</string>
+    <string name="action_report_number" msgid="4635403959812186162">"잘못된 번호 신고하기"</string>
+    <string name="action_copy_number_text" msgid="588249522108594155">"전화번호 복사"</string>
+    <string name="copy_transcript_text" msgid="5652787482893879382">"텍스트 변환 복사"</string>
+    <string name="action_block_number" msgid="1482657602262262134">"번호 차단"</string>
+    <string name="snackbar_number_blocked" msgid="939830142765936021">"<xliff:g id="NUMBER">%1$s</xliff:g> 차단됨"</string>
+    <string name="action_unblock_number" msgid="3043777622269776127">"번호 차단 해제"</string>
+    <string name="snackbar_number_unblocked" msgid="4854738171099045912">"<xliff:g id="NUMBER">%1$s</xliff:g> 차단 해제됨"</string>
+    <string name="block_number_undo" msgid="591338370336724156">"실행취소"</string>
+    <string name="call_details_delete" msgid="1833359621896346955">"삭제"</string>
+    <string name="action_edit_number_before_call" msgid="3100221149873436485">"통화하기 전에 번호 수정"</string>
+    <string name="call_log_delete_all" msgid="4677609108288680411">"통화 기록 삭제"</string>
+    <string name="call_log_trash_voicemail" msgid="1283948488625129019">"음성사서함 삭제"</string>
+    <string name="call_log_archive_voicemail" msgid="9072936797223284265">"음성사서함 보관처리"</string>
+    <string name="call_log_share_voicemail" msgid="7272635349055945546">"음성사서함 공유"</string>
+    <string name="snackbar_voicemail_deleted" msgid="5098542835986188582">"음성사서함 삭제됨"</string>
+    <string name="snackbar_voicemail_archived" msgid="7442340403660554373">"음성사서함 보관처리됨"</string>
+    <string name="snackbar_voicemail_deleted_undo" msgid="3741811385891289167">"실행취소"</string>
+    <string name="snackbar_voicemail_archived_goto" msgid="9186182602955185448">"보관함으로 이동"</string>
     <string name="clearCallLogConfirmation_title" msgid="801753155679372984">"통화 기록을 삭제하시겠습니까?"</string>
     <string name="clearCallLogConfirmation" msgid="7899552396101432827">"모든 통화가 기록에서 삭제됩니다."</string>
     <string name="clearCallLogProgress_title" msgid="3372471156216306132">"통화 기록을 삭제하는 중…"</string>
+    <string name="userCallActivityLabel" product="default" msgid="6652512551977445095">"전화"</string>
+    <string name="notification_missedCallTitle" msgid="2078223183024451723">"부재중 전화"</string>
+    <string name="notification_missedWorkCallTitle" msgid="8418335304394771688">"부재중 업무 통화"</string>
+    <string name="notification_missedCallsTitle" msgid="4948840634672742797">"부재중 전화"</string>
+    <string name="notification_missedCallsMsg" msgid="158790423221579961">"부재중 전화 <xliff:g id="NUM_MISSED_CALLS">%s</xliff:g>통"</string>
+    <string name="notification_missedCall_call_back" msgid="1991552423738343203">"전화 걸기"</string>
+    <string name="notification_missedCall_message" msgid="3042123733754151052">"메시지"</string>
     <plurals name="notification_voicemail_title" formatted="false" msgid="9088953961148324851">
       <item quantity="other">음성메일 <xliff:g id="COUNT">%1$d</xliff:g>개</item>
       <item quantity="one">음성메일</item>
@@ -42,8 +58,8 @@
     <string name="notification_voicemail_callers_list" msgid="1153954809339404149">"<xliff:g id="NEWER_CALLERS">%1$s</xliff:g>, <xliff:g id="OLDER_CALLER">%2$s</xliff:g>"</string>
     <string name="notification_new_voicemail_ticker" msgid="895342132049452081">"<xliff:g id="CALLER">%1$s</xliff:g>님이 보낸 새 음성사서함"</string>
     <string name="voicemail_playback_error" msgid="3356071912353297599">"음성사서함을 재생할 수 없습니다."</string>
-    <string name="voicemail_buffering" msgid="738287747618697097">"버퍼링 중..."</string>
     <string name="voicemail_fetching_content" msgid="1287895365599580842">"음성사서함 로드 중…"</string>
+    <string name="voicemail_archiving_content" msgid="722322091690281157">"음성사서함 보관처리 중…"</string>
     <string name="voicemail_fetching_timout" msgid="3959428065511972176">"음성사서함을 로드할 수 없습니다."</string>
     <string name="call_log_voicemail_header" msgid="3945407886667089173">"음성사서함 메시지만"</string>
     <string name="call_log_incoming_header" msgid="2787722299753674684">"수신 전화만"</string>
@@ -73,7 +89,6 @@
     <string name="action_menu_call_history_description" msgid="9018442816219748968">"통화 기록"</string>
     <string name="action_menu_overflow_description" msgid="2303272250613084574">"옵션 더보기"</string>
     <string name="action_menu_dialpad_button" msgid="1425910318049008136">"다이얼패드"</string>
-    <string name="menu_copy" msgid="6108677035381940698">"복사"</string>
     <string name="menu_show_outgoing_only" msgid="1965570298133301970">"발신 전화만 표시"</string>
     <string name="menu_show_incoming_only" msgid="7534206815238877417">"수신 전화만 표시"</string>
     <string name="menu_show_missed_only" msgid="154473166059743996">"부재중 전화만 표시"</string>
@@ -96,12 +111,13 @@
     <string name="type_outgoing_video" msgid="2858140021680755266">"발신 화상 통화"</string>
     <string name="type_missed_video" msgid="954396897034220545">"부재중 화상 통화"</string>
     <string name="type_voicemail" msgid="5153139450668549908">"음성사서함"</string>
+    <string name="type_rejected" msgid="7783201828312472691">"거부된 통화"</string>
+    <string name="type_blocked" msgid="3521686227115330015">"차단된 통화"</string>
     <string name="actionIncomingCall" msgid="6028930669817038600">"수신전화"</string>
     <string name="description_call_log_play_button" msgid="651182125650429846">"음성사서함 재생"</string>
     <string name="description_view_contact" msgid="5205669345700598415">"<xliff:g id="NAME">%1$s</xliff:g>님의 연락처 보기"</string>
     <string name="description_call" msgid="3443678121983852666">"전화하기:<xliff:g id="NAME">%1$s</xliff:g>"</string>
     <string name="description_contact_details" msgid="51229793651342809">"<xliff:g id="NAMEORNUMBER">%1$s</xliff:g>의 연락처 세부정보"</string>
-    <string name="description_new_voicemail" msgid="2133792360865517746">"새로운 음성사서함이 있습니다."</string>
     <string name="description_num_calls" msgid="1601505153694540074">"통화 횟수: <xliff:g id="NUMBEROFCALLS">%1$s</xliff:g>번"</string>
     <string name="description_video_call" msgid="2933838090743214204">"화상 통화"</string>
     <string name="description_send_text_message" msgid="3118485319691414221">"<xliff:g id="NAME">%1$s</xliff:g>님에게 SMS 보내기"</string>
@@ -114,6 +130,11 @@
     <string name="payphone" msgid="7726415831153618726">"공중전화"</string>
     <string name="callDetailsShortDurationFormat" msgid="3988146235579303592">"<xliff:g id="SECONDS">%s</xliff:g>초"</string>
     <string name="callDetailsDurationFormat" msgid="6061406028764382234">"<xliff:g id="MINUTES">%s</xliff:g>분 <xliff:g id="SECONDS">%s</xliff:g>초"</string>
+    <!-- no translation found for voicemailCallLogToday (682363079840402849) -->
+    <skip />
+    <string name="voicemailCallLogDateTimeFormat" msgid="4388070029056487713">"<xliff:g id="DATE">%1$s</xliff:g> <xliff:g id="TIME">%2$s</xliff:g>"</string>
+    <string name="voicemailDurationFormat" msgid="228211252076289564">"<xliff:g id="MINUTES">%1$02d</xliff:g>분 <xliff:g id="SECONDS">%2$02d</xliff:g>초"</string>
+    <string name="voicemailCallLogDateTimeFormatWithDuration" msgid="5118563814451588397">"<xliff:g id="DATEANDTIME">%1$s</xliff:g> • <xliff:g id="DURATION">%2$s</xliff:g>"</string>
     <string name="dialog_phone_call_prohibited_message" msgid="5730565540182492608">"이 번호로 전화를 걸 수 없습니다."</string>
     <string name="dialog_voicemail_not_ready_message" msgid="4384716252789515378">"음성사서함을 설정하려면 메뉴 &gt; 설정으로 이동하세요."</string>
     <string name="dialog_voicemail_airplane_mode_message" msgid="530922773669546093">"음성사서함에 메시지를 남기려면 먼저 비행기 모드를 해제하세요."</string>
@@ -126,16 +147,31 @@
     <string name="voice_search_not_available" msgid="2977719040254285301">"음성검색이 지원되지 않습니다."</string>
     <string name="call_not_available" msgid="8941576511946492225">"전화 애플리케이션을 사용 중지했으므로 전화를 걸 수 없습니다."</string>
     <string name="activity_not_available" msgid="2287665636817987623">"이 기기에 작업을 처리할 수 있는 앱이 없습니다."</string>
-    <string name="dialer_hint_find_contact" msgid="1012544667033887519">"이름 또는 전화번호 입력"</string>
-    <string name="recentMissed_empty" msgid="6213733029875741604">"부재중 전화가 없습니다."</string>
-    <string name="recentVoicemails_empty" msgid="7345542764648856330">"음성사서함 받은편지함이 비어 있습니다."</string>
+    <string name="dialer_hint_find_contact" msgid="3574350254520035364">"연락처 검색"</string>
+    <string name="block_number_search_hint" msgid="5409571607043872758">"번호 추가 또는 연락처 검색"</string>
+    <string name="call_log_all_empty" msgid="8357417710416340920">"통화 기록이 비어있습니다."</string>
+    <string name="call_log_all_empty_action" msgid="9093210119068366147">"전화 걸기"</string>
+    <string name="call_log_missed_empty" msgid="3927274175205520135">"부재중 전화가 없습니다."</string>
+    <string name="call_log_voicemail_empty" msgid="8383585074222277550">"음성사서함 받은편지함이 비어 있습니다."</string>
+    <string name="voicemail_archive_empty" msgid="1087408796679056787">"음성사서함 보관함이 비어있습니다."</string>
     <string name="show_favorites_only" msgid="5520072531022614595">"즐겨찾는 연락처만 표시"</string>
-    <string name="call_log_activity_title" msgid="4612824396355272023">"기록"</string>
+    <string name="call_log_activity_title" msgid="7949633151371183580">"통화 기록"</string>
+    <string name="voicemail_archive_activity_title" msgid="2638669189424535229">"음성사서함 보관함"</string>
     <string name="call_log_all_title" msgid="3566738938889333307">"전체"</string>
     <string name="call_log_missed_title" msgid="4541142293870638971">"부재중 전화"</string>
     <string name="call_log_voicemail_title" msgid="940422274047025948">"음성사서함"</string>
+    <string name="migrate_blocked_numbers_dialog_title" msgid="2039363199438872626">"새로운 간편 차단 기능"</string>
+    <string name="migrate_blocked_numbers_dialog_message" msgid="5598530398682662860">"사용자를 보호하기 위하여 전화에서 차단 작동 방식을 변경해야 합니다. 차단된 번호에서 발송되는 통화 및 문자 메시지는 수신되지 않으며 다른 앱과 차단 사실이 공유될 수 있습니다."</string>
+    <string name="migrate_blocked_numbers_dialog_allow_button" msgid="3116140286537760629">"허용"</string>
+    <string name="block_number_confirmation_title" msgid="6862219558186931304">"<xliff:g id="NUMBER">%1$s</xliff:g>번을 차단할까요?"</string>
+    <string name="block_number_confirmation_message_vvm" msgid="5655646611437082611">"이 번호에서 걸려오는 전화가 차단되며 음성사서함이 자동으로 삭제됩니다."</string>
+    <string name="block_number_confirmation_message_no_vvm" msgid="4511900601491718173">"이 번호에서 걸려오는 전화가 차단되지만, 발신자가 음성사서함에 메시지를 남길 수는 있습니다."</string>
+    <string name="block_number_confirmation_message_new_filtering" msgid="4524854769790960179">"이 번호로부터 수신되는 전화와 문자를 더 이상 받지 않습니다."</string>
+    <string name="block_number_ok" msgid="770551992296781873">"차단"</string>
+    <string name="unblock_number_confirmation_title" msgid="252824779504084354">"<xliff:g id="NUMBER">%1$s</xliff:g>번을 차단 해제할까요?"</string>
+    <string name="unblock_number_ok" msgid="6449899182699684786">"차단 해제"</string>
     <string name="tab_speed_dial" msgid="7552166276545648893">"단축번호"</string>
-    <string name="tab_recents" msgid="929949073851377206">"최근"</string>
+    <string name="tab_history" msgid="2563144697322434940">"통화 기록"</string>
     <string name="tab_all_contacts" msgid="1410922767166533690">"주소록"</string>
     <string name="tab_voicemail" msgid="155024725947496746">"음성사서함"</string>
     <string name="favorite_hidden" msgid="5011234945140912047">"즐겨찾기에서 삭제됨"</string>
@@ -145,7 +181,7 @@
     <string name="search_shortcut_add_to_contact" msgid="4327842393369915751">"연락처에 추가"</string>
     <string name="search_shortcut_send_sms_message" msgid="2569304043345025525">"SMS 보내기"</string>
     <string name="search_shortcut_make_video_call" msgid="1265971685034465166">"화상 통화하기"</string>
-    <string name="show_call_history" msgid="1141502332266697170">"전체 통화 기록 조회"</string>
+    <string name="search_shortcut_block_number" msgid="4787156645163436072">"번호 차단"</string>
     <string name="num_missed_calls" msgid="8081736535604293886">"새로운 부재중 전화 <xliff:g id="NUMBER">%s</xliff:g>건"</string>
     <string name="speed_dial_empty" msgid="8838921693673366129">"아직 단축 다이얼이 설정된 연락처가 없습니다."</string>
     <string name="speed_dial_empty_add_favorite_action" msgid="7944893641496695770">"단축 다이얼 추가"</string>
@@ -154,13 +190,19 @@
     <string name="contact_tooltip" msgid="2019777545923635266">"이미지를 터치하여 모든 번호를 확인하거나 길게 터치하여 재정렬합니다."</string>
     <string name="remove_contact" msgid="1080555335283662961">"삭제"</string>
     <string name="call_log_action_video_call" msgid="7724301709041128296">"화상 통화"</string>
-    <string name="call_log_action_send_message" msgid="2826466379787846163">"메시지 보내기"</string>
+    <string name="call_log_action_send_message" msgid="5679719296905285131">"메시지 보내기"</string>
     <string name="call_log_action_details" msgid="701345508704970622">"통화 세부정보"</string>
     <string name="call_log_action_call" msgid="463690849042459842">"<xliff:g id="NAMEORNUMBER">^1</xliff:g>에 전화 걸기"</string>
     <string name="description_incoming_missed_call" msgid="2381085098795943627">"<xliff:g id="NAMEORNUMBER">^1</xliff:g>의 부재중 전화(<xliff:g id="TYPEORLOCATION">^2</xliff:g>, <xliff:g id="TIMEOFCALL">^3</xliff:g>, <xliff:g id="PHONEACCOUNT">^4</xliff:g>)"</string>
     <string name="description_incoming_answered_call" msgid="7117665748428816544">"<xliff:g id="NAMEORNUMBER">^1</xliff:g>에게 걸려온 수신 전화(<xliff:g id="TYPEORLOCATION">^2</xliff:g>, <xliff:g id="TIMEOFCALL">^3</xliff:g>, <xliff:g id="PHONEACCOUNT">^4</xliff:g>)"</string>
+    <string name="description_unread_voicemail" msgid="5826351827625665597">"<xliff:g id="NAMEORNUMBER">^1</xliff:g>, <xliff:g id="TYPEORLOCATION">^2</xliff:g>, <xliff:g id="TIMEOFCALL">^3</xliff:g>, <xliff:g id="PHONEACCOUNT">^4</xliff:g>에서 보낸 읽지 않은 음성사서함"</string>
+    <string name="description_read_voicemail" msgid="133974208364152610">"<xliff:g id="NAMEORNUMBER">^1</xliff:g>, <xliff:g id="TYPEORLOCATION">^2</xliff:g>, <xliff:g id="TIMEOFCALL">^3</xliff:g>, <xliff:g id="PHONEACCOUNT">^4</xliff:g>에서 보낸 음성사서함"</string>
     <string name="description_outgoing_call" msgid="6386364390619734734">"<xliff:g id="NAMEORNUMBER">^1</xliff:g>에게 건 전화(<xliff:g id="TYPEORLOCATION">^2</xliff:g>, <xliff:g id="TIMEOFCALL">^3</xliff:g>, <xliff:g id="PHONEACCOUNT">^4</xliff:g>)"</string>
     <string name="description_phone_account" msgid="1767072759541443861">"<xliff:g id="PHONEACCOUNT">^1</xliff:g> 계정"</string>
+    <string name="description_via_number" msgid="3503311803959108316">"<xliff:g id="NUMBER">%1$s</xliff:g>번으로 수신"</string>
+    <string name="call_log_via_number" msgid="8373282986443543296">"<xliff:g id="NUMBER">%1$s</xliff:g>번으로 수신"</string>
+    <string name="description_via_number_phone_account" msgid="5426866894799626474">"<xliff:g id="PHONEACCOUNT">%1$s</xliff:g>에서 <xliff:g id="NUMBER">%2$s</xliff:g>번으로 수신"</string>
+    <string name="call_log_via_number_phone_account" msgid="4394943791173578941">"<xliff:g id="PHONEACCOUNT">%1$s</xliff:g> <xliff:g id="NUMBER">%2$s</xliff:g>번으로 수신"</string>
     <string name="description_call_log_call_action" msgid="3682561657090693134">"통화"</string>
     <string name="description_call_action" msgid="4000549004089776147">"<xliff:g id="NAMEORNUMBER">^1</xliff:g>에 전화 걸기"</string>
     <string name="description_video_call_action" msgid="7386922428155062213">"<xliff:g id="NAMEORNUMBER">^1</xliff:g>에 화상 통화 걸기"</string>
@@ -199,14 +241,34 @@
   </string-array>
     <string name="respond_via_sms_setting_title" msgid="1318281521087951580">"빠른 응답"</string>
     <string name="call_settings_label" msgid="313434211353070209">"통화"</string>
+    <string name="manage_blocked_numbers_label" msgid="5959801428936629196">"통화 차단"</string>
+    <string name="blocked_numbers_disabled_emergency_header_label" msgid="7870947220238070418">"통화 차단 기능이 일시적으로 중지됨"</string>
+    <string name="blocked_numbers_disabled_emergency_desc" msgid="7755803249073401381">"지난 48시간 이내에 이 휴대전화를 사용해 응급 서비스에 연락했으므로 통화 차단 기능이 중지되었습니다. 48시간이 지나면 통화 차단 기능이 자동으로 다시 사용 설정됩니다."</string>
+    <string name="import_send_to_voicemail_numbers_label" msgid="1606601823746799926">"번호 가져오기"</string>
+    <string name="blocked_call_settings_import_description" msgid="8640906226815125906">"이전에 다른 앱을 통해 일부 발신자를 자동으로 음성사서함으로 보내도록 표시했습니다."</string>
+    <string name="blocked_call_settings_view_numbers_button" msgid="6698986720875955935">"개수 보기"</string>
+    <string name="blocked_call_settings_import_button" msgid="178821255125295473">"가져오기"</string>
+    <string name="send_to_voicemail_import_failed" msgid="5547202002133560069">"가져오지 못했습니다."</string>
+    <string name="voicemail_archive_failed" msgid="6263467962738772223">"음성사서함을 보관처리하지 못했습니다."</string>
+    <string name="description_blocked_number_list_delete" msgid="3240093199107796792">"번호 차단 해제"</string>
+    <string name="addBlockedNumber" msgid="6064812257482886526">"번호 추가"</string>
+    <string name="block_number_footer_message_vvm" msgid="5387302253765439712">"이러한 번호에서 걸려오는 전화가 차단되며 음성사서함이 자동으로 삭제됩니다."</string>
+    <string name="block_number_footer_message_no_vvm" msgid="223238617533822381">"이러한 번호에서 걸려오는 전화가 차단되지만, 발신자가 음성사서함에 메시지를 남길 수는 있습니다."</string>
+    <string name="block_list" msgid="7760188925338078011">"차단된 번호"</string>
+    <string name="invalidNumber" msgid="619058581062192851">"<xliff:g id="NUMBER">%1$s</xliff:g>번은 잘못된 번호입니다."</string>
+    <string name="alreadyBlocked" msgid="282340105563646876">"<xliff:g id="NUMBER">%1$s</xliff:g>번은 이미 차단되었습니다."</string>
+    <string name="call_blocking_disabled_notification_title" msgid="8185193413377920194">"통화 차단이 48시간 동안 중지됨"</string>
+    <string name="call_blocking_disabled_notification_text" msgid="5330772013626378526">"긴급 통화를 사용했기 때문에 중지되었습니다."</string>
     <string name="phone_account_settings_label" msgid="5864322009841175294">"통화 계정"</string>
     <string name="permission_single_turn_on" msgid="1543391076065465464">"사용"</string>
     <string name="permission_multiple_turn_on" msgid="2426278457455950554">"권한 설정"</string>
-    <string name="permission_no_speeddial" msgid="7449042208802130085">"단축번호를 사용하려면\n 주소록 권한을 사용 설정하세요."</string>
-    <string name="permission_no_calllog" msgid="8969825954337678018">"통화 기록을 보려면\n전화 권한을 사용 설정하세요."</string>
-    <string name="permission_no_contacts" msgid="4427828429876890950">"주소록을 보려면\n주소록 권한을 사용 설정하세요."</string>
-    <string name="permission_no_voicemail" msgid="7785949850839671813">"음성사서함에 액세스하려면\n전화 권한을 사용 설정하세요."</string>
+    <string name="permission_no_speeddial" msgid="6882563445996184051">"단축번호를 사용하려면 주소록 권한을 사용하도록 설정하세요."</string>
+    <string name="permission_no_calllog" msgid="555711464287041043">"통화 기록을 보려면 전화 권한을 사용하도록 설정하세요."</string>
+    <string name="permission_no_contacts" msgid="6237980143178936279">"주소록을 보려면 주소록 권한을 사용하도록 설정하세요."</string>
+    <string name="permission_no_voicemail" msgid="8306280257799917574">"음성사서함에 액세스하려면 전화 권한을 사용하도록 설정하세요."</string>
     <string name="permission_no_search" msgid="84152933267902056">"주소록을 검색하려면 주소록 권한을 사용하도록 설정하세요."</string>
-    <string name="permission_place_call" msgid="7588803619716288478">"전화를 걸려면\n전화 권한을 사용 설정하세요."</string>
+    <string name="permission_place_call" msgid="2101287782615887547">"전화를 걸려면 전화 권한을 사용하도록 설정하세요."</string>
     <string name="toast_cannot_write_system_settings" msgid="5614246168296606709">"전화 앱은 시스템 설정에 쓸 수 있는 권한이 없습니다."</string>
+    <string name="blocked_number_call_log_label" msgid="8912042441473014712">"차단됨"</string>
+    <string name="accessibility_call_is_active" msgid="2297282583928508760">"<xliff:g id="NAMEORNUMBER">^1</xliff:g>이(가) 활성화되었습니다."</string>
 </resources>

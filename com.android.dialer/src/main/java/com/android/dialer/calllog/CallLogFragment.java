@@ -16,61 +16,47 @@
 
 package com.android.dialer.calllog;
 
-import static android.Manifest.permission.READ_CALL_LOG;
-
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ValueAnimator;
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.KeyguardManager;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.ContentObserver;
 import android.database.Cursor;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.provider.CallLog;
 import android.provider.CallLog.Calls;
 import android.provider.ContactsContract;
-import android.provider.VoicemailContract.Status;
-import android.support.v7.widget.RecyclerView;
+import android.support.annotation.Nullable;
+import android.support.v13.app.FragmentCompat;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.android.contacts.common.GeoUtil;
 import com.android.contacts.common.util.PermissionsUtil;
-import com.android.contacts.common.util.ViewUtil;
 import com.android.dialer.R;
-import com.android.dialer.list.ListsFragment.HostInterface;
-import com.android.dialer.util.DialerUtils;
+import com.android.dialer.list.ListsFragment;
 import com.android.dialer.util.EmptyLoader;
 import com.android.dialer.voicemail.VoicemailPlaybackPresenter;
-import com.android.dialer.voicemail.VoicemailStatusHelper;
-import com.android.dialer.voicemail.VoicemailStatusHelper.StatusMessage;
-import com.android.dialer.voicemail.VoicemailStatusHelperImpl;
 import com.android.dialer.widget.EmptyContentView;
 import com.android.dialer.widget.EmptyContentView.OnEmptyViewActionButtonClickedListener;
 import com.android.dialerbind.ObjectFactory;
 
-import java.util.List;
+import static android.Manifest.permission.READ_CALL_LOG;
 
 /**
  * Displays a list of call log entries. To filter for a particular kind of call
  * (all, missed or voicemails), specify it in the constructor.
  */
 public class CallLogFragment extends Fragment implements CallLogQueryHandler.Listener,
-        CallLogAdapter.CallFetcher, OnEmptyViewActionButtonClickedListener {
+        CallLogAdapter.CallFetcher, OnEmptyViewActionButtonClickedListener,
+        FragmentCompat.OnRequestPermissionsResultCallback {
     private static final String TAG = "CallLogFragment";
 
     /**
@@ -81,6 +67,7 @@ public class CallLogFragment extends Fragment implements CallLogQueryHandler.Lis
     private static final String KEY_FILTER_TYPE = "filter_type";
     private static final String KEY_LOG_LIMIT = "log_limit";
     private static final String KEY_DATE_LIMIT = "date_limit";
+    private static final String KEY_IS_CALL_LOG_ACTIVITY = "is_call_log_activity";
 
     // No limit specified for the number of logs to show; use the CallLogQueryHandler's default.
     private static final int NO_LOG_LIMIT = -1;
@@ -89,15 +76,16 @@ public class CallLogFragment extends Fragment implements CallLogQueryHandler.Lis
 
     private static final int READ_CALL_LOG_PERMISSION_REQUEST_CODE = 1;
 
+    private static final int EVENT_UPDATE_DISPLAY = 1;
+
+    private static final long MILLIS_IN_MINUTE = 60 * 1000;
+
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private CallLogAdapter mAdapter;
     private CallLogQueryHandler mCallLogQueryHandler;
-    private VoicemailPlaybackPresenter mVoicemailPlaybackPresenter;
     private boolean mScrollToTop;
 
-    /** Whether there is at least one voicemail source installed. */
-    private boolean mVoicemailSourcesAvailable = false;
 
     private EmptyContentView mEmptyListView;
     private KeyguardManager mKeyguardManager;
@@ -106,9 +94,21 @@ public class CallLogFragment extends Fragment implements CallLogQueryHandler.Lis
     private boolean mCallLogFetched;
     private boolean mVoicemailStatusFetched;
 
+    private final Handler mDisplayUpdateHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case EVENT_UPDATE_DISPLAY:
+                    refreshData();
+                    rescheduleDisplayUpdate();
+                    break;
+            }
+        }
+    };
+
     private final Handler mHandler = new Handler();
 
-    private class CustomContentObserver extends ContentObserver {
+    protected class CustomContentObserver extends ContentObserver {
         public CustomContentObserver() {
             super(mHandler);
         }
@@ -121,7 +121,6 @@ public class CallLogFragment extends Fragment implements CallLogQueryHandler.Lis
     // See issue 6363009
     private final ContentObserver mCallLogObserver = new CustomContentObserver();
     private final ContentObserver mContactsObserver = new CustomContentObserver();
-    private final ContentObserver mVoicemailStatusObserver = new CustomContentObserver();
     private boolean mRefreshDataRequired = true;
 
     private boolean mHasReadCallLogPermission = false;
@@ -141,10 +140,9 @@ public class CallLogFragment extends Fragment implements CallLogQueryHandler.Lis
     private long mDateLimit = NO_DATE_LIMIT;
 
     /*
-     * True if this instance of the CallLogFragment is the Recents screen shown in
-     * DialtactsActivity.
+     * True if this instance of the CallLogFragment shown in the CallLogActivity.
      */
-    private boolean mIsRecentsFragment;
+    private boolean mIsCallLogActivity = false;
 
     public interface HostInterface {
         public void showDialpad();
@@ -156,6 +154,11 @@ public class CallLogFragment extends Fragment implements CallLogQueryHandler.Lis
 
     public CallLogFragment(int filterType) {
         this(filterType, NO_LOG_LIMIT);
+    }
+
+    public CallLogFragment(int filterType, boolean isCallLogActivity) {
+        this(filterType, NO_LOG_LIMIT);
+        mIsCallLogActivity = isCallLogActivity;
     }
 
     public CallLogFragment(int filterType, int logLimit) {
@@ -192,9 +195,8 @@ public class CallLogFragment extends Fragment implements CallLogQueryHandler.Lis
             mCallTypeFilter = state.getInt(KEY_FILTER_TYPE, mCallTypeFilter);
             mLogLimit = state.getInt(KEY_LOG_LIMIT, mLogLimit);
             mDateLimit = state.getLong(KEY_DATE_LIMIT, mDateLimit);
+            mIsCallLogActivity = state.getBoolean(KEY_IS_CALL_LOG_ACTIVITY, mIsCallLogActivity);
         }
-
-        mIsRecentsFragment = mLogLimit != NO_LOG_LIMIT;
 
         final Activity activity = getActivity();
         final ContentResolver resolver = activity.getContentResolver();
@@ -205,13 +207,7 @@ public class CallLogFragment extends Fragment implements CallLogQueryHandler.Lis
         resolver.registerContentObserver(CallLog.CONTENT_URI, true, mCallLogObserver);
         resolver.registerContentObserver(ContactsContract.Contacts.CONTENT_URI, true,
                 mContactsObserver);
-        resolver.registerContentObserver(Status.CONTENT_URI, true, mVoicemailStatusObserver);
         setHasOptionsMenu(true);
-
-        if (mCallTypeFilter == Calls.VOICEMAIL_TYPE) {
-            mVoicemailPlaybackPresenter = VoicemailPlaybackPresenter
-                    .getInstance(activity, state);
-        }
     }
 
     /** Called by the CallLogQueryHandler when the list of calls has been fetched or updated. */
@@ -221,6 +217,7 @@ public class CallLogFragment extends Fragment implements CallLogQueryHandler.Lis
             // Return false; we did not take ownership of the cursor
             return false;
         }
+        mAdapter.invalidatePositions();
         mAdapter.setLoading(false);
         mAdapter.changeCursor(cursor);
         // This will update the state of the "Clear call log" menu item.
@@ -282,9 +279,20 @@ public class CallLogFragment extends Fragment implements CallLogQueryHandler.Lis
     }
 
     @Override
+    public void onVoicemailUnreadCountFetched(Cursor cursor) {}
+
+    @Override
+    public void onMissedCallsUnreadCountFetched(Cursor cursor) {}
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedState) {
         View view = inflater.inflate(R.layout.call_log_fragment, container, false);
+        setupView(view, null);
+        return view;
+    }
 
+    protected void setupView(
+            View view, @Nullable VoicemailPlaybackPresenter voicemailPlaybackPresenter) {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -293,18 +301,17 @@ public class CallLogFragment extends Fragment implements CallLogQueryHandler.Lis
         mEmptyListView.setImage(R.drawable.empty_call_log);
         mEmptyListView.setActionClickedListener(this);
 
+        int activityType = mIsCallLogActivity ? CallLogAdapter.ACTIVITY_TYPE_CALL_LOG :
+                CallLogAdapter.ACTIVITY_TYPE_DIALTACTS;
         String currentCountryIso = GeoUtil.getCurrentCountryIso(getActivity());
-        boolean isShowingRecentsTab = mLogLimit != NO_LOG_LIMIT || mDateLimit != NO_DATE_LIMIT;
         mAdapter = ObjectFactory.newCallLogAdapter(
-                getActivity(),
-                this,
-                new ContactInfoHelper(getActivity(), currentCountryIso),
-                mVoicemailPlaybackPresenter,
-                isShowingRecentsTab);
+                        getActivity(),
+                        this,
+                        new ContactInfoHelper(getActivity(), currentCountryIso),
+                        voicemailPlaybackPresenter,
+                        activityType);
         mRecyclerView.setAdapter(mAdapter);
-
         fetchCalls();
-        return view;
     }
 
     @Override
@@ -336,39 +343,34 @@ public class CallLogFragment extends Fragment implements CallLogQueryHandler.Lis
             mRefreshDataRequired = true;
             updateEmptyMessage(mCallTypeFilter);
         }
+
         mHasReadCallLogPermission = hasReadCallLogPermission;
         refreshData();
-        mAdapter.startCache();
+        mAdapter.onResume();
+
+        rescheduleDisplayUpdate();
     }
 
     @Override
     public void onPause() {
-        if (mVoicemailPlaybackPresenter != null) {
-            mVoicemailPlaybackPresenter.onPause();
-        }
-        mAdapter.pauseCache();
+        cancelDisplayUpdate();
+        mAdapter.onPause();
         super.onPause();
     }
 
     @Override
     public void onStop() {
-        updateOnTransition(false /* onEntry */);
+        updateOnTransition();
 
         super.onStop();
     }
 
     @Override
     public void onDestroy() {
-        mAdapter.pauseCache();
         mAdapter.changeCursor(null);
-
-        if (mVoicemailPlaybackPresenter != null) {
-            mVoicemailPlaybackPresenter.onDestroy();
-        }
 
         getActivity().getContentResolver().unregisterContentObserver(mCallLogObserver);
         getActivity().getContentResolver().unregisterContentObserver(mContactsObserver);
-        getActivity().getContentResolver().unregisterContentObserver(mVoicemailStatusObserver);
         super.onDestroy();
     }
 
@@ -378,17 +380,17 @@ public class CallLogFragment extends Fragment implements CallLogQueryHandler.Lis
         outState.putInt(KEY_FILTER_TYPE, mCallTypeFilter);
         outState.putInt(KEY_LOG_LIMIT, mLogLimit);
         outState.putLong(KEY_DATE_LIMIT, mDateLimit);
+        outState.putBoolean(KEY_IS_CALL_LOG_ACTIVITY, mIsCallLogActivity);
 
         mAdapter.onSaveInstanceState(outState);
-
-        if (mVoicemailPlaybackPresenter != null) {
-            mVoicemailPlaybackPresenter.onSaveInstanceState(outState);
-        }
     }
 
     @Override
     public void fetchCalls() {
         mCallLogQueryHandler.fetchCalls(mCallTypeFilter, mDateLimit);
+        if (!mIsCallLogActivity) {
+            ((ListsFragment) getParentFragment()).updateTabUnreadCounts();
+        }
     }
 
     private void updateEmptyMessage(int filterType) {
@@ -406,23 +408,23 @@ public class CallLogFragment extends Fragment implements CallLogQueryHandler.Lis
         final int messageId;
         switch (filterType) {
             case Calls.MISSED_TYPE:
-                messageId = R.string.recentMissed_empty;
+                messageId = R.string.call_log_missed_empty;
                 break;
             case Calls.VOICEMAIL_TYPE:
-                messageId = R.string.recentVoicemails_empty;
+                messageId = R.string.call_log_voicemail_empty;
                 break;
             case CallLogQueryHandler.CALL_TYPE_ALL:
-                messageId = R.string.recentCalls_empty;
+                messageId = R.string.call_log_all_empty;
                 break;
             default:
                 throw new IllegalArgumentException("Unexpected filter type in CallLogFragment: "
                         + filterType);
         }
         mEmptyListView.setDescription(messageId);
-        if (mIsRecentsFragment) {
-            mEmptyListView.setActionLabel(R.string.recentCalls_empty_action);
-        } else {
+        if (mIsCallLogActivity) {
             mEmptyListView.setActionLabel(EmptyContentView.NO_LABEL);
+        } else if (filterType == CallLogQueryHandler.CALL_TYPE_ALL) {
+            mEmptyListView.setActionLabel(R.string.call_log_all_empty_action);
         }
     }
 
@@ -436,7 +438,7 @@ public class CallLogFragment extends Fragment implements CallLogQueryHandler.Lis
         if (mMenuVisible != menuVisible) {
             mMenuVisible = menuVisible;
             if (!menuVisible) {
-                updateOnTransition(false /* onEntry */);
+                updateOnTransition();
             } else if (isResumed()) {
                 refreshData();
             }
@@ -454,8 +456,8 @@ public class CallLogFragment extends Fragment implements CallLogQueryHandler.Lis
 
             fetchCalls();
             mCallLogQueryHandler.fetchVoicemailStatus();
-
-            updateOnTransition(true /* onEntry */);
+            mCallLogQueryHandler.fetchMissedCallsUnreadCount();
+            updateOnTransition();
             mRefreshDataRequired = false;
         } else {
             // Refresh the display of the existing data to update the timestamp text descriptions.
@@ -464,24 +466,16 @@ public class CallLogFragment extends Fragment implements CallLogQueryHandler.Lis
     }
 
     /**
-     * Updates the call data and notification state on entering or leaving the call log tab.
-     *
-     * If we are leaving the call log tab, mark all the missed calls as read.
+     * Updates the voicemail notification state.
      *
      * TODO: Move to CallLogActivity
      */
-    private void updateOnTransition(boolean onEntry) {
+    private void updateOnTransition() {
         // We don't want to update any call data when keyguard is on because the user has likely not
         // seen the new calls yet.
         // This might be called before onCreate() and thus we need to check null explicitly.
-        if (mKeyguardManager != null && !mKeyguardManager.inKeyguardRestrictedInputMode()) {
-            // On either of the transitions we update the missed call and voicemail notifications.
-            // While exiting we additionally consume all missed calls (by marking them as read).
-            mCallLogQueryHandler.markNewCallsAsOld();
-            if (!onEntry) {
-                mCallLogQueryHandler.markMissedCallsAsRead();
-            }
-            CallLogNotificationsHelper.removeMissedCallNotifications(getActivity());
+        if (mKeyguardManager != null && !mKeyguardManager.inKeyguardRestrictedInputMode()
+                && mCallTypeFilter == Calls.VOICEMAIL_TYPE) {
             CallLogNotificationsHelper.updateVoicemailNotifications(getActivity());
         }
     }
@@ -494,9 +488,10 @@ public class CallLogFragment extends Fragment implements CallLogQueryHandler.Lis
         }
 
         if (!PermissionsUtil.hasPermission(activity, READ_CALL_LOG)) {
-            requestPermissions(new String[] {READ_CALL_LOG}, READ_CALL_LOG_PERMISSION_REQUEST_CODE);
-        } else if (mIsRecentsFragment) {
-            // Show dialpad if we are the recents fragment.
+          FragmentCompat.requestPermissions(this, new String[] {READ_CALL_LOG},
+              READ_CALL_LOG_PERMISSION_REQUEST_CODE);
+        } else if (!mIsCallLogActivity) {
+            // Show dialpad if we are not in the call log activity.
             ((HostInterface) activity).showDialpad();
         }
     }
@@ -510,5 +505,26 @@ public class CallLogFragment extends Fragment implements CallLogQueryHandler.Lis
                 mRefreshDataRequired = true;
             }
         }
+    }
+
+    /**
+     * Schedules an update to the relative call times (X mins ago).
+     */
+    private void rescheduleDisplayUpdate() {
+        if (!mDisplayUpdateHandler.hasMessages(EVENT_UPDATE_DISPLAY)) {
+            long time = System.currentTimeMillis();
+            // This value allows us to change the display relatively close to when the time changes
+            // from one minute to the next.
+            long millisUtilNextMinute = MILLIS_IN_MINUTE - (time % MILLIS_IN_MINUTE);
+            mDisplayUpdateHandler.sendEmptyMessageDelayed(
+                    EVENT_UPDATE_DISPLAY, millisUtilNextMinute);
+        }
+    }
+
+    /**
+     * Cancels any pending update requests to update the relative call times (X mins ago).
+     */
+    private void cancelDisplayUpdate() {
+        mDisplayUpdateHandler.removeMessages(EVENT_UPDATE_DISPLAY);
     }
 }

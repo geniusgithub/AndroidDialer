@@ -155,7 +155,7 @@ public class PhoneFavoriteListView extends GridView implements OnDragDropListene
                     // on a {@link PhoneFavoriteTileView}
                     return false;
                 }
-                if (!mDragDropController.handleDragStarted(eX, eY)) {
+                if (!mDragDropController.handleDragStarted(this, eX, eY)) {
                     return false;
                 }
                 break;

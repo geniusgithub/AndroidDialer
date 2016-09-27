@@ -16,7 +16,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/delete_all"
-        android:title="@string/recentCalls_deleteAll"
+        android:title="@string/call_log_delete_all"
         android:showAsAction="never"
         android:orderInCategory="1"/>
 </menu>

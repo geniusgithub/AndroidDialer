@@ -28,11 +28,13 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.QuickContact;
+import android.support.v13.app.FragmentCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
+import com.android.contacts.common.compat.CompatUtils;
 import com.android.contacts.common.list.ContactEntryListAdapter;
 import com.android.contacts.common.list.ContactEntryListFragment;
 import com.android.contacts.common.list.ContactListFilter;
@@ -49,7 +51,8 @@ import com.android.dialer.widget.EmptyContentView.OnEmptyViewActionButtonClicked
  * Fragments to show all contacts with phone numbers.
  */
 public class AllContactsFragment extends ContactEntryListFragment<ContactEntryListAdapter>
-        implements OnEmptyViewActionButtonClickedListener {
+        implements OnEmptyViewActionButtonClickedListener,
+        FragmentCompat.OnRequestPermissionsResultCallback {
 
     private static final int READ_CONTACTS_PERMISSION_REQUEST_CODE = 1;
 
@@ -149,15 +152,15 @@ public class AllContactsFragment extends ContactEntryListFragment<ContactEntryLi
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         final Uri uri = (Uri) view.getTag();
-        // modify by genius
         if (uri != null) {
-            if(PermissionsUtil.sIsAtLeastM){
-                QuickContact.showQuickContact(getContext(), view, uri, null, Phone.CONTENT_ITEM_TYPE);
-	        }else{
-	        	 QuickContact.showQuickContact(getActivity(), view, uri, QuickContact.MODE_LARGE, null);
-	        }
+            if (CompatUtils.hasPrioritizedMimeType()) {
+                QuickContact.showQuickContact(getContext(), view, uri, null,
+                        Phone.CONTENT_ITEM_TYPE);
+            } else {
+                QuickContact.showQuickContact(getActivity(), view, uri, QuickContact.MODE_LARGE,
+                        null);
+            }
         }
-   
     }
 
     @Override
@@ -173,7 +176,8 @@ public class AllContactsFragment extends ContactEntryListFragment<ContactEntryLi
         }
 
         if (!PermissionsUtil.hasPermission(activity, READ_CONTACTS)) {
-            requestPermissions(new String[] {READ_CONTACTS}, READ_CONTACTS_PERMISSION_REQUEST_CODE);
+          FragmentCompat.requestPermissions(this, new String[] {READ_CONTACTS},
+              READ_CONTACTS_PERMISSION_REQUEST_CODE);
         } else {
             // Add new contact
             DialerUtils.startActivityWithErrorToast(activity, IntentUtil.getNewContactIntent(),

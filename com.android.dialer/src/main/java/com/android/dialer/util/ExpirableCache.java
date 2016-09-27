@@ -22,8 +22,8 @@ import com.android.contacts.common.testing.NeededForTesting;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-//import javax.annotation.concurrent.Immutable;
-//import javax.annotation.concurrent.ThreadSafe;
+import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.ThreadSafe;
 
 /**
  * An LRU cache in which all items can be marked as expired at a given time and it is possible to
@@ -83,7 +83,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @param <K> the type of the keys
  * @param <V> the type of the values
  */
-//@ThreadSafe
+@ThreadSafe
 public class ExpirableCache<K, V> {
     /**
      * A cached value stored inside the cache.
@@ -108,7 +108,7 @@ public class ExpirableCache<K, V> {
     /**
      * Cached values storing the generation at which they were added.
      */
-//    @Immutable
+    @Immutable
     private static class GenerationalCachedValue<V> implements ExpirableCache.CachedValue<V> {
         /** The value stored in the cache. */
         public final V mValue;

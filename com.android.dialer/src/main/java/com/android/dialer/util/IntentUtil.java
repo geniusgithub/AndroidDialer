@@ -18,14 +18,13 @@ package com.android.dialer.util;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.telecom.PhoneAccount;
 import android.telecom.PhoneAccountHandle;
 import android.telecom.TelecomManager;
 import android.telecom.VideoProfile;
 
 import com.android.contacts.common.CallUtil;
-import com.android.phone.common.PhoneConstants;
 
 /**
  * Utilities for creation of intents in Dialer, such as {@link Intent#ACTION_CALL}.
@@ -36,108 +35,65 @@ public class IntentUtil {
     private static final String SMS_URI_PREFIX = "sms:";
     private static final int NO_PHONE_TYPE = -1;
 
-    /**
-     * Return an Intent for making a phone call. Scheme (e.g. tel, sip) will be determined
-     * automatically.
-     */
-    public static Intent getCallIntent(String number) {
-        return getCallIntent(number, null, null);
+    public static final String EXTRA_CALL_INITIATION_TYPE
+            = "com.android.dialer.EXTRA_CALL_INITIATION_TYPE";
+
+    public static class CallIntentBuilder {
+        private Uri mUri;
+        private int mCallInitiationType;
+        private PhoneAccountHandle mPhoneAccountHandle;
+        private boolean mIsVideoCall = false;
+
+        public CallIntentBuilder(Uri uri) {
+            mUri = uri;
+        }
+
+        public CallIntentBuilder(String number) {
+            this(CallUtil.getCallUri(number));
+        }
+
+        public CallIntentBuilder setCallInitiationType(int initiationType) {
+            mCallInitiationType = initiationType;
+            return this;
+        }
+
+        public CallIntentBuilder setPhoneAccountHandle(PhoneAccountHandle accountHandle) {
+            mPhoneAccountHandle = accountHandle;
+            return this;
+        }
+
+        public CallIntentBuilder setIsVideoCall(boolean isVideoCall) {
+            mIsVideoCall = isVideoCall;
+            return this;
+        }
+
+        public Intent build() {
+            return getCallIntent(
+                    mUri,
+                    mPhoneAccountHandle,
+                    mIsVideoCall ? VideoProfile.STATE_BIDIRECTIONAL : VideoProfile.STATE_AUDIO_ONLY,
+                    mCallInitiationType);
+        }
     }
 
     /**
-     * Return an Intent for making a phone call. A given Uri will be used as is (without any
-     * sanity check).
-     */
-    public static Intent getCallIntent(Uri uri) {
-        return getCallIntent(uri, null, null);
-    }
-
-    /**
-     * A variant of {@link #getCallIntent(String)} but also accept a call origin.
-     * For more information about call origin, see comments in Phone package (PhoneApp).
-     */
-    public static Intent getCallIntent(String number, String callOrigin) {
-        return getCallIntent(CallUtil.getCallUri(number), callOrigin, null);
-    }
-
-    /**
-     * A variant of {@link #getCallIntent(String)} but also include {@code Account}.
-     */
-    public static Intent getCallIntent(String number, PhoneAccountHandle accountHandle) {
-        return getCallIntent(number, null, accountHandle);
-    }
-
-    /**
-     * A variant of {@link #getCallIntent(android.net.Uri)} but also include {@code Account}.
-     */
-    public static Intent getCallIntent(Uri uri, PhoneAccountHandle accountHandle) {
-        return getCallIntent(uri, null, accountHandle);
-    }
-
-    /**
-     * A variant of {@link #getCallIntent(String, String)} but also include {@code Account}.
+     * Create a call intent that can be used to place a call.
+     *
+     * @param uri Address to place the call to.
+     * @param accountHandle {@link PhoneAccountHandle} to place the call with.
+     * @param videoState Initial video state of the call.
+     * @param callIntiationType The UI affordance the call was initiated by.
+     * @return Call intent with provided extras and data.
      */
     public static Intent getCallIntent(
-            String number, String callOrigin, PhoneAccountHandle accountHandle) {
-        return getCallIntent(CallUtil.getCallUri(number), callOrigin, accountHandle);
-    }
-
-    /**
-     * A variant of {@link #getCallIntent(android.net.Uri)} but also accept a call
-     * origin and {@code Account}.
-     * For more information about call origin, see comments in Phone package (PhoneApp).
-     */
-    public static Intent getCallIntent(
-            Uri uri, String callOrigin, PhoneAccountHandle accountHandle) {
-        return getCallIntent(uri, callOrigin, accountHandle,
-                VideoProfile.STATE_AUDIO_ONLY);
-    }
-
-    /**
-     * A variant of {@link #getCallIntent(String, String)} for starting a video call.
-     */
-    public static Intent getVideoCallIntent(String number, String callOrigin) {
-        return getCallIntent(CallUtil.getCallUri(number), callOrigin, null,
-                VideoProfile.STATE_BIDIRECTIONAL);
-    }
-
-    /**
-     * A variant of {@link #getCallIntent(String, String, android.telecom.PhoneAccountHandle)} for
-     * starting a video call.
-     */
-    public static Intent getVideoCallIntent(
-            String number, String callOrigin, PhoneAccountHandle accountHandle) {
-        return getCallIntent(CallUtil.getCallUri(number), callOrigin, accountHandle,
-                VideoProfile.STATE_BIDIRECTIONAL);
-    }
-
-    /**
-     * A variant of {@link #getCallIntent(String, String, android.telecom.PhoneAccountHandle)} for
-     * starting a video call.
-     */
-    public static Intent getVideoCallIntent(String number, PhoneAccountHandle accountHandle) {
-        return getVideoCallIntent(number, null, accountHandle);
-    }
-
-    /**
-     * A variant of {@link #getCallIntent(android.net.Uri)} for calling Voicemail.
-     */
-    public static Intent getVoicemailIntent() {
-        return getCallIntent(Uri.fromParts(PhoneAccount.SCHEME_VOICEMAIL, "", null));
-    }
-
-    /**
-     * A variant of {@link #getCallIntent(android.net.Uri)} but also accept a call
-     * origin and {@code Account} and {@code VideoCallProfile} state.
-     * For more information about call origin, see comments in Phone package (PhoneApp).
-     */
-    public static Intent getCallIntent(
-            Uri uri, String callOrigin, PhoneAccountHandle accountHandle, int videoState) {
+            Uri uri, PhoneAccountHandle accountHandle, int videoState, int callIntiationType) {
         final Intent intent = new Intent(CALL_ACTION, uri);
         intent.putExtra(TelecomManager.EXTRA_START_CALL_WITH_VIDEO_STATE, videoState);
-        if (callOrigin != null) {
-            intent.putExtra(PhoneConstants.EXTRA_CALL_ORIGIN, callOrigin);
-        }
+
+        final Bundle b = new Bundle();
+        b.putInt(EXTRA_CALL_INITIATION_TYPE, callIntiationType);
+        intent.putExtra(TelecomManager.EXTRA_OUTGOING_CALL_EXTRAS, b);
+
         if (accountHandle != null) {
             intent.putExtra(TelecomManager.EXTRA_PHONE_ACCOUNT_HANDLE, accountHandle);
         }

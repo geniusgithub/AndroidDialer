@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  ~ Copyright (C) 2012 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License
+   -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="description_dialpad_back" msgid="8370856774250260053">"Vrati se nazad"</string>
+    <string name="description_dialpad_overflow" msgid="4853244877599437286">"Više opcija"</string>
+    <string name="description_delete_button" msgid="88733669653753441">"tipka za brisanje"</string>
+    <string name="description_image_button_plus" msgid="7821061347207448362">"plus"</string>
+    <string name="description_voicemail_button" msgid="6281470684653439120">"govorna pošta"</string>
+    <string name="default_notification_description" msgid="6011631627871110785">"Zadani zvuk (<xliff:g id="DEFAULT_SOUND_TITLE">%1$s</xliff:g>)"</string>
+    <string name="callFailed_userBusy" msgid="5163219086553610486">"Linija je zauzeta"</string>
+    <string name="callFailed_congestion" msgid="3645995103907418337">"Mreža je zauzeta"</string>
+    <string name="callFailed_timedOut" msgid="7772951976278867294">"Nema odgovora, vrijeme je isteklo"</string>
+    <string name="callFailed_server_unreachable" msgid="4766146133909799091">"Server je nedostupan"</string>
+    <string name="callFailed_number_unreachable" msgid="1243366438388873914">"Broj je nedostupan"</string>
+    <string name="callFailed_invalid_credentials" msgid="6115412108261660271">"Netačno korisničko ime ili lozinka"</string>
+    <string name="callFailed_out_of_network" msgid="6970725831030399542">"Poziv izvan mreže"</string>
+    <string name="callFailed_server_error" msgid="1391421251190688379">"Greška sa serverom. Pokušajte ponovo kasnije."</string>
+    <string name="callFailed_noSignal" msgid="1758972490451048086">"Nema signala"</string>
+    <string name="callFailed_limitExceeded" msgid="8796663077702587664">"ACM ograničenje je prekoračeno"</string>
+    <string name="callFailed_powerOff" msgid="9179061328562234362">"Radio je isključen"</string>
+    <string name="callFailed_simError" msgid="3307159523385380486">"Nema SIM kartice ili postoji greška sa SIM karticom"</string>
+    <string name="callFailed_outOfService" msgid="4535901975891969115">"Mobilna mreža nije dostupna"</string>
+    <string name="callFailed_fdn_only" msgid="1720606112619022283">"Odlazni pozivi su ograničeni FDN-om."</string>
+    <string name="callFailed_dialToUssd" msgid="2093563828737170617">"DIAL zahtjev je izmijenjen u USSD zahtjev."</string>
+    <string name="callFailed_dialToSs" msgid="3144952834772702469">"DIAL zahtjev je izmijenjen u SS zahtjev."</string>
+    <string name="callFailed_dialToDial" msgid="1143052062100334634">"DIAL zahtjev je izmijenjen u DIAL s drugim brojem."</string>
+    <string name="callFailed_cb_enabled" msgid="4745550615395092407">"Nije moguće upućivati odlazne pozive kada je uključena zabrana poziva."</string>
+    <string name="callFailed_dsac_restricted" msgid="4087941056515103695">"Pozivi su ograničeni kontrolom pristupa."</string>
+    <string name="callFailed_dsac_restricted_emergency" msgid="9031535611092828510">"Hitni pozivi su ograničeni kontrolom pristupa."</string>
+    <string name="callFailed_dsac_restricted_normal" msgid="266947632344387216">"Standardni pozivi su ograničeni kontrolom pristupa."</string>
+    <string name="callFailed_unobtainable_number" msgid="124621797631734731">"Nevažeći broj"</string>
+    <string name="incall_error_missing_voicemail_number" msgid="3651090591812220874">"Nepoznat broj govorne pošte."</string>
+    <string name="callFailed_video_call_tty_enabled" msgid="186585701668604271">"Nije moguće upućivati videopozive kada je TTY omogućen."</string>
+    <string name="ringtone_silent" msgid="249805466934178869">"Ništa"</string>
+    <string name="ringtone_unknown" msgid="2303463713486734520">"Nepoznato zvono"</string>
+</resources>

@@ -32,7 +32,6 @@ import android.os.Looper;
 import android.provider.Settings;
 import android.telecom.PhoneAccount;
 import android.telecom.PhoneAccountHandle;
-import android.telecom.TelecomManager;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -42,13 +41,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.common.io.MoreCloseables;
+import com.android.contacts.common.compat.CompatUtils;
+import com.android.contacts.common.compat.TelephonyManagerCompat;
 import com.android.contacts.common.database.NoNullCursorAsyncQueryHandler;
+import com.android.contacts.common.util.ContactDisplayUtils;
 import com.android.contacts.common.widget.SelectPhoneAccountDialogFragment;
 import com.android.contacts.common.widget.SelectPhoneAccountDialogFragment.SelectPhoneAccountListener;
 import com.android.dialer.calllog.PhoneAccountUtils;
 import com.android.dialer.util.TelecomUtil;
 
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,13 +92,13 @@ public class SpecialCharSequenceMgr {
     private static QueryHandler sPreviousAdnQueryHandler;
 
     public static class HandleAdnEntryAccountSelectedCallback extends SelectPhoneAccountListener{
-        final private TelecomManager mTelecomManager;
+        final private Context mContext;
         final private QueryHandler mQueryHandler;
         final private SimContactQueryCookie mCookie;
 
-        public HandleAdnEntryAccountSelectedCallback(TelecomManager telecomManager,
+        public HandleAdnEntryAccountSelectedCallback(Context context,
                 QueryHandler queryHandler, SimContactQueryCookie cookie) {
-            mTelecomManager = telecomManager;
+            mContext = context;
             mQueryHandler = queryHandler;
             mCookie = cookie;
         }
@@ -105,7 +106,7 @@ public class SpecialCharSequenceMgr {
         @Override
         public void onPhoneAccountSelected(PhoneAccountHandle selectedAccountHandle,
                 boolean setDefault) {
-            Uri uri = mTelecomManager.getAdnUriForPhoneAccount(selectedAccountHandle);
+            Uri uri = TelecomUtil.getAdnUriForPhoneAccount(mContext, selectedAccountHandle);
             handleAdnQuery(mQueryHandler, mCookie, uri);
             // TODO: Show error dialog if result isn't valid.
         }
@@ -225,7 +226,7 @@ public class SpecialCharSequenceMgr {
                 // the dialer text field.
 
                 // create the async query handler
-                final QueryHandler handler = new QueryHandler (context.getContentResolver());
+                final QueryHandler handler = new QueryHandler(context.getContentResolver());
 
                 // create the cookie object
                 final SimContactQueryCookie sc = new SimContactQueryCookie(index - 1, handler,
@@ -245,27 +246,24 @@ public class SpecialCharSequenceMgr {
                 sc.progressDialog.getWindow().addFlags(
                         WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
 
-                final TelecomManager telecomManager =
-                        (TelecomManager) context.getSystemService(Context.TELECOM_SERVICE);
                 List<PhoneAccountHandle> subscriptionAccountHandles =
                         PhoneAccountUtils.getSubscriptionPhoneAccounts(context);
-
+                Context applicationContext = context.getApplicationContext();
                 boolean hasUserSelectedDefault = subscriptionAccountHandles.contains(
-                        telecomManager.getDefaultOutgoingPhoneAccount(PhoneAccount.SCHEME_TEL));
+                        TelecomUtil.getDefaultOutgoingPhoneAccount(applicationContext,
+                                PhoneAccount.SCHEME_TEL));
 
-                if (subscriptionAccountHandles.size() == 1 || hasUserSelectedDefault) {
-                    Uri uri = telecomManager.getAdnUriForPhoneAccount(null);
+                if (subscriptionAccountHandles.size() <= 1 || hasUserSelectedDefault) {
+                    Uri uri = TelecomUtil.getAdnUriForPhoneAccount(applicationContext, null);
                     handleAdnQuery(handler, sc, uri);
-                } else if (subscriptionAccountHandles.size() > 1){
-                    SelectPhoneAccountListener callback =
-                            new HandleAdnEntryAccountSelectedCallback(telecomManager, handler, sc);
+                } else {
+                    SelectPhoneAccountListener callback = new HandleAdnEntryAccountSelectedCallback(
+                            applicationContext, handler, sc);
 
                     DialogFragment dialogFragment = SelectPhoneAccountDialogFragment.newInstance(
                             subscriptionAccountHandles, callback);
                     dialogFragment.show(((Activity) context).getFragmentManager(),
                             TAG_SELECT_ACCT_FRAGMENT);
-                } else {
-                    return false;
                 }
 
                 return true;
@@ -299,18 +297,16 @@ public class SpecialCharSequenceMgr {
 
     static boolean handlePinEntry(final Context context, final String input) {
         if ((input.startsWith("**04") || input.startsWith("**05")) && input.endsWith("#")) {
-            final TelecomManager telecomManager =
-                    (TelecomManager) context.getSystemService(Context.TELECOM_SERVICE);
             List<PhoneAccountHandle> subscriptionAccountHandles =
                     PhoneAccountUtils.getSubscriptionPhoneAccounts(context);
             boolean hasUserSelectedDefault = subscriptionAccountHandles.contains(
-                    telecomManager.getDefaultOutgoingPhoneAccount(PhoneAccount.SCHEME_TEL));
+                    TelecomUtil.getDefaultOutgoingPhoneAccount(context, PhoneAccount.SCHEME_TEL));
 
-            if (subscriptionAccountHandles.size() == 1 || hasUserSelectedDefault) {
+            if (subscriptionAccountHandles.size() <= 1 || hasUserSelectedDefault) {
                 // Don't bring up the dialog for single-SIM or if the default outgoing account is
                 // a subscription account.
                 return TelecomUtil.handleMmi(context, input, null);
-            } else if (subscriptionAccountHandles.size() > 1){
+            } else {
                 SelectPhoneAccountListener listener =
                         new HandleMmiAccountSelectedCallback(context, input);
 
@@ -335,11 +331,17 @@ public class SpecialCharSequenceMgr {
                     R.string.imei : R.string.meid;
 
             List<String> deviceIds = new ArrayList<String>();
-            for (int slot = 0; slot < telephonyManager.getPhoneCount(); slot++) {
-                String deviceId = telephonyManager.getDeviceId(slot);
-                if (!TextUtils.isEmpty(deviceId)) {
-                    deviceIds.add(deviceId);
+            if (TelephonyManagerCompat.getPhoneCount(telephonyManager) > 1 &&
+                    CompatUtils.isMethodAvailable(TelephonyManagerCompat.TELEPHONY_MANAGER_CLASS,
+                            "getDeviceId", Integer.TYPE)) {
+                for (int slot = 0; slot < telephonyManager.getPhoneCount(); slot++) {
+                    String deviceId = telephonyManager.getDeviceId(slot);
+                    if (!TextUtils.isEmpty(deviceId)) {
+                        deviceIds.add(deviceId);
+                    }
                 }
+            } else {
+                deviceIds.add(telephonyManager.getDeviceId());
             }
 
             AlertDialog alert = new AlertDialog.Builder(context)
@@ -478,9 +480,9 @@ public class SpecialCharSequenceMgr {
 
                     // display the name as a toast
                     Context context = sc.progressDialog.getContext();
-                    name = context.getString(R.string.menu_callNumber, name);
-                    Toast.makeText(context, name, Toast.LENGTH_SHORT)
-                        .show();
+                    CharSequence msg = ContactDisplayUtils.getTtsSpannedPhoneNumber(
+                            context.getResources(), R.string.menu_callNumber, name);
+                    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
                 }
             } finally {
                 MoreCloseables.closeQuietly(c);

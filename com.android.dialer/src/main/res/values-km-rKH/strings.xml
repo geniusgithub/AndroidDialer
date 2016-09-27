@@ -19,21 +19,37 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="applicationLabel" msgid="7762561155467201526">"ទូរស័ព្ទ"</string>
     <string name="launcherActivityLabel" msgid="1129729740601172692">"ទូរសព្ទ"</string>
+    <string name="launcherDialpadActivityLabel" msgid="3959809805046059167">"បន្ទះលេខទូរស័ព្ទ"</string>
     <string name="dialerIconLabel" msgid="6500826552823403796">"ទូរស័ព្ទ"</string>
-    <string name="recentCallsIconLabel" msgid="2639489159797075507">"ប្រវត្តិ​ហៅ"</string>
-    <string name="recentCalls_callNumber" msgid="1756372533999226126">"ហៅ <xliff:g id="NAME">%s</xliff:g>"</string>
-    <string name="call_detail_menu_report" msgid="587960283417977382">"រាយការណ៍ពីលេខដែលមិនត្រឹមត្រូវ"</string>
-    <string name="recentCalls_editNumberBeforeCall" msgid="7756171675833267857">"កែ​លេខ​មុន​ពេល​ហៅ"</string>
-    <string name="recentCalls_addToContact" msgid="4570467333422734645">"បន្ថែមទៅទំនាក់ទំនង"</string>
-    <string name="recentCalls_removeFromRecentList" msgid="5551148439199439404">"លុបចេញពីប្រវត្តិហៅ"</string>
-    <string name="recentCalls_deleteAll" msgid="5157887960461979812">"ជម្រះប្រវត្តិហៅ"</string>
-    <string name="recentCalls_trashVoicemail" msgid="7604696960787435655">"លុប​សារ​ជា​សំឡេង"</string>
-    <string name="recentCalls_shareVoicemail" msgid="1416112847592942840">"ចែករំលែក​សារ​ជា​សំឡេង"</string>
-    <string name="recentCalls_empty" msgid="5934808652605981210">"កំណត់ហេតុហៅរបស់អ្នកទទេ"</string>
-    <string name="recentCalls_empty_action" msgid="6033275870727664335">"ហៅទូរស័ព្ទ"</string>
-    <string name="clearCallLogConfirmation_title" msgid="801753155679372984">"ជម្រះប្រវត្តិហៅ?"</string>
+    <string name="callHistoryIconLabel" msgid="3734413397291301223">"ប្រវត្តិ​ហៅ"</string>
+    <string name="action_report_number" msgid="4635403959812186162">"រាយការណ៍ពីលេខដែលមិនត្រឹមត្រូវ"</string>
+    <string name="action_copy_number_text" msgid="588249522108594155">"ថតចម្លងលេខទូរស័ព្ទ"</string>
+    <string name="copy_transcript_text" msgid="5652787482893879382">"ថតចម្លងសំណៅពីសារសម្លេង"</string>
+    <string name="action_block_number" msgid="1482657602262262134">"រារាំងលេខ"</string>
+    <string name="snackbar_number_blocked" msgid="939830142765936021">"បានរារាំង <xliff:g id="NUMBER">%1$s</xliff:g>"</string>
+    <string name="action_unblock_number" msgid="3043777622269776127">"ឈប់រារាំងលេខ"</string>
+    <string name="snackbar_number_unblocked" msgid="4854738171099045912">"បានឈប់រារាំង <xliff:g id="NUMBER">%1$s</xliff:g>"</string>
+    <string name="block_number_undo" msgid="591338370336724156">"មិនធ្វើវិញ"</string>
+    <string name="call_details_delete" msgid="1833359621896346955">"លុប"</string>
+    <string name="action_edit_number_before_call" msgid="3100221149873436485">"កែ​លេខ​មុន​ពេល​ហៅ"</string>
+    <string name="call_log_delete_all" msgid="4677609108288680411">"សម្អាត​ប្រវត្តិហៅ"</string>
+    <string name="call_log_trash_voicemail" msgid="1283948488625129019">"លុប​សារ​ជា​សំឡេង"</string>
+    <string name="call_log_archive_voicemail" msgid="9072936797223284265">"រក្សាទុក​សារ​ជាសំឡេង​ក្នុង​ប័ណ្ណសារ"</string>
+    <string name="call_log_share_voicemail" msgid="7272635349055945546">"ចែករំលែក​សារ​ជា​សំឡេង"</string>
+    <string name="snackbar_voicemail_deleted" msgid="5098542835986188582">"បានលុបសារសម្លេង"</string>
+    <string name="snackbar_voicemail_archived" msgid="7442340403660554373">"បាន​រក្សាទុក​សារ​ជាសំឡេង​ក្នុង​ប័ណ្ណសារ"</string>
+    <string name="snackbar_voicemail_deleted_undo" msgid="3741811385891289167">"​មិន​ធ្វើវិញ"</string>
+    <string name="snackbar_voicemail_archived_goto" msgid="9186182602955185448">"ទៅ​កាន់​ប័ណ្ណសារ"</string>
+    <string name="clearCallLogConfirmation_title" msgid="801753155679372984">"សម្អាតប្រវត្តិហៅ?"</string>
     <string name="clearCallLogConfirmation" msgid="7899552396101432827">"វានឹងលុបការហៅទាំងអស់ចេញពីប្រវត្តិរបស់អ្នក"</string>
     <string name="clearCallLogProgress_title" msgid="3372471156216306132">"កំពុងជម្រះប្រវត្តិហៅ…"</string>
+    <string name="userCallActivityLabel" product="default" msgid="6652512551977445095">"ទូរស័ព្ទ"</string>
+    <string name="notification_missedCallTitle" msgid="2078223183024451723">"ខកខាន​ទទួល"</string>
+    <string name="notification_missedWorkCallTitle" msgid="8418335304394771688">"បានខកខានការហៅចូលពីកន្លែងការងារ"</string>
+    <string name="notification_missedCallsTitle" msgid="4948840634672742797">"ខកខាន​ទទួល"</string>
+    <string name="notification_missedCallsMsg" msgid="158790423221579961">"ខកខានទទួល <xliff:g id="NUM_MISSED_CALLS">%s</xliff:g> ដង"</string>
+    <string name="notification_missedCall_call_back" msgid="1991552423738343203">"ហៅ​ទៅ​វិញ"</string>
+    <string name="notification_missedCall_message" msgid="3042123733754151052">"សារ"</string>
     <plurals name="notification_voicemail_title" formatted="false" msgid="9088953961148324851">
       <item quantity="other">សារជាសម្លេង <xliff:g id="COUNT">%1$d</xliff:g> </item>
       <item quantity="one">សារជាសម្លេង</item>
@@ -42,8 +58,8 @@
     <string name="notification_voicemail_callers_list" msgid="1153954809339404149">"<xliff:g id="NEWER_CALLERS">%1$s</xliff:g>, <xliff:g id="OLDER_CALLER">%2$s</xliff:g>"</string>
     <string name="notification_new_voicemail_ticker" msgid="895342132049452081">"សារ​ជា​សំឡេង​ថ្មី​ពី <xliff:g id="CALLER">%1$s</xliff:g>"</string>
     <string name="voicemail_playback_error" msgid="3356071912353297599">"មិនអាចចាក់សារជាសម្លេងបានទេ"</string>
-    <string name="voicemail_buffering" msgid="738287747618697097">"កំពុង​គណនា..."</string>
     <string name="voicemail_fetching_content" msgid="1287895365599580842">"កំពុងផ្ទុកសារជាសម្លេង…"</string>
+    <string name="voicemail_archiving_content" msgid="722322091690281157">"កំពុង​​រក្សាទុក​សារ​ជាសំឡេង​ក្នុង​ប័ណ្ណសារ..."</string>
     <string name="voicemail_fetching_timout" msgid="3959428065511972176">"មិនអាចផ្ទុកសារជាសម្លេងបានទេ"</string>
     <string name="call_log_voicemail_header" msgid="3945407886667089173">"តែ​ការ​ហៅ​ជា​សារ​សំឡេង"</string>
     <string name="call_log_incoming_header" msgid="2787722299753674684">"តែ​ការ​ហៅ​ចូល"</string>
@@ -73,7 +89,6 @@
     <string name="action_menu_call_history_description" msgid="9018442816219748968">"ប្រវត្តិ​ហៅ"</string>
     <string name="action_menu_overflow_description" msgid="2303272250613084574">"ជម្រើស​បន្ថែម"</string>
     <string name="action_menu_dialpad_button" msgid="1425910318049008136">"បន្ទះ​លេខ"</string>
-    <string name="menu_copy" msgid="6108677035381940698">"ចម្លង"</string>
     <string name="menu_show_outgoing_only" msgid="1965570298133301970">"បង្ហាញ​តែ​ការ​ហៅ​ចេញ"</string>
     <string name="menu_show_incoming_only" msgid="7534206815238877417">"បង្ហាញ​តែ​ការ​ហៅ​ចូល"</string>
     <string name="menu_show_missed_only" msgid="154473166059743996">"បង្ហាញ​តែ​ការ​ខកខាន​ទទួល"</string>
@@ -84,7 +99,7 @@
     <string name="dialer_settings_label" msgid="4305043242594150479">"ការកំណត់"</string>
     <string name="menu_newContact" msgid="1209922412763274638">"ទំនាក់ទំនង​ថ្មី"</string>
     <string name="menu_allContacts" msgid="6948308384034051670">"ទំនាក់ទំនង​ទាំងអស់"</string>
-    <string name="callDetailTitle" msgid="5340227785196217938">"ព័ត៌មាន​លម្អិត​នៃ​ការ​ហៅ"</string>
+    <string name="callDetailTitle" msgid="5340227785196217938">"ព័ត៌មាន​លម្អិត​អំពីការ​ហៅ"</string>
     <string name="toast_call_detail_error" msgid="6947041258280380832">"មិនមានព័ត៌មានលំអិតទេ"</string>
     <string name="dialer_useDtmfDialpad" msgid="1707548397435075040">"ប្រើ​សំឡេង​ប៉ះ​បន្ទះ​លេខ"</string>
     <string name="dialer_returnToInCallScreen" msgid="3719386377550913067">"កំពុង​ត្រឡប់​ទៅកាន់​ការ​ហៅ"</string>
@@ -96,12 +111,13 @@
     <string name="type_outgoing_video" msgid="2858140021680755266">"ការ​ហៅ​ជា​វីដេអូ​ចេញ"</string>
     <string name="type_missed_video" msgid="954396897034220545">"ខកខាន​ទទួល​ការ​ហៅ​ជា​វីដេអូ"</string>
     <string name="type_voicemail" msgid="5153139450668549908">"សារ​ជា​សំឡេង"</string>
+    <string name="type_rejected" msgid="7783201828312472691">"ការហៅដែលបានបដិសេធ"</string>
+    <string name="type_blocked" msgid="3521686227115330015">"ការហៅដែលបានរារាំង"</string>
     <string name="actionIncomingCall" msgid="6028930669817038600">"ការ​ហៅ​ចូល"</string>
     <string name="description_call_log_play_button" msgid="651182125650429846">"ចាក់​សារ​ជា​សំឡេង"</string>
     <string name="description_view_contact" msgid="5205669345700598415">"មើល​ទំ​នាក់ទំនង <xliff:g id="NAME">%1$s</xliff:g>"</string>
     <string name="description_call" msgid="3443678121983852666">"ហៅ <xliff:g id="NAME">%1$s</xliff:g>"</string>
     <string name="description_contact_details" msgid="51229793651342809">"ព័ត៌មាន​លម្អិត​ទំនាក់ទំនង​សម្រាប់ <xliff:g id="NAMEORNUMBER">%1$s</xliff:g>"</string>
-    <string name="description_new_voicemail" msgid="2133792360865517746">"សារ​ជា​សំឡេង​ថ្មី។"</string>
     <string name="description_num_calls" msgid="1601505153694540074">"ការ​ហៅ <xliff:g id="NUMBEROFCALLS">%1$s</xliff:g> ។"</string>
     <string name="description_video_call" msgid="2933838090743214204">"ការ​ហៅ​ជា​វីដេអូ​។"</string>
     <string name="description_send_text_message" msgid="3118485319691414221">"ផ្ញើសារ SMS ទៅ <xliff:g id="NAME">%1$s</xliff:g>"</string>
@@ -114,6 +130,11 @@
     <string name="payphone" msgid="7726415831153618726">"ទូរស័ព្ទសាធារណៈ"</string>
     <string name="callDetailsShortDurationFormat" msgid="3988146235579303592">"<xliff:g id="SECONDS">%s</xliff:g> វិនាទី"</string>
     <string name="callDetailsDurationFormat" msgid="6061406028764382234">"<xliff:g id="MINUTES">%s</xliff:g> នាទី <xliff:g id="SECONDS">%s</xliff:g> វិនាទី"</string>
+    <!-- no translation found for voicemailCallLogToday (682363079840402849) -->
+    <skip />
+    <string name="voicemailCallLogDateTimeFormat" msgid="4388070029056487713">"<xliff:g id="DATE">%1$s</xliff:g> នៅម៉ោង <xliff:g id="TIME">%2$s</xliff:g>"</string>
+    <string name="voicemailDurationFormat" msgid="228211252076289564">"<xliff:g id="MINUTES">%1$02d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
+    <string name="voicemailCallLogDateTimeFormatWithDuration" msgid="5118563814451588397">"<xliff:g id="DATEANDTIME">%1$s</xliff:g> • <xliff:g id="DURATION">%2$s</xliff:g>"</string>
     <string name="dialog_phone_call_prohibited_message" msgid="5730565540182492608">"មិនអាចហៅលេខនេះបានទេ"</string>
     <string name="dialog_voicemail_not_ready_message" msgid="4384716252789515378">"ដើម្បី​កំណត់​សារ​ជា​សំឡេង ចូល​ម៉ឺនុយ &gt; ការ​កំណត់។"</string>
     <string name="dialog_voicemail_airplane_mode_message" msgid="530922773669546093">"ដើម្បី​ហៅ​សារ​ជា​សំឡេង ដំបូង​ត្រូវ​បិទ​របៀប​ពេល​ជិះ​យន្តហោះ។"</string>
@@ -126,16 +147,31 @@
     <string name="voice_search_not_available" msgid="2977719040254285301">"ការស្វែងរកជាសម្លេងមិនមានទេ"</string>
     <string name="call_not_available" msgid="8941576511946492225">"មិន​អាច​ហៅ​បាន​ទេ​ ព្រោះ​កម្មវិធី​ទូរស័ព្ទ​ត្រូវ​បាន​បិទ។"</string>
     <string name="activity_not_available" msgid="2287665636817987623">"មិនមានកម្មវិធីសម្រាប់សកម្មភាពនេះនៅលើឧបករណ៍នេះទេ"</string>
-    <string name="dialer_hint_find_contact" msgid="1012544667033887519">"បញ្ចូលឈ្មោះ ឬលេខទូរស័ព្ទ"</string>
-    <string name="recentMissed_empty" msgid="6213733029875741604">"អ្នកមិនមានការខកខានទទួលទូរស័ព្ទទេ។"</string>
-    <string name="recentVoicemails_empty" msgid="7345542764648856330">"ប្រអប់ទទួលសារជាសំឡេងរបស់អ្នកទទេ។"</string>
+    <string name="dialer_hint_find_contact" msgid="3574350254520035364">"ស្វែងរកទំនាក់ទំនង"</string>
+    <string name="block_number_search_hint" msgid="5409571607043872758">"បន្ថែមលេខទូរស័ព្ទ ឬស្វែងរកទំនាក់ទំនង"</string>
+    <string name="call_log_all_empty" msgid="8357417710416340920">"ប្រវត្តិហៅរបស់អ្នកទទេ"</string>
+    <string name="call_log_all_empty_action" msgid="9093210119068366147">"ហៅទូរស័ព្ទ"</string>
+    <string name="call_log_missed_empty" msgid="3927274175205520135">"អ្នកមិនមានការខកខានទទួលទូរស័ព្ទទេ។"</string>
+    <string name="call_log_voicemail_empty" msgid="8383585074222277550">"ប្រអប់ទទួលសារជាសំឡេងរបស់អ្នកទទេ។"</string>
+    <string name="voicemail_archive_empty" msgid="1087408796679056787">"បណ្ណសារជាសំឡេងរបស់អ្នកគឺទទេ។"</string>
     <string name="show_favorites_only" msgid="5520072531022614595">"បង្ហាញ​តែ​​និយម​ប្រើ​ប៉ុណ្ណោះ"</string>
-    <string name="call_log_activity_title" msgid="4612824396355272023">"ប្រវត្តិ"</string>
+    <string name="call_log_activity_title" msgid="7949633151371183580">"ប្រវត្តិហៅ"</string>
+    <string name="voicemail_archive_activity_title" msgid="2638669189424535229">"បណ្ណសារសារជាសំឡេង"</string>
     <string name="call_log_all_title" msgid="3566738938889333307">"ទាំង​អស់"</string>
     <string name="call_log_missed_title" msgid="4541142293870638971">"ខកខាន​ទទួល"</string>
     <string name="call_log_voicemail_title" msgid="940422274047025948">"សារ​ជា​សំឡេង"</string>
+    <string name="migrate_blocked_numbers_dialog_title" msgid="2039363199438872626">"ថ្មី ការ​ទប់ស្កាត់​ដែល​ងាយស្រួល"</string>
+    <string name="migrate_blocked_numbers_dialog_message" msgid="5598530398682662860">"ដើម្បីការពារអ្នកឲ្យបានប្រសើរជាងមុន ទូរសព្ទ​ត្រូវធ្វើការផ្លាស់ប្តូររបៀប​​​ដែល​ការ​ទប់ស្កាត់​ដំណើរការ។ លេខដែល​បាន​ទប់ស្កាត់​របស់អ្នក​ឥឡូវ​នឹងបញ្ឈប់​ទាំង​ការហៅ និងការផ្ញើសារ និងអាច​ត្រូវបានចែករំលែកជាមួយកម្មវិធីផ្សេងទៀត។"</string>
+    <string name="migrate_blocked_numbers_dialog_allow_button" msgid="3116140286537760629">"អនុញ្ញាត"</string>
+    <string name="block_number_confirmation_title" msgid="6862219558186931304">"រារាំង <xliff:g id="NUMBER">%1$s</xliff:g>?"</string>
+    <string name="block_number_confirmation_message_vvm" msgid="5655646611437082611">"ការហៅចេញពីលេខនេះនឹងត្រូវបានរារាំង ហើយសារជាសំឡេងនឹងត្រូវបានលុបដោយស្វ័យប្រវត្តិ។"</string>
+    <string name="block_number_confirmation_message_no_vvm" msgid="4511900601491718173">"ការហៅចេញពីលេខនេះនឹងត្រូវបានរារាំង ប៉ុន្តែអ្នកហៅនៅតែអាចទុកសារជាសំឡេងឲ្យអ្នកបាន។"</string>
+    <string name="block_number_confirmation_message_new_filtering" msgid="4524854769790960179">"អ្នក​នឹង​លែង​ទទួល​​ការ​ហៅ ឬ​​សារ​​អត្ថបទ​ពី​លេខ​នេះ​ទៀត​ហើយ។"</string>
+    <string name="block_number_ok" msgid="770551992296781873">"រារាំង"</string>
+    <string name="unblock_number_confirmation_title" msgid="252824779504084354">"ឈប់រារាំង <xliff:g id="NUMBER">%1$s</xliff:g> ឬ?"</string>
+    <string name="unblock_number_ok" msgid="6449899182699684786">"ឈប់រារាំង"</string>
     <string name="tab_speed_dial" msgid="7552166276545648893">"ហៅទូរស័ព្ទល្បឿនលឿន"</string>
-    <string name="tab_recents" msgid="929949073851377206">"ថ្មីៗ"</string>
+    <string name="tab_history" msgid="2563144697322434940">"ប្រវត្តិហៅ"</string>
     <string name="tab_all_contacts" msgid="1410922767166533690">"ទំនាក់ទំនង"</string>
     <string name="tab_voicemail" msgid="155024725947496746">"សារជាសំឡេង"</string>
     <string name="favorite_hidden" msgid="5011234945140912047">"បាន​លុប​ចេញពី​ទំនាក់ទំនង​ដែល​និយម​ប្រើ"</string>
@@ -145,7 +181,7 @@
     <string name="search_shortcut_add_to_contact" msgid="4327842393369915751">"បន្ថែមទៅទំនាក់ទំនង"</string>
     <string name="search_shortcut_send_sms_message" msgid="2569304043345025525">"ផ្ញើសារ SMS"</string>
     <string name="search_shortcut_make_video_call" msgid="1265971685034465166">"ការ​ហៅ​ជា​វីដេអូ"</string>
-    <string name="show_call_history" msgid="1141502332266697170">"មើលប្រវត្តិហៅទាំងស្រុង"</string>
+    <string name="search_shortcut_block_number" msgid="4787156645163436072">"រារាំងលេខ"</string>
     <string name="num_missed_calls" msgid="8081736535604293886">"ខកខាន​ទទួល​ថ្មី <xliff:g id="NUMBER">%s</xliff:g>"</string>
     <string name="speed_dial_empty" msgid="8838921693673366129">"គ្មាននរណាម្នាក់នៅក្នុងការហៅរហ័សរបស់អ្នកនៅឡើយទេ"</string>
     <string name="speed_dial_empty_add_favorite_action" msgid="7944893641496695770">"បន្ថែមសំណព្វ"</string>
@@ -154,13 +190,19 @@
     <string name="contact_tooltip" msgid="2019777545923635266">"ប៉ះរូបភាពដើម្បីមើលលេខទាំងអស់ ឬប៉ះ &amp; សង្កត់ឲ្យជាប់ដើម្បីតម្រៀបឡើងវិញ"</string>
     <string name="remove_contact" msgid="1080555335283662961">"លុបចេញ"</string>
     <string name="call_log_action_video_call" msgid="7724301709041128296">"ហៅជាវីដេអូ"</string>
-    <string name="call_log_action_send_message" msgid="2826466379787846163">"ផ្ញើសារ"</string>
-    <string name="call_log_action_details" msgid="701345508704970622">"ព័ត៌មានលម្អិតនៃការហៅ"</string>
+    <string name="call_log_action_send_message" msgid="5679719296905285131">"ផ្ញើសារ"</string>
+    <string name="call_log_action_details" msgid="701345508704970622">"ព័ត៌មានលម្អិតអំពីការហៅ"</string>
     <string name="call_log_action_call" msgid="463690849042459842">"ហៅ <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
     <string name="description_incoming_missed_call" msgid="2381085098795943627">"ខកខានទទួលកាហៅពី <xliff:g id="NAMEORNUMBER">^1</xliff:g>, <xliff:g id="TYPEORLOCATION">^2</xliff:g>, <xliff:g id="TIMEOFCALL">^3</xliff:g>, <xliff:g id="PHONEACCOUNT">^4</xliff:g>។"</string>
     <string name="description_incoming_answered_call" msgid="7117665748428816544">"បានឆ្លើយតបការហៅពី <xliff:g id="NAMEORNUMBER">^1</xliff:g>, <xliff:g id="TYPEORLOCATION">^2</xliff:g>, <xliff:g id="TIMEOFCALL">^3</xliff:g>, <xliff:g id="PHONEACCOUNT">^4</xliff:g>។"</string>
+    <string name="description_unread_voicemail" msgid="5826351827625665597">"សារជាសំឡេងដែលមិនទាន់អានពី <xliff:g id="NAMEORNUMBER">^1</xliff:g>, <xliff:g id="TYPEORLOCATION">^2</xliff:g>, <xliff:g id="TIMEOFCALL">^3</xliff:g>, <xliff:g id="PHONEACCOUNT">^4</xliff:g>"</string>
+    <string name="description_read_voicemail" msgid="133974208364152610">"សារជាសំឡេងពី <xliff:g id="NAMEORNUMBER">^1</xliff:g>, <xliff:g id="TYPEORLOCATION">^2</xliff:g>, <xliff:g id="TIMEOFCALL">^3</xliff:g>, <xliff:g id="PHONEACCOUNT">^4</xliff:g>"</string>
     <string name="description_outgoing_call" msgid="6386364390619734734">"ហៅទៅ <xliff:g id="NAMEORNUMBER">^1</xliff:g>, <xliff:g id="TYPEORLOCATION">^2</xliff:g>, <xliff:g id="TIMEOFCALL">^3</xliff:g>, <xliff:g id="PHONEACCOUNT">^4</xliff:g>។"</string>
     <string name="description_phone_account" msgid="1767072759541443861">"នៅ <xliff:g id="PHONEACCOUNT">^1</xliff:g>"</string>
+    <string name="description_via_number" msgid="3503311803959108316">"តាមរយៈ <xliff:g id="NUMBER">%1$s</xliff:g>"</string>
+    <string name="call_log_via_number" msgid="8373282986443543296">"តាមរយៈ <xliff:g id="NUMBER">%1$s</xliff:g>"</string>
+    <string name="description_via_number_phone_account" msgid="5426866894799626474">"នៅ​លើ <xliff:g id="PHONEACCOUNT">%1$s</xliff:g>, តាមរយៈ <xliff:g id="NUMBER">%2$s</xliff:g>"</string>
+    <string name="call_log_via_number_phone_account" msgid="4394943791173578941">"<xliff:g id="PHONEACCOUNT">%1$s</xliff:g> តាមរយៈ <xliff:g id="NUMBER">%2$s</xliff:g>"</string>
     <string name="description_call_log_call_action" msgid="3682561657090693134">"ហៅ"</string>
     <string name="description_call_action" msgid="4000549004089776147">"ហៅ <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
     <string name="description_video_call_action" msgid="7386922428155062213">"ហៅទៅ <xliff:g id="NAMEORNUMBER">^1</xliff:g> ជាវីដេអូ។"</string>
@@ -174,7 +216,7 @@
     </plurals>
     <string name="description_create_new_contact_action" msgid="818755978791008167">"បង្កើតទំនាក់ទំនងសម្រាប់ <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
     <string name="description_add_to_existing_contact_action" msgid="6081200053494414351">"បន្ថែម <xliff:g id="NAMEORNUMBER">^1</xliff:g> ទៅទំនាក់ទំនងដែលមានស្រាប់"</string>
-    <string name="description_details_action" msgid="2433827152749491785">"ព័ត៌មាន​លម្អិត​ហៅ​សម្រាប់ <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
+    <string name="description_details_action" msgid="2433827152749491785">"ព័ត៌មាន​លម្អិត​អំពីការហៅ​សម្រាប់ <xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
     <string name="toast_entry_removed" msgid="8010830299576311534">"បានលុបចេញពីប្រវត្តិហៅ"</string>
     <string name="call_log_header_today" msgid="3225248682434212981">"ថ្ងៃនេះ"</string>
     <string name="call_log_header_yesterday" msgid="9139172458834033092">"ម្សិលមិញ"</string>
@@ -187,7 +229,7 @@
     <string name="voicemail_play_start_pause" msgid="3687447935787768983">"ចាប់ផ្ដើម ឬ​ផ្អាក​ការ​ចាក់​ឡើងវិញ។"</string>
     <string name="list_delimeter" msgid="4571593167738725100">", "</string>
     <string name="display_options_title" msgid="7812852361055667468">"ជម្រើសបង្ហាញ"</string>
-    <string name="sounds_and_vibration_title" msgid="1692290115642160845">"សម្លេង និងភាពរំញ័រ"</string>
+    <string name="sounds_and_vibration_title" msgid="1692290115642160845">"សំឡេង និងរំញ័រ"</string>
     <string name="accessibility_settings_title" msgid="6068141142874046249">"លទ្ធភាពប្រើប្រាស់"</string>
     <string name="ringtone_title" msgid="760362035635084653">"សំឡេង​រោទ៍​ទូរស័ព្ទ"</string>
     <string name="vibrate_on_ring_title" msgid="3362916460327555241">"ញ័រ​សម្រាប់​ការ​ហៅ​ផងដែរ"</string>
@@ -199,14 +241,34 @@
   </string-array>
     <string name="respond_via_sms_setting_title" msgid="1318281521087951580">"ឆ្លើយតប​រហ័ស"</string>
     <string name="call_settings_label" msgid="313434211353070209">"ការហៅ"</string>
+    <string name="manage_blocked_numbers_label" msgid="5959801428936629196">"ការរារាំងការហៅ"</string>
+    <string name="blocked_numbers_disabled_emergency_header_label" msgid="7870947220238070418">"ការរារាំងការហៅត្រូវបានបិទជាបណ្តោះអាសន្ន"</string>
+    <string name="blocked_numbers_disabled_emergency_desc" msgid="7755803249073401381">"ការរារាំងការហៅត្រូវបានបិទដំណើរការ ដោយសារតែអ្នកបានទាក់ទងទៅសេវាអាសន្នចេញពីទូរស័ព្ទនេះក្នុងចន្លោះពេល 48 ម៉ោងកន្លងមកនេះ។ វានឹងបើកដំណើរការឡើងវិញ បន្ទាប់ពីរយៈពេល 48 ម៉ោងផុតកំណត់។"</string>
+    <string name="import_send_to_voicemail_numbers_label" msgid="1606601823746799926">"នាំចូលលេខ"</string>
+    <string name="blocked_call_settings_import_description" msgid="8640906226815125906">"កាលពីមុនអ្នកបានដាក់សម្គាល់ឲ្យបញ្ជូនអ្នកហៅមួយចំនួនដោយស្វ័យប្រវត្តិទៅកាន់សារជាសំឡេងតាមរយៈកម្មវិធីផ្សេងទៀត។"</string>
+    <string name="blocked_call_settings_view_numbers_button" msgid="6698986720875955935">"មើលលេខ"</string>
+    <string name="blocked_call_settings_import_button" msgid="178821255125295473">"នាំចូល"</string>
+    <string name="send_to_voicemail_import_failed" msgid="5547202002133560069">"ការនាំចូលបានបរាជ័យ"</string>
+    <string name="voicemail_archive_failed" msgid="6263467962738772223">"បាន​បរាជ័យ​រក្សាទុក​សារជាសំឡេង​ក្នុង​ប័ណ្ណសារ។"</string>
+    <string name="description_blocked_number_list_delete" msgid="3240093199107796792">"ឈប់ទប់ស្កាត់លេខ"</string>
+    <string name="addBlockedNumber" msgid="6064812257482886526">"បន្ថែមលេខ"</string>
+    <string name="block_number_footer_message_vvm" msgid="5387302253765439712">"ការហៅចេញពីលេខទាំងនេះនឹងត្រូវបានរារាំង ហើយសារជាសំឡេងនឹងត្រូវបានលុបដោយស្វ័យប្រវត្តិ។"</string>
+    <string name="block_number_footer_message_no_vvm" msgid="223238617533822381">"ការហៅចេញពីលេខទាំងនេះនឹងត្រូវបានរារាំង ប៉ុន្តែពួកគេនៅតែអាចទុកសារជាសំឡេងឲ្យអ្នកបាន។"</string>
+    <string name="block_list" msgid="7760188925338078011">"លេខដែលបានរារាំង"</string>
+    <string name="invalidNumber" msgid="619058581062192851">"<xliff:g id="NUMBER">%1$s</xliff:g> មិនត្រឹមត្រូវទេ"</string>
+    <string name="alreadyBlocked" msgid="282340105563646876">"<xliff:g id="NUMBER">%1$s</xliff:g> ត្រូវបានទប់ស្កាត់រួចហើយ"</string>
+    <string name="call_blocking_disabled_notification_title" msgid="8185193413377920194">"ការរារាំងការហៅត្រូវបានបិទដំណើរការរយៈពេល 48 ម៉ោង"</string>
+    <string name="call_blocking_disabled_notification_text" msgid="5330772013626378526">"បានបិទដំណើរការពីព្រោះការហៅបន្ទាន់ត្រូវបានធ្វើឡើង"</string>
     <string name="phone_account_settings_label" msgid="5864322009841175294">"គណនីហៅទូរស័ព្ទ"</string>
     <string name="permission_single_turn_on" msgid="1543391076065465464">"បើក"</string>
     <string name="permission_multiple_turn_on" msgid="2426278457455950554">"កំណត់សិទ្ធិអនុញ្ញាត"</string>
-    <string name="permission_no_speeddial" msgid="7449042208802130085">"ដើម្បីបើកការហៅរហ័ស\n សូមបើកសិទ្ធិអនុញ្ញាតទំនាក់ទំនង។"</string>
-    <string name="permission_no_calllog" msgid="8969825954337678018">"ដើម្បីមើលកំណត់ហេតុការហៅរបស់អ្នក\n សូមបើកសិទ្ធិអនុញ្ញាតទូរស័ព្ទ។"</string>
-    <string name="permission_no_contacts" msgid="4427828429876890950">"ដើម្បីមើលទំនាក់ទំនងរបស់អ្នក\n សូមបើកសិទ្ធិអនុុញ្ញាតទំនាក់ទំនង។"</string>
-    <string name="permission_no_voicemail" msgid="7785949850839671813">"ដើម្បីចូលដំណើរការសារជាសំឡេង\n សូមបើកសិទ្ធិអនុញ្ញាតទូរស័ព្ទ។"</string>
+    <string name="permission_no_speeddial" msgid="6882563445996184051">"ដើម្បីបើកដំណើរការហៅរហ័ស សូមបើកសិទ្ធិអនុញ្ញាតកម្មវិធីទំនាក់ទំនង។"</string>
+    <string name="permission_no_calllog" msgid="555711464287041043">"ដើម្បីមើលកំណត់ហេតុហៅទូរស័ព្ទរបស់អ្នក សូមបើកសិទ្ធិអនុញ្ញាតកម្មវិធីហៅទូរស័ព្ទ។"</string>
+    <string name="permission_no_contacts" msgid="6237980143178936279">"ដើម្បីមើលទំនាក់ទំនងរបស់អ្នក សូមបើកសិទ្ធិអនុញ្ញាតកម្មវិធីទំនាក់ទំនង។"</string>
+    <string name="permission_no_voicemail" msgid="8306280257799917574">"ដើម្បីចូលដំណើរការសារជាសំឡេងរបស់អ្នក សូមបើកសិទ្ធិអនុញ្ញាតកម្មវិធីហៅទូរស័ព្ទ។"</string>
     <string name="permission_no_search" msgid="84152933267902056">"ដើម្បីស្វែងរកទំនាក់ទំនងរបស់អ្នក សូមបើកសិទ្ធិអនុញ្ញាតទំនាក់ទំនង។"</string>
-    <string name="permission_place_call" msgid="7588803619716288478">"ដើម្បីធ្វើការហៅ\n សូមបើកសិទ្ធិអនុញ្ញាតទូរស័ព្ទ។"</string>
+    <string name="permission_place_call" msgid="2101287782615887547">"ដើម្បីធ្វើការហៅទូរស័ព្ទ សូមបើកសិទ្ធិអនុញ្ញាតកម្មវិធីហៅទូរស័ព្ទ។"</string>
     <string name="toast_cannot_write_system_settings" msgid="5614246168296606709">"កម្មវិធីទូរស័ព្ទមិនមានសិទ្ធិអនុញ្ញាតដើម្បីសរសេរការកំណត់ប្រព័ន្ធទេ។"</string>
+    <string name="blocked_number_call_log_label" msgid="8912042441473014712">"បានរារាំង"</string>
+    <string name="accessibility_call_is_active" msgid="2297282583928508760">"<xliff:g id="NAMEORNUMBER">^1</xliff:g> គឺសកម្ម"</string>
 </resources>

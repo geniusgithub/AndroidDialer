@@ -80,10 +80,11 @@ public class EmptyContentView extends LinearLayout implements View.OnClickListen
     }
 
     public void setImage(int resourceId) {
-        mImageView.setImageResource(resourceId);
         if (resourceId == NO_LABEL) {
+            mImageView.setImageDrawable(null);
             mImageView.setVisibility(View.GONE);
         } else {
+            mImageView.setImageResource(resourceId);
             mImageView.setVisibility(View.VISIBLE);
         }
     }

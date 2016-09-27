@@ -1,8 +1,12 @@
 package com.android.dialer.service;
 
 import android.content.Context;
+import android.net.Uri;
+import android.support.annotation.Nullable;
 
 import com.android.dialer.calllog.ContactInfo;
+
+import java.io.InputStream;
 
 public interface CachedNumberLookupService {
 
@@ -42,7 +46,10 @@ public interface CachedNumberLookupService {
     public boolean isBusiness(int sourceType);
     public boolean canReportAsInvalid(int sourceType, String objectId);
 
-    public boolean addPhoto(Context context, String number, byte[] photo);
+    /**
+     * @return return {@link Uri} to the photo or return {@code null} when failing to add photo
+     */
+    public @Nullable Uri addPhoto(Context context, String number, InputStream in);
 
     /**
      * Remove all cached phone number entries from the cache, regardless of how old they

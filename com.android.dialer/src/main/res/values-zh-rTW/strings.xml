@@ -19,21 +19,37 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="applicationLabel" msgid="7762561155467201526">"電話"</string>
     <string name="launcherActivityLabel" msgid="1129729740601172692">"電話"</string>
+    <string name="launcherDialpadActivityLabel" msgid="3959809805046059167">"電話撥號鍵盤"</string>
     <string name="dialerIconLabel" msgid="6500826552823403796">"電話"</string>
-    <string name="recentCallsIconLabel" msgid="2639489159797075507">"通話紀錄"</string>
-    <string name="recentCalls_callNumber" msgid="1756372533999226126">"撥電話給<xliff:g id="NAME">%s</xliff:g>"</string>
-    <string name="call_detail_menu_report" msgid="587960283417977382">"回報號碼錯誤"</string>
-    <string name="recentCalls_editNumberBeforeCall" msgid="7756171675833267857">"撥打電話前編輯號碼"</string>
-    <string name="recentCalls_addToContact" msgid="4570467333422734645">"新增至聯絡人"</string>
-    <string name="recentCalls_removeFromRecentList" msgid="5551148439199439404">"從通話紀錄中刪除"</string>
-    <string name="recentCalls_deleteAll" msgid="5157887960461979812">"清除通話紀錄"</string>
-    <string name="recentCalls_trashVoicemail" msgid="7604696960787435655">"刪除語音留言"</string>
-    <string name="recentCalls_shareVoicemail" msgid="1416112847592942840">"分享語音信箱"</string>
-    <string name="recentCalls_empty" msgid="5934808652605981210">"無通話紀錄"</string>
-    <string name="recentCalls_empty_action" msgid="6033275870727664335">"撥打電話"</string>
+    <string name="callHistoryIconLabel" msgid="3734413397291301223">"通話紀錄"</string>
+    <string name="action_report_number" msgid="4635403959812186162">"回報號碼錯誤"</string>
+    <string name="action_copy_number_text" msgid="588249522108594155">"複製號碼"</string>
+    <string name="copy_transcript_text" msgid="5652787482893879382">"複製留言轉錄內容"</string>
+    <string name="action_block_number" msgid="1482657602262262134">"封鎖號碼"</string>
+    <string name="snackbar_number_blocked" msgid="939830142765936021">"已封鎖 <xliff:g id="NUMBER">%1$s</xliff:g>"</string>
+    <string name="action_unblock_number" msgid="3043777622269776127">"解除封鎖號碼"</string>
+    <string name="snackbar_number_unblocked" msgid="4854738171099045912">"已解除封鎖 <xliff:g id="NUMBER">%1$s</xliff:g>"</string>
+    <string name="block_number_undo" msgid="591338370336724156">"復原"</string>
+    <string name="call_details_delete" msgid="1833359621896346955">"刪除"</string>
+    <string name="action_edit_number_before_call" msgid="3100221149873436485">"撥打前編輯號碼"</string>
+    <string name="call_log_delete_all" msgid="4677609108288680411">"清除通話紀錄"</string>
+    <string name="call_log_trash_voicemail" msgid="1283948488625129019">"刪除語音留言"</string>
+    <string name="call_log_archive_voicemail" msgid="9072936797223284265">"封存語音留言"</string>
+    <string name="call_log_share_voicemail" msgid="7272635349055945546">"分享語音留言"</string>
+    <string name="snackbar_voicemail_deleted" msgid="5098542835986188582">"已刪除語音留言"</string>
+    <string name="snackbar_voicemail_archived" msgid="7442340403660554373">"已封存語音留言"</string>
+    <string name="snackbar_voicemail_deleted_undo" msgid="3741811385891289167">"復原"</string>
+    <string name="snackbar_voicemail_archived_goto" msgid="9186182602955185448">"前往封存檔案"</string>
     <string name="clearCallLogConfirmation_title" msgid="801753155679372984">"清除通話紀錄？"</string>
     <string name="clearCallLogConfirmation" msgid="7899552396101432827">"這項操作會將所有通話從您的紀錄中刪除"</string>
     <string name="clearCallLogProgress_title" msgid="3372471156216306132">"正在清除通話紀錄…"</string>
+    <string name="userCallActivityLabel" product="default" msgid="6652512551977445095">"撥打電話"</string>
+    <string name="notification_missedCallTitle" msgid="2078223183024451723">"未接來電"</string>
+    <string name="notification_missedWorkCallTitle" msgid="8418335304394771688">"未接公司來電"</string>
+    <string name="notification_missedCallsTitle" msgid="4948840634672742797">"未接來電"</string>
+    <string name="notification_missedCallsMsg" msgid="158790423221579961">"<xliff:g id="NUM_MISSED_CALLS">%s</xliff:g> 通未接來電"</string>
+    <string name="notification_missedCall_call_back" msgid="1991552423738343203">"回撥"</string>
+    <string name="notification_missedCall_message" msgid="3042123733754151052">"傳送簡訊"</string>
     <plurals name="notification_voicemail_title" formatted="false" msgid="9088953961148324851">
       <item quantity="other"> <xliff:g id="COUNT">%1$d</xliff:g> 則語音留言</item>
       <item quantity="one">語音留言</item>
@@ -42,8 +58,8 @@
     <string name="notification_voicemail_callers_list" msgid="1153954809339404149">"<xliff:g id="NEWER_CALLERS">%1$s</xliff:g>、<xliff:g id="OLDER_CALLER">%2$s</xliff:g>"</string>
     <string name="notification_new_voicemail_ticker" msgid="895342132049452081">"最新語音留言者：<xliff:g id="CALLER">%1$s</xliff:g>"</string>
     <string name="voicemail_playback_error" msgid="3356071912353297599">"無法播放語音留言"</string>
-    <string name="voicemail_buffering" msgid="738287747618697097">"緩衝處理中…"</string>
     <string name="voicemail_fetching_content" msgid="1287895365599580842">"正在載入語音留言…"</string>
+    <string name="voicemail_archiving_content" msgid="722322091690281157">"正在封存語音留言…"</string>
     <string name="voicemail_fetching_timout" msgid="3959428065511972176">"無法載入語音留言"</string>
     <string name="call_log_voicemail_header" msgid="3945407886667089173">"僅顯示語音信箱留言"</string>
     <string name="call_log_incoming_header" msgid="2787722299753674684">"僅顯示來電"</string>
@@ -73,7 +89,6 @@
     <string name="action_menu_call_history_description" msgid="9018442816219748968">"通話紀錄"</string>
     <string name="action_menu_overflow_description" msgid="2303272250613084574">"更多選項"</string>
     <string name="action_menu_dialpad_button" msgid="1425910318049008136">"撥號鍵盤"</string>
-    <string name="menu_copy" msgid="6108677035381940698">"複製"</string>
     <string name="menu_show_outgoing_only" msgid="1965570298133301970">"僅顯示撥出電話"</string>
     <string name="menu_show_incoming_only" msgid="7534206815238877417">"僅顯示來電"</string>
     <string name="menu_show_missed_only" msgid="154473166059743996">"僅顯示未接來電"</string>
@@ -96,12 +111,13 @@
     <string name="type_outgoing_video" msgid="2858140021680755266">"撥出的視訊通話"</string>
     <string name="type_missed_video" msgid="954396897034220545">"未接視訊通話來電"</string>
     <string name="type_voicemail" msgid="5153139450668549908">"語音信箱"</string>
+    <string name="type_rejected" msgid="7783201828312472691">"拒接的來電"</string>
+    <string name="type_blocked" msgid="3521686227115330015">"封鎖的來電"</string>
     <string name="actionIncomingCall" msgid="6028930669817038600">"來電"</string>
     <string name="description_call_log_play_button" msgid="651182125650429846">"播放語音留言"</string>
     <string name="description_view_contact" msgid="5205669345700598415">"查看聯絡人<xliff:g id="NAME">%1$s</xliff:g>"</string>
     <string name="description_call" msgid="3443678121983852666">"撥電話給<xliff:g id="NAME">%1$s</xliff:g>"</string>
     <string name="description_contact_details" msgid="51229793651342809">"「<xliff:g id="NAMEORNUMBER">%1$s</xliff:g>」的聯絡詳細資料"</string>
-    <string name="description_new_voicemail" msgid="2133792360865517746">"新的語音留言。"</string>
     <string name="description_num_calls" msgid="1601505153694540074">"通話 <xliff:g id="NUMBEROFCALLS">%1$s</xliff:g> 次。"</string>
     <string name="description_video_call" msgid="2933838090743214204">"視訊通話。"</string>
     <string name="description_send_text_message" msgid="3118485319691414221">"傳送簡訊給<xliff:g id="NAME">%1$s</xliff:g>"</string>
@@ -114,6 +130,11 @@
     <string name="payphone" msgid="7726415831153618726">"公用電話"</string>
     <string name="callDetailsShortDurationFormat" msgid="3988146235579303592">"<xliff:g id="SECONDS">%s</xliff:g> 秒"</string>
     <string name="callDetailsDurationFormat" msgid="6061406028764382234">"<xliff:g id="MINUTES">%s</xliff:g> 分 <xliff:g id="SECONDS">%s</xliff:g> 秒"</string>
+    <!-- no translation found for voicemailCallLogToday (682363079840402849) -->
+    <skip />
+    <string name="voicemailCallLogDateTimeFormat" msgid="4388070029056487713">"<xliff:g id="DATE">%1$s</xliff:g><xliff:g id="TIME">%2$s</xliff:g>"</string>
+    <string name="voicemailDurationFormat" msgid="228211252076289564">"<xliff:g id="MINUTES">%1$02d</xliff:g>:<xliff:g id="SECONDS">%2$02d</xliff:g>"</string>
+    <string name="voicemailCallLogDateTimeFormatWithDuration" msgid="5118563814451588397">"<xliff:g id="DATEANDTIME">%1$s</xliff:g> • <xliff:g id="DURATION">%2$s</xliff:g>"</string>
     <string name="dialog_phone_call_prohibited_message" msgid="5730565540182492608">"無法撥打這個號碼"</string>
     <string name="dialog_voicemail_not_ready_message" msgid="4384716252789515378">"如要設定語音信箱，請前往 [選單] &gt; [設定]。"</string>
     <string name="dialog_voicemail_airplane_mode_message" msgid="530922773669546093">"如要聽語音留言，請先關閉飛行模式。"</string>
@@ -126,26 +147,41 @@
     <string name="voice_search_not_available" msgid="2977719040254285301">"無法使用語音搜尋"</string>
     <string name="call_not_available" msgid="8941576511946492225">"「電話」應用程式已遭停用，因此無法撥打電話。"</string>
     <string name="activity_not_available" msgid="2287665636817987623">"這個裝置未安裝可執行該操作的應用程式"</string>
-    <string name="dialer_hint_find_contact" msgid="1012544667033887519">"輸入姓名或電話號碼"</string>
-    <string name="recentMissed_empty" msgid="6213733029875741604">"您沒有任何未接來電。"</string>
-    <string name="recentVoicemails_empty" msgid="7345542764648856330">"您沒有任何語音留言。"</string>
+    <string name="dialer_hint_find_contact" msgid="3574350254520035364">"搜尋聯絡人"</string>
+    <string name="block_number_search_hint" msgid="5409571607043872758">"新增號碼或搜尋聯絡人"</string>
+    <string name="call_log_all_empty" msgid="8357417710416340920">"沒有任何通話紀錄"</string>
+    <string name="call_log_all_empty_action" msgid="9093210119068366147">"撥打電話"</string>
+    <string name="call_log_missed_empty" msgid="3927274175205520135">"您沒有任何未接來電。"</string>
+    <string name="call_log_voicemail_empty" msgid="8383585074222277550">"您沒有任何語音留言。"</string>
+    <string name="voicemail_archive_empty" msgid="1087408796679056787">"您尚未封存任何語音留言。"</string>
     <string name="show_favorites_only" msgid="5520072531022614595">"只顯示我的收藏"</string>
-    <string name="call_log_activity_title" msgid="4612824396355272023">"通話紀錄"</string>
+    <string name="call_log_activity_title" msgid="7949633151371183580">"通話紀錄"</string>
+    <string name="voicemail_archive_activity_title" msgid="2638669189424535229">"語音留言封存檔案"</string>
     <string name="call_log_all_title" msgid="3566738938889333307">"全部"</string>
     <string name="call_log_missed_title" msgid="4541142293870638971">"未接來電"</string>
     <string name="call_log_voicemail_title" msgid="940422274047025948">"語音留言"</string>
+    <string name="migrate_blocked_numbers_dialog_title" msgid="2039363199438872626">"全新、簡易的封鎖功能"</string>
+    <string name="migrate_blocked_numbers_dialog_message" msgid="5598530398682662860">"「電話」應用程式需要變更封鎖功能的運作方式，以進一步保護您的安全。現在開始，系統會拒絕已封鎖號碼的來電和簡訊，還會將這些號碼提供給其他應用程式。"</string>
+    <string name="migrate_blocked_numbers_dialog_allow_button" msgid="3116140286537760629">"允許"</string>
+    <string name="block_number_confirmation_title" msgid="6862219558186931304">"要封鎖 <xliff:g id="NUMBER">%1$s</xliff:g> 嗎？"</string>
+    <string name="block_number_confirmation_message_vvm" msgid="5655646611437082611">"系統會封鎖這組號碼的來電，並自動刪除對方的語音留言。"</string>
+    <string name="block_number_confirmation_message_no_vvm" msgid="4511900601491718173">"系統會封鎖這組號碼的來電，但對方仍可錄製語音留言給您。"</string>
+    <string name="block_number_confirmation_message_new_filtering" msgid="4524854769790960179">"您不會再收到這組號碼的來電或簡訊。"</string>
+    <string name="block_number_ok" msgid="770551992296781873">"封鎖"</string>
+    <string name="unblock_number_confirmation_title" msgid="252824779504084354">"要解除封鎖 <xliff:g id="NUMBER">%1$s</xliff:g> 嗎？"</string>
+    <string name="unblock_number_ok" msgid="6449899182699684786">"解除封鎖"</string>
     <string name="tab_speed_dial" msgid="7552166276545648893">"快速撥號"</string>
-    <string name="tab_recents" msgid="929949073851377206">"近期通話"</string>
+    <string name="tab_history" msgid="2563144697322434940">"通話紀錄"</string>
     <string name="tab_all_contacts" msgid="1410922767166533690">"聯絡人"</string>
     <string name="tab_voicemail" msgid="155024725947496746">"語音信箱"</string>
-    <string name="favorite_hidden" msgid="5011234945140912047">"已從最愛的聯絡人移除"</string>
+    <string name="favorite_hidden" msgid="5011234945140912047">"已從常用聯絡人移除"</string>
     <string name="favorite_hidden_undo" msgid="2508998611039406474">"復原"</string>
     <string name="search_shortcut_call_number" msgid="7277194656832895870">"撥打 <xliff:g id="NUMBER">%s</xliff:g>"</string>
     <string name="search_shortcut_create_new_contact" msgid="1679917465521554093">"建立新聯絡人"</string>
     <string name="search_shortcut_add_to_contact" msgid="4327842393369915751">"新增至聯絡人"</string>
     <string name="search_shortcut_send_sms_message" msgid="2569304043345025525">"傳送簡訊"</string>
     <string name="search_shortcut_make_video_call" msgid="1265971685034465166">"進行視訊通話"</string>
-    <string name="show_call_history" msgid="1141502332266697170">"查看完整通話紀錄"</string>
+    <string name="search_shortcut_block_number" msgid="4787156645163436072">"封鎖號碼"</string>
     <string name="num_missed_calls" msgid="8081736535604293886">"<xliff:g id="NUMBER">%s</xliff:g> 通新的未接來電"</string>
     <string name="speed_dial_empty" msgid="8838921693673366129">"您的快速撥號功能尚未設定任何聯絡人"</string>
     <string name="speed_dial_empty_add_favorite_action" msgid="7944893641496695770">"新增常用聯絡人"</string>
@@ -154,13 +190,19 @@
     <string name="contact_tooltip" msgid="2019777545923635266">"輕觸圖片即可查看所有號碼，輕觸並按住則可重新排序"</string>
     <string name="remove_contact" msgid="1080555335283662961">"移除"</string>
     <string name="call_log_action_video_call" msgid="7724301709041128296">"視訊通話"</string>
-    <string name="call_log_action_send_message" msgid="2826466379787846163">"傳送訊息"</string>
+    <string name="call_log_action_send_message" msgid="5679719296905285131">"傳送簡訊"</string>
     <string name="call_log_action_details" msgid="701345508704970622">"通話詳細資料"</string>
     <string name="call_log_action_call" msgid="463690849042459842">"撥號給「<xliff:g id="NAMEORNUMBER">^1</xliff:g>」"</string>
     <string name="description_incoming_missed_call" msgid="2381085098795943627">"未接來電：<xliff:g id="NAMEORNUMBER">^1</xliff:g>/<xliff:g id="TYPEORLOCATION">^2</xliff:g>/<xliff:g id="TIMEOFCALL">^3</xliff:g>/<xliff:g id="PHONEACCOUNT">^4</xliff:g>"</string>
     <string name="description_incoming_answered_call" msgid="7117665748428816544">"已接來電：<xliff:g id="NAMEORNUMBER">^1</xliff:g>/<xliff:g id="TYPEORLOCATION">^2</xliff:g>/<xliff:g id="TIMEOFCALL">^3</xliff:g>/<xliff:g id="PHONEACCOUNT">^4</xliff:g>"</string>
+    <string name="description_unread_voicemail" msgid="5826351827625665597">"您有一則未讀語音留言，來電者：<xliff:g id="NAMEORNUMBER">^1</xliff:g>，<xliff:g id="TYPEORLOCATION">^2</xliff:g>，<xliff:g id="TIMEOFCALL">^3</xliff:g>，<xliff:g id="PHONEACCOUNT">^4</xliff:g>。"</string>
+    <string name="description_read_voicemail" msgid="133974208364152610">"您有一則語音留言，來電者：<xliff:g id="NAMEORNUMBER">^1</xliff:g>，<xliff:g id="TYPEORLOCATION">^2</xliff:g>，<xliff:g id="TIMEOFCALL">^3</xliff:g>，<xliff:g id="PHONEACCOUNT">^4</xliff:g>。"</string>
     <string name="description_outgoing_call" msgid="6386364390619734734">"撥出通話：<xliff:g id="NAMEORNUMBER">^1</xliff:g>/<xliff:g id="TYPEORLOCATION">^2</xliff:g>/<xliff:g id="TIMEOFCALL">^3</xliff:g>/<xliff:g id="PHONEACCOUNT">^4</xliff:g>"</string>
     <string name="description_phone_account" msgid="1767072759541443861">"透過 <xliff:g id="PHONEACCOUNT">^1</xliff:g>"</string>
+    <string name="description_via_number" msgid="3503311803959108316">"透過 <xliff:g id="NUMBER">%1$s</xliff:g>"</string>
+    <string name="call_log_via_number" msgid="8373282986443543296">"透過 <xliff:g id="NUMBER">%1$s</xliff:g>"</string>
+    <string name="description_via_number_phone_account" msgid="5426866894799626474">"<xliff:g id="PHONEACCOUNT">%1$s</xliff:g>，透過 <xliff:g id="NUMBER">%2$s</xliff:g>"</string>
+    <string name="call_log_via_number_phone_account" msgid="4394943791173578941">"<xliff:g id="PHONEACCOUNT">%1$s</xliff:g> (透過 <xliff:g id="NUMBER">%2$s</xliff:g>)"</string>
     <string name="description_call_log_call_action" msgid="3682561657090693134">"撥號"</string>
     <string name="description_call_action" msgid="4000549004089776147">"撥號給「<xliff:g id="NAMEORNUMBER">^1</xliff:g>」"</string>
     <string name="description_video_call_action" msgid="7386922428155062213">"與「<xliff:g id="NAMEORNUMBER">^1</xliff:g>」視訊通話。"</string>
@@ -199,14 +241,34 @@
   </string-array>
     <string name="respond_via_sms_setting_title" msgid="1318281521087951580">"快速回應"</string>
     <string name="call_settings_label" msgid="313434211353070209">"通話"</string>
+    <string name="manage_blocked_numbers_label" msgid="5959801428936629196">"來電封鎖"</string>
+    <string name="blocked_numbers_disabled_emergency_header_label" msgid="7870947220238070418">"來電封鎖功能已暫時關閉"</string>
+    <string name="blocked_numbers_disabled_emergency_desc" msgid="7755803249073401381">"由於您曾在過去 48 小時內使用這支手機撥打緊急服務電話，因此來電封鎖功能已停用。此功能停用達 48 小時後，將由系統自動重新啟用。"</string>
+    <string name="import_send_to_voicemail_numbers_label" msgid="1606601823746799926">"匯入電話號碼"</string>
+    <string name="blocked_call_settings_import_description" msgid="8640906226815125906">"您之前曾將某些來電者標示為自動透過其他應用程式轉到語音信箱。"</string>
+    <string name="blocked_call_settings_view_numbers_button" msgid="6698986720875955935">"查看號碼"</string>
+    <string name="blocked_call_settings_import_button" msgid="178821255125295473">"匯入"</string>
+    <string name="send_to_voicemail_import_failed" msgid="5547202002133560069">"匯入失敗"</string>
+    <string name="voicemail_archive_failed" msgid="6263467962738772223">"無法封存語音留言。"</string>
+    <string name="description_blocked_number_list_delete" msgid="3240093199107796792">"解除封鎖號碼"</string>
+    <string name="addBlockedNumber" msgid="6064812257482886526">"新增號碼"</string>
+    <string name="block_number_footer_message_vvm" msgid="5387302253765439712">"系統會封鎖這些號碼的來電，並自動刪除對方的語音留言。"</string>
+    <string name="block_number_footer_message_no_vvm" msgid="223238617533822381">"系統會封鎖這些號碼的來電，但對方仍可錄製語音留言給您。"</string>
+    <string name="block_list" msgid="7760188925338078011">"已封鎖的號碼"</string>
+    <string name="invalidNumber" msgid="619058581062192851">"<xliff:g id="NUMBER">%1$s</xliff:g> 無效。"</string>
+    <string name="alreadyBlocked" msgid="282340105563646876">"<xliff:g id="NUMBER">%1$s</xliff:g> 已在封鎖清單中。"</string>
+    <string name="call_blocking_disabled_notification_title" msgid="8185193413377920194">"來電封鎖功能會停用 48 小時"</string>
+    <string name="call_blocking_disabled_notification_text" msgid="5330772013626378526">"由於您曾撥打緊急電話，因此本功能已停用。"</string>
     <string name="phone_account_settings_label" msgid="5864322009841175294">"通話帳戶"</string>
     <string name="permission_single_turn_on" msgid="1543391076065465464">"開啟"</string>
     <string name="permission_multiple_turn_on" msgid="2426278457455950554">"設定權限"</string>
-    <string name="permission_no_speeddial" msgid="7449042208802130085">"如要啟用快速撥號，\n請開啟「聯絡人」存取權限。"</string>
-    <string name="permission_no_calllog" msgid="8969825954337678018">"如要查看您的通話紀錄，\n請開啟「電話」存取權限。"</string>
-    <string name="permission_no_contacts" msgid="4427828429876890950">"如要查看您的聯絡人，\n請開啟「聯絡人」存取權限。"</string>
-    <string name="permission_no_voicemail" msgid="7785949850839671813">"如要存取語音信箱，\n請開啟「電話」存取權限。"</string>
+    <string name="permission_no_speeddial" msgid="6882563445996184051">"如要啟用快速撥號，請開啟「聯絡人」存取權限。"</string>
+    <string name="permission_no_calllog" msgid="555711464287041043">"如要查看您的通話紀錄，請開啟「電話」存取權限。"</string>
+    <string name="permission_no_contacts" msgid="6237980143178936279">"如要查看您的聯絡人，請開啟「聯絡人」存取權限。"</string>
+    <string name="permission_no_voicemail" msgid="8306280257799917574">"如要存取您的語音信箱，請開啟「電話」存取權限。"</string>
     <string name="permission_no_search" msgid="84152933267902056">"如要搜尋您的聯絡人，請開啟「聯絡人」存取權限。"</string>
-    <string name="permission_place_call" msgid="7588803619716288478">"如要撥打電話，\n請開啟「電話」存取權限。"</string>
+    <string name="permission_place_call" msgid="2101287782615887547">"如要撥打電話，請開啟「電話」存取權限。"</string>
     <string name="toast_cannot_write_system_settings" msgid="5614246168296606709">"電話應用程式的權限不足，無法寫入系統設定。"</string>
+    <string name="blocked_number_call_log_label" msgid="8912042441473014712">"已封鎖"</string>
+    <string name="accessibility_call_is_active" msgid="2297282583928508760">"目前顯示的聯絡人：<xliff:g id="NAMEORNUMBER">^1</xliff:g>"</string>
 </resources>

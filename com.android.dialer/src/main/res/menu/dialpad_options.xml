@@ -23,5 +23,8 @@
         android:id="@+id/menu_add_wait"
         android:title="@string/add_wait"
         android:showAsAction="withText" />
-
+    <item
+        android:id="@+id/menu_call_with_note"
+        android:title="@string/call_with_a_note"
+        android:showAsAction="withText" />
 </menu>

@@ -17,7 +17,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingStart="@dimen/search_box_left_padding"
-        android:paddingEnd="@dimen/search_box_right_padding"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -25,8 +24,8 @@
             android:id="@+id/search_magnifying_glass"
             android:layout_height="@dimen/search_box_icon_size"
             android:layout_width="@dimen/search_box_icon_size"
-            android:layout_margin="@dimen/search_box_icon_margin"
             android:padding="@dimen/search_box_search_icon_padding"
+            android:scaleType="center"
             android:src="@drawable/ic_ab_search"
             android:importantForAccessibility="no"
             android:tint="@color/searchbox_icon_tint" />
@@ -45,10 +44,10 @@
 
         <ImageView
             android:id="@+id/voice_search_button"
-            android:layout_height="@dimen/search_box_icon_size"
             android:layout_width="@dimen/search_box_icon_size"
-            android:layout_margin="@dimen/search_box_icon_margin"
-            android:src="@drawable/ic_voice_search"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_mic_grey600"
+            android:scaleType="center"
             android:clickable="true"
             android:contentDescription="@string/description_start_voice_search"
             android:background="?android:attr/selectableItemBackgroundBorderless"
@@ -57,8 +56,9 @@
         <ImageButton
             android:id="@+id/dialtacts_options_menu_button"
             android:layout_width="@dimen/search_box_icon_size"
-            android:layout_height="@dimen/search_box_icon_size"
-            android:layout_margin="@dimen/search_box_icon_margin"
+            android:layout_height="match_parent"
+            android:paddingEnd="@dimen/search_box_right_padding"
+            android:scaleType="center"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_overflow_menu"
             android:contentDescription="@string/action_menu_overflow_description"

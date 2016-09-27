@@ -35,16 +35,27 @@
 
     <LinearLayout
         android:id="@+id/call_action"
+        android:paddingTop="@dimen/call_log_actions_top_padding"
         style="@style/CallLogActionStyle">
 
         <ImageView
             style="@style/CallLogActionIconStyle"
             android:src="@drawable/ic_call_24dp" />
 
-        <TextView
-            android:id="@+id/call_action_text"
-            style="@style/CallLogActionTextStyle"
-            android:text="@string/description_call_log_call_action" />
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:gravity="center_vertical">
+            <TextView
+                android:id="@+id/call_action_text"
+                style="@style/CallLogActionTextStyle"
+                android:text="@string/description_call_log_call_action" />
+
+            <TextView
+              android:id="@+id/call_type_or_location_text"
+              style="@style/CallLogActionSupportTextStyle"/>
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -103,6 +114,25 @@
             android:text="@string/call_log_action_send_message" />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/call_with_note_action"
+        style="@style/CallLogActionStyle">
+
+        <ImageView
+            style="@style/CallLogActionIconStyle"
+            android:src="@drawable/ic_call_note_white_24dp" />
+
+        <TextView
+            style="@style/CallLogActionTextStyle"
+            android:text="@string/call_with_a_note" />
+
+    </LinearLayout>
+
+    <ViewStub
+        android:id="@+id/extended_blocking_actions_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <LinearLayout
         android:id="@+id/details_action"

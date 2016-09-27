@@ -16,7 +16,6 @@
 
 package com.android.dialer.calllog;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.provider.CallLog.Calls;
 import android.text.SpannableStringBuilder;
@@ -24,7 +23,9 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.dialer.PhoneCallDetails;
+import com.android.dialer.util.AppCompatConstants;
 import com.android.dialer.R;
+import com.android.dialer.calllog.calllogcache.CallLogCache;
 
 /**
  * Helper class to fill in the views of a call log entry.
@@ -36,27 +37,27 @@ import com.android.dialer.R;
     private final PhoneCallDetailsHelper mPhoneCallDetailsHelper;
     /** Resources to look up strings. */
     private final Resources mResources;
-    private final TelecomCallLogCache mTelecomCallLogCache;
+    private final CallLogCache mCallLogCache;
 
     /**
      * Creates a new helper instance.
      *
      * @param phoneCallDetailsHelper used to set the details of a phone call
-     * @param phoneNumberHelper used to process phone number
+     * @param resources The object from which resources can be retrieved
+     * @param callLogCache A cache for values retrieved from telecom/telephony
      */
     public CallLogListItemHelper(
             PhoneCallDetailsHelper phoneCallDetailsHelper,
             Resources resources,
-            TelecomCallLogCache telecomCallLogCache) {
+            CallLogCache callLogCache) {
         mPhoneCallDetailsHelper = phoneCallDetailsHelper;
         mResources = resources;
-        mTelecomCallLogCache = telecomCallLogCache;
+        mCallLogCache = callLogCache;
     }
 
     /**
      * Sets the name, label, and number for a contact.
      *
-     * @param context The application context.
      * @param views the views to populate
      * @param details the details of a phone call needed to fill in the data
      */
@@ -74,6 +75,13 @@ import com.android.dialer.R;
         // Cache name or number of caller.  Used when setting the content descriptions of buttons
         // when the actions ViewStub is inflated.
         views.nameOrNumber = getNameOrNumber(details);
+
+        // The call type or Location associated with the call. Use when setting text for a
+        // voicemail log's call button
+        views.callTypeOrLocation = mPhoneCallDetailsHelper.getCallTypeOrLocation(details);
+
+        // Cache country iso. Used for number filtering.
+        views.countryIso = details.countryIso;
     }
 
     /**
@@ -157,7 +165,6 @@ import com.android.dialer.R;
      */
     public CharSequence getCallDescription(PhoneCallDetails details) {
         int lastCallType = getLastCallType(details.callTypes);
-        boolean isVoiceMail = lastCallType == Calls.VOICEMAIL_TYPE;
 
         // Get the name or number of the caller.
         final CharSequence nameOrNumber = getNameOrNumber(details);
@@ -170,11 +177,6 @@ import com.android.dialer.R;
 
         SpannableStringBuilder callDescription = new SpannableStringBuilder();
 
-        // Prepend the voicemail indication.
-        if (isVoiceMail) {
-            callDescription.append(mResources.getString(R.string.description_new_voicemail));
-        }
-
         // Add number of calls if more than one.
         if (details.callTypes.length > 1) {
             callDescription.append(mResources.getString(R.string.description_num_calls,
@@ -186,20 +188,15 @@ import com.android.dialer.R;
             callDescription.append(mResources.getString(R.string.description_video_call));
         }
 
-        int stringID = getCallDescriptionStringID(details.callTypes);
-        String accountLabel = mTelecomCallLogCache.getAccountLabel(details.accountHandle);
+        String accountLabel = mCallLogCache.getAccountLabel(details.accountHandle);
+        CharSequence onAccountLabel = PhoneCallDetails.createAccountLabelDescription(mResources,
+                details.viaNumber, accountLabel);
 
-        // Use chosen string resource to build up the message.
-        CharSequence onAccountLabel = accountLabel == null
-                ? ""
-                : TextUtils.expandTemplate(
-                        mResources.getString(R.string.description_phone_account),
-                        accountLabel);
+        int stringID = getCallDescriptionStringID(details.callTypes, details.isRead);
         callDescription.append(
                 TextUtils.expandTemplate(
                         mResources.getString(stringID),
                         nameOrNumber,
-                        // If no type or location can be determined, sub in empty string.
                         typeOrLocation == null ? "" : typeOrLocation,
                         timeOfCall,
                         onAccountLabel));
@@ -210,21 +207,28 @@ import com.android.dialer.R;
     /**
      * Determine the appropriate string ID to describe a call for accessibility purposes.
      *
-     * @param details Call details.
+     * @param callTypes The type of call corresponding to this entry or multiple if this entry
+     * represents multiple calls grouped together.
+     * @param isRead If the entry is a voicemail, {@code true} if the voicemail is read.
      * @return String resource ID to use.
      */
-    public int getCallDescriptionStringID(int[] callTypes) {
+    public int getCallDescriptionStringID(int[] callTypes, boolean isRead) {
         int lastCallType = getLastCallType(callTypes);
         int stringID;
 
-        if (lastCallType == Calls.VOICEMAIL_TYPE || lastCallType == Calls.MISSED_TYPE) {
+        if (lastCallType == AppCompatConstants.CALLS_MISSED_TYPE) {
             //Message: Missed call from <NameOrNumber>, <TypeOrLocation>, <TimeOfCall>,
             //<PhoneAccount>.
             stringID = R.string.description_incoming_missed_call;
-        } else if (lastCallType == Calls.INCOMING_TYPE) {
+        } else if (lastCallType == AppCompatConstants.CALLS_INCOMING_TYPE) {
             //Message: Answered call from <NameOrNumber>, <TypeOrLocation>, <TimeOfCall>,
             //<PhoneAccount>.
             stringID = R.string.description_incoming_answered_call;
+        } else if (lastCallType == AppCompatConstants.CALLS_VOICEMAIL_TYPE) {
+            //Message: (Unread) [V/v]oicemail from <NameOrNumber>, <TypeOrLocation>, <TimeOfCall>,
+            //<PhoneAccount>.
+            stringID = isRead ? R.string.description_read_voicemail
+                : R.string.description_unread_voicemail;
         } else {
             //Message: Call to <NameOrNumber>, <TypeOrLocation>, <TimeOfCall>, <PhoneAccount>.
             stringID = R.string.description_outgoing_call;
@@ -252,10 +256,10 @@ import com.android.dialer.R;
      */
     private CharSequence getNameOrNumber(PhoneCallDetails details) {
         final CharSequence recipient;
-        if (!TextUtils.isEmpty(details.name)) {
-            recipient = details.name;
+        if (!TextUtils.isEmpty(details.getPreferredName())) {
+            recipient = details.getPreferredName();
         } else {
-            recipient = details.displayNumber;
+            recipient = details.displayNumber + details.postDialDigits;
         }
         return recipient;
     }

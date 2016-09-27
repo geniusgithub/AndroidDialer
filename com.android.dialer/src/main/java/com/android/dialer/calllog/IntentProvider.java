@@ -21,17 +21,17 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.provider.CallLog.Calls;
 import android.provider.ContactsContract;
 import android.telecom.PhoneAccountHandle;
 
+import com.android.contacts.common.CallUtil;
 import com.android.contacts.common.model.Contact;
 import com.android.contacts.common.model.ContactLoader;
 import com.android.dialer.CallDetailActivity;
-import com.android.dialer.DialtactsActivity;
-import com.android.dialer.PhoneCallDetails;
 import com.android.dialer.util.IntentUtil;
+import com.android.dialer.util.IntentUtil.CallIntentBuilder;
 import com.android.dialer.util.TelecomUtil;
+import com.android.incallui.Call.LogState;
 
 import java.util.ArrayList;
 
@@ -55,7 +55,10 @@ public abstract class IntentProvider {
         return new IntentProvider() {
             @Override
             public Intent getIntent(Context context) {
-                return IntentUtil.getCallIntent(number, accountHandle);
+                return new CallIntentBuilder(number)
+                        .setPhoneAccountHandle(accountHandle)
+                        .setCallInitiationType(LogState.INITIATION_CALL_LOG)
+                        .build();
             }
         };
     }
@@ -69,7 +72,11 @@ public abstract class IntentProvider {
         return new IntentProvider() {
             @Override
             public Intent getIntent(Context context) {
-                return IntentUtil.getVideoCallIntent(number, accountHandle);
+                return new CallIntentBuilder(number)
+                        .setPhoneAccountHandle(accountHandle)
+                        .setCallInitiationType(LogState.INITIATION_CALL_LOG)
+                        .setIsVideoCall(true)
+                        .build();
             }
         };
     }
@@ -78,7 +85,9 @@ public abstract class IntentProvider {
         return new IntentProvider() {
             @Override
             public Intent getIntent(Context context) {
-                return IntentUtil.getVoicemailIntent();
+                return new CallIntentBuilder(CallUtil.getVoicemailUri())
+                        .setCallInitiationType(LogState.INITIATION_CALL_LOG)
+                        .build();
             }
         };
     }

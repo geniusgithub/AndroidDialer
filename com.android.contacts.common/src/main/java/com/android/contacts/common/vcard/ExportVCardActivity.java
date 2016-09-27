@@ -23,6 +23,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -35,6 +37,8 @@ import android.util.Log;
 import com.android.contacts.common.R;
 import com.android.contacts.common.activity.RequestImportVCardPermissionsActivity;
 
+import java.util.List;
+
 /**
  * Shows a dialog confirming the export and asks actual vCard export to {@link VCardService}
  *
@@ -45,7 +49,7 @@ import com.android.contacts.common.activity.RequestImportVCardPermissionsActivit
 public class ExportVCardActivity extends Activity implements ServiceConnection,
         DialogInterface.OnClickListener, DialogInterface.OnCancelListener {
     private static final String LOG_TAG = "VCardExport";
-    private static final boolean DEBUG = VCardService.DEBUG;
+    protected static final boolean DEBUG = VCardService.DEBUG;
     private static final int REQUEST_CREATE_DOCUMENT = 100;
 
     /**
@@ -53,7 +57,7 @@ public class ExportVCardActivity extends Activity implements ServiceConnection,
      *
      * Should be touched inside synchronized block.
      */
-    private boolean mConnected;
+    protected boolean mConnected;
 
     /**
      * True when users need to do something and this Activity should not disconnect from
@@ -62,7 +66,7 @@ public class ExportVCardActivity extends Activity implements ServiceConnection,
      */
     private volatile boolean mProcessOngoing = true;
 
-    private VCardService mService;
+    protected VCardService mService;
     private static final BidiFormatter mBidiFormatter = BidiFormatter.getInstance();
 
     // String for storing error reason temporarily.
@@ -73,6 +77,12 @@ public class ExportVCardActivity extends Activity implements ServiceConnection,
         super.onCreate(bundle);
 
         if (RequestImportVCardPermissionsActivity.startPermissionActivity(this)) {
+            return;
+        }
+
+        if (!hasExportIntentHandler()) {
+            Log.e(LOG_TAG, "Couldn't find export intent handler");
+            showErrorDialog();
             return;
         }
 
@@ -87,31 +97,55 @@ public class ExportVCardActivity extends Activity implements ServiceConnection,
 
         if (startService(intent) == null) {
             Log.e(LOG_TAG, "Failed to start vCard service");
-            mErrorReason = getString(R.string.fail_reason_unknown);
-            showDialog(R.id.dialog_fail_to_export_with_reason);
+            showErrorDialog();
             return;
         }
 
         if (!bindService(intent, this, Context.BIND_AUTO_CREATE)) {
             Log.e(LOG_TAG, "Failed to connect to vCard service.");
-            mErrorReason = getString(R.string.fail_reason_unknown);
-            showDialog(R.id.dialog_fail_to_export_with_reason);
+            showErrorDialog();
         }
         // Continued to onServiceConnected()
+    }
+
+    private boolean hasExportIntentHandler() {
+        final Intent intent = getCreateDocIntent();
+        final List<ResolveInfo> receivers = getPackageManager().queryIntentActivities(intent,
+                PackageManager.MATCH_DEFAULT_ONLY);
+        return receivers != null && receivers.size() > 0;
+    }
+
+    private Intent getCreateDocIntent() {
+        final Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType(VCardService.X_VCARD_MIME_TYPE);
+        intent.putExtra(Intent.EXTRA_TITLE, mBidiFormatter.unicodeWrap(
+                getString(R.string.exporting_vcard_filename), TextDirectionHeuristics.LTR));
+        return intent;
+    }
+
+    private void showErrorDialog() {
+        mErrorReason = getString(R.string.fail_reason_unknown);
+        showDialog(R.id.dialog_fail_to_export_with_reason);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CREATE_DOCUMENT) {
-            if (resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
-                final Uri mTargetFileName = data.getData();
-                if (DEBUG) Log.d(LOG_TAG, "exporting to " + mTargetFileName);
-                final ExportRequest request = new ExportRequest(mTargetFileName);
+            if (resultCode == Activity.RESULT_OK && mService != null &&
+                    data != null && data.getData() != null) {
+                final Uri targetFileName = data.getData();
+                if (DEBUG) Log.d(LOG_TAG, "exporting to " + targetFileName);
+                final ExportRequest request = new ExportRequest(targetFileName);
                 // The connection object will call finish().
                 mService.handleExportRequest(request, new NotificationImportExportListener(
                         ExportVCardActivity.this));
             } else if (DEBUG) {
-                Log.d(LOG_TAG, "create document cancelled or no data returned");
+                if (mService == null) {
+                    Log.d(LOG_TAG, "No vCard service.");
+                } else {
+                    Log.d(LOG_TAG, "create document cancelled or no data returned");
+                }
             }
             unbindAndFinish();
         }
@@ -124,12 +158,7 @@ public class ExportVCardActivity extends Activity implements ServiceConnection,
         mService = ((VCardService.MyBinder) binder).getService();
 
         // Have the user choose where vcards will be exported to
-        final Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType(VCardService.X_VCARD_MIME_TYPE);
-        intent.putExtra(Intent.EXTRA_TITLE, mBidiFormatter.unicodeWrap(
-                getString(R.string.exporting_vcard_filename), TextDirectionHeuristics.LTR));
-        startActivityForResult(intent, REQUEST_CREATE_DOCUMENT);
+        startActivityForResult(getCreateDocIntent(), REQUEST_CREATE_DOCUMENT);
     }
 
     // Use synchronized since we don't want to call unbindAndFinish() just after this call.
@@ -141,32 +170,23 @@ public class ExportVCardActivity extends Activity implements ServiceConnection,
         if (mProcessOngoing) {
             // Unexpected disconnect event.
             Log.w(LOG_TAG, "Disconnected from service during the process ongoing.");
-            mErrorReason = getString(R.string.fail_reason_unknown);
-            showDialog(R.id.dialog_fail_to_export_with_reason);
+            showErrorDialog();
         }
     }
 
     @Override
     protected Dialog onCreateDialog(int id, Bundle bundle) {
-        if (id == R.string.fail_reason_too_many_vcard) {
-			mProcessOngoing = false;
-			return new AlertDialog.Builder(this)
-			        .setTitle(R.string.exporting_contact_failed_title)
-			        .setMessage(getString(R.string.exporting_contact_failed_message,
-			                getString(R.string.fail_reason_too_many_vcard)))
-			        .setPositiveButton(android.R.string.ok, this)
-			        .create();
-		} else if (id == R.id.dialog_fail_to_export_with_reason) {
-			mProcessOngoing = false;
-			return new AlertDialog.Builder(this)
-			        .setTitle(R.string.exporting_contact_failed_title)
-			        .setMessage(getString(R.string.exporting_contact_failed_message,
-			                mErrorReason != null ? mErrorReason :
-			                        getString(R.string.fail_reason_unknown)))
-			        .setPositiveButton(android.R.string.ok, this)
-			        .setOnCancelListener(this)
-			        .create();
-		}
+        if (id == R.id.dialog_fail_to_export_with_reason) {
+            mProcessOngoing = false;
+            return new AlertDialog.Builder(this)
+                    .setTitle(R.string.exporting_contact_failed_title)
+                    .setMessage(getString(R.string.exporting_contact_failed_message,
+                            mErrorReason != null ? mErrorReason :
+                                    getString(R.string.fail_reason_unknown)))
+                    .setPositiveButton(android.R.string.ok, this)
+                    .setOnCancelListener(this)
+                    .create();
+        }
         return super.onCreateDialog(id, bundle);
     }
 
@@ -215,7 +235,7 @@ public class ExportVCardActivity extends Activity implements ServiceConnection,
         return null;
     }
 
-    private synchronized void unbindAndFinish() {
+    protected synchronized void unbindAndFinish() {
         if (mConnected) {
             unbindService(this);
             mConnected = false;

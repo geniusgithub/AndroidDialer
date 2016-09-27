@@ -104,3 +104,8 @@ option java_package com.android.common
 206001 snet (payload|3)
 # TODO(williamluh): Remove this once switch to snet completed.
 206003 exp_det_snet (payload|3)
+
+# GoogleBackupTransport uses 207000
+
+# Android Framework Metrics
+208000 metrics_heartbeat

@@ -114,6 +114,12 @@ public abstract class ContactEntryListFragment<T extends ContactEntryListAdapter
     private ListView mListView;
 
     /**
+     * Used to save the scrolling state of the list when the fragment is not recreated.
+     */
+    private int mListViewTopIndex;
+    private int mListViewTopOffset;
+
+    /**
      * Used for keeping track of the scroll state of the list.
      */
     private Parcelable mListState;
@@ -873,8 +879,22 @@ public abstract class ContactEntryListFragment<T extends ContactEntryListAdapter
 
     @Override
     public void onPause() {
+        // Save the scrolling state of the list view
+        mListViewTopIndex = mListView.getFirstVisiblePosition();
+        View v = mListView.getChildAt(0);
+        mListViewTopOffset = (v == null) ? 0 : (v.getTop() - mListView.getPaddingTop());
+
         super.onPause();
         removePendingDirectorySearchRequests();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Restore the selection of the list view. See b/19982820.
+        // This has to be done manually because if the list view has its emptyView set,
+        // the scrolling state will be reset when clearPartitions() is called on the adapter.
+        mListView.setSelectionFromTop(mListViewTopIndex, mListViewTopOffset);
     }
 
     /**

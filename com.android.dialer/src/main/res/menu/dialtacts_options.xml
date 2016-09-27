@@ -20,6 +20,10 @@
         android:icon="@drawable/ic_menu_history_lt"
         android:title="@string/action_menu_call_history_description" />
     <item
+        android:id="@+id/menu_archive"
+        android:title="@string/voicemail_archive_activity_title"
+        android:visible="false" />
+    <item
         android:id="@+id/menu_import_export"
         android:title="@string/menu_import_export" />
     <item

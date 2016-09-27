@@ -15,8 +15,6 @@
  */
 package com.android.dialer.calllog;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
@@ -25,6 +23,7 @@ import android.provider.CallLog;
 import android.provider.CallLog.Calls;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -33,12 +32,15 @@ import android.view.ViewGroup;
 
 import com.android.contacts.common.interactions.TouchPointManager;
 import com.android.contacts.common.list.ViewPagerTabs;
-import com.android.contacts.commonbind.analytics.AnalyticsUtil;
 import com.android.dialer.DialtactsActivity;
 import com.android.dialer.R;
 import com.android.dialer.StatisticsUtil;
+import com.android.dialer.TransactionSafeActivity;
+import com.android.dialer.logging.Logger;
+import com.android.dialer.logging.ScreenEvent;
+import com.android.dialer.util.DialerUtils;
 
-public class CallLogActivity extends Activity implements ViewPager.OnPageChangeListener {
+public class CallLogActivity extends TransactionSafeActivity implements ViewPager.OnPageChangeListener {
     private ViewPager mViewPager;
     private ViewPagerTabs mViewPagerTabs;
     private ViewPagerAdapter mViewPagerAdapter;
@@ -60,12 +62,18 @@ public class CallLogActivity extends Activity implements ViewPager.OnPageChangeL
         }
 
         @Override
+        public long getItemId(int position) {
+            return getRtlPosition(position);
+        }
+
+        @Override
         public Fragment getItem(int position) {
-            switch (position) {
+            switch (getRtlPosition(position)) {
                 case TAB_INDEX_ALL:
-                    return new CallLogFragment(CallLogQueryHandler.CALL_TYPE_ALL);
+                    return new CallLogFragment(
+                            CallLogQueryHandler.CALL_TYPE_ALL, true /* isCallLogActivity */);
                 case TAB_INDEX_MISSED:
-                    return new CallLogFragment(Calls.MISSED_TYPE);
+                    return new CallLogFragment(Calls.MISSED_TYPE, true /* isCallLogActivity */);
             }
             throw new IllegalStateException("No fragment at position " + position);
         }
@@ -111,7 +119,7 @@ public class CallLogActivity extends Activity implements ViewPager.OnPageChangeL
         setContentView(R.layout.call_log_activity);
         getWindow().setBackgroundDrawable(null);
 
-        final ActionBar actionBar = getActionBar();
+        final ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
@@ -178,15 +186,18 @@ public class CallLogActivity extends Activity implements ViewPager.OnPageChangeL
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                final Intent intent = new Intent(this, DialtactsActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                return true;
-            case R.id.delete_all:
-                ClearCallLogDialog.show(getFragmentManager());
-                return true;
+        if (!isSafeToCommitTransactions()) {
+            return true;
+        }
+
+        if (item.getItemId() == android.R.id.home) {
+            final Intent intent = new Intent(this, DialtactsActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            return true;
+        } else if (item.getItemId() == R.id.delete_all) {
+            ClearCallLogDialog.show(getFragmentManager());
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -210,21 +221,13 @@ public class CallLogActivity extends Activity implements ViewPager.OnPageChangeL
     }
 
     private void sendScreenViewForChildFragment(int position) {
-        AnalyticsUtil.sendScreenView(CallLogFragment.class.getSimpleName(), this,
-                getFragmentTagForPosition(position));
+        Logger.logScreenView(ScreenEvent.CALL_LOG_FILTER, this);
     }
 
-    /**
-     * Returns the fragment located at the given position in the {@link ViewPagerAdapter}. May
-     * be null if the position is invalid.
-     */
-    private String getFragmentTagForPosition(int position) {
-        switch (position) {
-            case TAB_INDEX_ALL:
-                return "All";
-            case TAB_INDEX_MISSED:
-                return "Missed";
+    private int getRtlPosition(int position) {
+        if (DialerUtils.isRtl()) {
+            return mViewPagerAdapter.getCount() - 1 - position;
         }
-        return null;
+        return position;
     }
 }

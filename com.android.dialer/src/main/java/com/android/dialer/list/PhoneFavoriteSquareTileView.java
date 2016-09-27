@@ -24,8 +24,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.android.contacts.common.compat.CompatUtils;
 import com.android.contacts.common.list.ContactEntry;
-import com.android.contacts.common.util.PermissionsUtil;
 import com.android.dialer.R;
 
 /**
@@ -64,15 +64,13 @@ public class PhoneFavoriteSquareTileView extends PhoneFavoriteTileView {
     }
 
     private void launchQuickContact() {
-    	 // modify by genius
-            if(PermissionsUtil.sIsAtLeastM){
-                QuickContact.showQuickContact(getContext(), PhoneFavoriteSquareTileView.this,
-                        getLookupUri(), null, Phone.CONTENT_ITEM_TYPE);
-	        }else{
-	        	 QuickContact.showQuickContact(getContext(), PhoneFavoriteSquareTileView.this, 
-	        			 getLookupUri(), QuickContact.MODE_LARGE, null);
-	        }     
-
+        if (CompatUtils.hasPrioritizedMimeType()) {
+            QuickContact.showQuickContact(getContext(), PhoneFavoriteSquareTileView.this,
+                    getLookupUri(), null, Phone.CONTENT_ITEM_TYPE);
+        } else {
+            QuickContact.showQuickContact(getContext(), PhoneFavoriteSquareTileView.this,
+                    getLookupUri(), QuickContact.MODE_LARGE, null);
+        }
     }
 
     @Override
@@ -101,6 +99,11 @@ public class PhoneFavoriteSquareTileView extends PhoneFavoriteTileView {
                     );
         }
         setMeasuredDimension(width, height);
+    }
+
+    @Override
+    protected String getNameForView(ContactEntry contactEntry) {
+        return contactEntry.getPreferredDisplayName();
     }
 
     public ContactEntry getContactEntry() {
