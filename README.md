@@ -1,22 +1,11 @@
 # AndroidDialer
-google dialer for Android M
+google dialer for Android N
 
 Example screenshot below:
 
-![github](https://github.com/geniusgithub/AndroidDialer/blob/master/images/m1.png?raw=true "github")  
+![github]（https://raw.githubusercontent.com/geniusgithub/AndroidDialer/master/storage/m1.jpg "github")  
 
-![github](https://github.com/geniusgithub/AndroidDialer/blob/master/images/m2.png?raw=true "github")  
-
-
-![github](https://github.com/geniusgithub/AndroidDialer/blob/master/images/m3.png?raw=true "github")  
-
-![github](https://github.com/geniusgithub/AndroidDialer/blob/master/images/m4.png?raw=true "github")  
-
-![github](https://github.com/geniusgithub/AndroidDialer/blob/master/images/m5.png?raw=true "github")  
-
-![github](https://github.com/geniusgithub/AndroidDialer/blob/master/images/m8.png?raw=true "github")  
-
-![github](https://github.com/geniusgithub/AndroidDialer/blob/master/images/m9.png?raw=true "github")  
+![github](https://github.com/geniusgithub/AndroidDialer/blob/master/storage/m2.jpg "github")  
 
 
 if you want to run the project, You should download the dependent library below:
