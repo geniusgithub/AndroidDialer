@@ -2,9 +2,7 @@
 google dialer for Android N
 
 ## Example screenshot below:
-
 ![github](https://raw.githubusercontent.com/geniusgithub/AndroidDialer/master/storage/m1.jpg "github") 
-
 ![github](https://github.com/geniusgithub/AndroidDialer/blob/master/storage/m2.jpg "github")  
 
 ##APK DOWNLOAD
@@ -18,11 +16,10 @@ google dialer for Android N
 * com.android.support:support-v13
 
 ##Run requirements
-------------------------------
-Android OS 5.0 and up<br />
+Android OS 5.0 and up
 
 ## Links
- cnblog : [http://www.cnblogs.com/lance2016/](http://www.cnblogs.com/lance2016/p/5229073.html)<br /> 
+cnblog:[http://www.cnblogs.com/lance2016/](http://www.cnblogs.com/lance2016/p/5229073.html)
  
 ## Development
 If you think this article useful Nepal , please pay attention to me<br />
