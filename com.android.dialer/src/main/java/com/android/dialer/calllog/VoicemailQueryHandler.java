@@ -59,7 +59,8 @@ public class VoicemailQueryHandler extends AsyncQueryHandler {
         if (token == UPDATE_MARK_VOICEMAILS_AS_OLD_TOKEN) {
             if (mContext != null) {
                 Intent serviceIntent = new Intent(mContext, CallLogNotificationsService.class);
-                serviceIntent.setAction(CallLogNotificationsService.ACTION_UPDATE_NOTIFICATIONS);
+                serviceIntent.setAction(
+                        CallLogNotificationsService.ACTION_UPDATE_VOICEMAIL_NOTIFICATIONS);
                 mContext.startService(serviceIntent);
             } else {
                 Log.w(TAG, "Unknown update completed: ignoring: " + token);

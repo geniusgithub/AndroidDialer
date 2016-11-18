@@ -220,7 +220,7 @@ public abstract class CompositeCursorAdapter extends BaseAdapter {
                 prevCursor.close();
             }
             mPartitions.get(partition).cursor = cursor;
-            if (cursor != null) {
+            if (cursor != null && !cursor.isClosed()) {
                 mPartitions.get(partition).idColumnIndex = cursor.getColumnIndex("_id");
             }
             invalidate();

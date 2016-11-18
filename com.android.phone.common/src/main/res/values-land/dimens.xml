@@ -21,4 +21,7 @@
     <dimen name="dialpad_key_text_width">35dp</dimen>
     <dimen name="dialpad_key_number_width">20sp</dimen>
     <dimen name="dialpad_symbol_margin_bottom">0dp</dimen>
+
+    <!-- The bottom space of the dialpad to account for the dial button -->
+    <dimen name="dialpad_bottom_space_height">65dp</dimen>
 </resources>

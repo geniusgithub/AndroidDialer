@@ -18,12 +18,11 @@ package com.android.dialer.dialpad;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
-import android.content.Loader.ForceLoadContentObserver;
 import android.database.Cursor;
 import android.database.MatrixCursor;
-import android.net.Uri;
 import android.util.Log;
 
+import com.android.contacts.common.compat.CompatUtils;
 import com.android.contacts.common.list.PhoneNumberListAdapter.PhoneQuery;
 import com.android.contacts.common.util.PermissionsUtil;
 import com.android.dialer.database.DialerDatabaseHelper;
@@ -102,6 +101,11 @@ public class SmartDialCursorLoader extends AsyncTaskLoader<Cursor> {
             row[PhoneQuery.LOOKUP_KEY] = contact.lookupKey;
             row[PhoneQuery.PHOTO_ID] = contact.photoId;
             row[PhoneQuery.DISPLAY_NAME] = contact.displayName;
+            // change by geniusgithub begin
+            if (CompatUtils.isMarshmallowCompatible()) {
+                row[PhoneQuery.CARRIER_PRESENCE] = contact.carrierPresence;
+            }
+            // change by geniusgithub end
             cursor.addRow(row);
         }
         return cursor;

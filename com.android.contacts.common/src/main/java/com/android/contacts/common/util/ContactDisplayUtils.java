@@ -18,17 +18,21 @@ package com.android.contacts.common.util;
 
 import static android.provider.ContactsContract.CommonDataKinds.Phone;
 
+import com.google.common.base.Preconditions;
+
 import android.content.Context;
-import android.telephony.PhoneNumberUtils;
+import android.content.res.Resources;
+import android.support.annotation.Nullable;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.text.style.TtsSpan;
 import android.util.Log;
 import android.util.Patterns;
 
 import com.android.contacts.common.R;
-
-import com.google.common.base.Preconditions;
+import com.android.contacts.common.compat.PhoneNumberUtilsCompat;
+import com.android.contacts.common.preference.ContactsPreferences;
 
 /**
  * Methods for handling various contact data labels.
@@ -211,14 +215,83 @@ public class ContactDisplayUtils {
             return null;
         }
         final Spannable spannable = new SpannableString(message);
-// remove by genius
-//        int start = phoneNumber == null ? -1 : message.indexOf(phoneNumber);
-//        while (start >= 0) {
-//            final int end = start + phoneNumber.length();
-//            final TtsSpan ttsSpan = PhoneNumberUtils.createTtsSpan(phoneNumber);
-//            spannable.setSpan(ttsSpan, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);             // this is consistenly done in a misleading way..
-//            start = message.indexOf(phoneNumber, end);
-//        }
+        int start = phoneNumber == null ? -1 : message.indexOf(phoneNumber);
+        while (start >= 0) {
+            final int end = start + phoneNumber.length();
+            final TtsSpan ttsSpan = PhoneNumberUtilsCompat.createTtsSpan(phoneNumber);
+            spannable.setSpan(ttsSpan, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);             // this is consistenly done in a misleading way..
+            start = message.indexOf(phoneNumber, end);
+        }
         return spannable;
+    }
+
+    /**
+     * Retrieves a string from a string template that takes 1 phone number as argument,
+     * span the number with a telephone {@link TtsSpan}, and return the spanned string.
+     *
+     * @param resources to retrieve the string from
+     * @param stringId ID of the string
+     * @param number to pass in the template
+     * @return CharSequence with the phone number wrapped in a TtsSpan
+     */
+    public static CharSequence getTtsSpannedPhoneNumber(Resources resources,
+            int stringId, String number){
+        String msg = resources.getString(stringId, number);
+        return ContactDisplayUtils.getTelephoneTtsSpannable(msg, number);
+    }
+
+    /**
+     * Returns either namePrimary or nameAlternative based on the {@link ContactsPreferences}.
+     * Defaults to the name that is non-null.
+     *
+     * @param namePrimary the primary name.
+     * @param nameAlternative the alternative name.
+     * @param contactsPreferences the ContactsPreferences used to determine the preferred
+     * display name.
+     * @return namePrimary or nameAlternative depending on the value of displayOrderPreference.
+     */
+    public static String getPreferredDisplayName(String namePrimary, String nameAlternative,
+            @Nullable ContactsPreferences contactsPreferences) {
+        if (contactsPreferences == null) {
+            return namePrimary != null ? namePrimary : nameAlternative;
+        }
+        if (contactsPreferences.getDisplayOrder() == ContactsPreferences.DISPLAY_ORDER_PRIMARY) {
+            return namePrimary;
+        }
+
+        if (contactsPreferences.getDisplayOrder() == ContactsPreferences.DISPLAY_ORDER_ALTERNATIVE
+                && !TextUtils.isEmpty(nameAlternative)) {
+            return nameAlternative;
+        }
+
+        return namePrimary;
+    }
+
+    /**
+     * Returns either namePrimary or nameAlternative based on the {@link ContactsPreferences}.
+     * Defaults to the name that is non-null.
+     *
+     * @param namePrimary the primary name.
+     * @param nameAlternative the alternative name.
+     * @param contactsPreferences the ContactsPreferences used to determine the preferred sort
+     * order.
+     * @return namePrimary or nameAlternative depending on the value of displayOrderPreference.
+     */
+    public static String getPreferredSortName(String namePrimary, String nameAlternative,
+            @Nullable ContactsPreferences contactsPreferences) {
+        if (contactsPreferences == null) {
+            return namePrimary != null ? namePrimary : nameAlternative;
+        }
+
+        if (contactsPreferences.getSortOrder() == ContactsPreferences.SORT_ORDER_PRIMARY) {
+            return namePrimary;
+        }
+
+        if (contactsPreferences.getSortOrder() == ContactsPreferences.SORT_ORDER_ALTERNATIVE &&
+                !TextUtils.isEmpty(nameAlternative)) {
+            return nameAlternative;
+        }
+
+        return namePrimary;
     }
 }

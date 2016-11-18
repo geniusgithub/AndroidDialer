@@ -26,6 +26,7 @@ import android.database.sqlite.SQLiteDiskIOException;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteFullException;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -34,8 +35,11 @@ import android.provider.VoicemailContract.Status;
 import android.provider.VoicemailContract.Voicemails;
 import android.util.Log;
 
+import com.android.contacts.common.compat.SdkVersionOverride;
 import com.android.contacts.common.database.NoNullCursorAsyncQueryHandler;
 import com.android.contacts.common.util.PermissionsUtil;
+import com.android.dialer.database.VoicemailArchiveContract;
+import com.android.dialer.util.AppCompatConstants;
 import com.android.dialer.util.TelecomUtil;
 import com.android.dialer.voicemail.VoicemailStatusHelperImpl;
 
@@ -46,8 +50,6 @@ import java.util.List;
 
 /** Handles asynchronous queries to the call log. */
 public class CallLogQueryHandler extends NoNullCursorAsyncQueryHandler {
-    private static final String[] EMPTY_STRING_ARRAY = new String[0];
-
     private static final String TAG = "CallLogQueryHandler";
     private static final int NUM_LOGS_TO_DISPLAY = 1000;
 
@@ -59,6 +61,12 @@ public class CallLogQueryHandler extends NoNullCursorAsyncQueryHandler {
     private static final int UPDATE_MARK_MISSED_CALL_AS_READ_TOKEN = 56;
     /** The token for the query to fetch voicemail status messages. */
     private static final int QUERY_VOICEMAIL_STATUS_TOKEN = 57;
+    /** The token for the query to fetch the number of unread voicemails. */
+    private static final int QUERY_VOICEMAIL_UNREAD_COUNT_TOKEN = 58;
+    /** The token for the query to fetch the number of missed calls. */
+    private static final int QUERY_MISSED_CALLS_UNREAD_COUNT_TOKEN = 59;
+    /** The oken for the query to fetch the archived voicemails. */
+    private static final int QUERY_VOICEMAIL_ARCHIVE = 60;
 
     private final int mLogLimit;
 
@@ -122,6 +130,17 @@ public class CallLogQueryHandler extends NoNullCursorAsyncQueryHandler {
     }
 
     /**
+     * Fetch all the voicemails in the voicemail archive.
+     */
+    public void fetchVoicemailArchive() {
+        startQuery(QUERY_VOICEMAIL_ARCHIVE, null,
+                VoicemailArchiveContract.VoicemailArchive.CONTENT_URI,
+                null, VoicemailArchiveContract.VoicemailArchive.ARCHIVED + " = 1", null,
+                VoicemailArchiveContract.VoicemailArchive.DATE + " DESC");
+    }
+
+
+    /**
      * Fetches the list of calls from the call log for a given type.
      * This call ignores the new or old state.
      * <p>
@@ -147,46 +166,44 @@ public class CallLogQueryHandler extends NoNullCursorAsyncQueryHandler {
         }
     }
 
+    public void fetchVoicemailUnreadCount() {
+        if (TelecomUtil.hasReadWriteVoicemailPermissions(mContext)) {
+            // Only count voicemails that have not been read and have not been deleted.
+            startQuery(QUERY_VOICEMAIL_UNREAD_COUNT_TOKEN, null, Voicemails.CONTENT_URI,
+                new String[] { Voicemails._ID },
+                    Voicemails.IS_READ + "=0" + " AND " + Voicemails.DELETED + "=0", null, null);
+        }
+    }
+
     /** Fetches the list of calls in the call log. */
     private void fetchCalls(int token, int callType, boolean newOnly, long newerThan) {
-        // We need to check for NULL explicitly otherwise entries with where READ is NULL
-        // may not match either the query or its negation.
-        // We consider the calls that are not yet consumed (i.e. IS_READ = 0) as "new".
         StringBuilder where = new StringBuilder();
         List<String> selectionArgs = Lists.newArrayList();
 
+        // Always hide blocked calls.
+        where.append("(").append(Calls.TYPE).append(" != ?)");
+        selectionArgs.add(Integer.toString(AppCompatConstants.CALLS_BLOCKED_TYPE));
+
         // Ignore voicemails marked as deleted
-//	remove by genius        
-//        where.append(Voicemails.DELETED);
-//        where.append(" = 0");
-        boolean isAppend = false;
+        if (SdkVersionOverride.getSdkVersion(Build.VERSION_CODES.M)
+                >= Build.VERSION_CODES.M) {
+            where.append(" AND (").append(Voicemails.DELETED).append(" = 0)");
+        }
+
         if (newOnly) {
-        //    where.append(" AND ");
-            where.append(Calls.NEW);
-            where.append(" = 1");
-            isAppend = true;
+            where.append(" AND (").append(Calls.NEW).append(" = 1)");
         }
 
         if (callType > CALL_TYPE_ALL) {
-        	if (isAppend){
-                where.append(" AND ");
-        	}
-            where.append(String.format("(%s = ?)", Calls.TYPE));
+            where.append(" AND (").append(Calls.TYPE).append(" = ?)");
             selectionArgs.add(Integer.toString(callType));
-            isAppend = true;
         } else {
-        	if (isAppend){
-                where.append(" AND NOT ");
-        	}else{
-        		 where.append(" NOT ");
-        	}
- 
-            where.append("(" + Calls.TYPE + " = " + Calls.VOICEMAIL_TYPE + ")");
+            where.append(" AND NOT ");
+            where.append("(" + Calls.TYPE + " = " + AppCompatConstants.CALLS_VOICEMAIL_TYPE + ")");
         }
 
         if (newerThan > 0) {
-            where.append(" AND ");
-            where.append(String.format("(%s > ?)", Calls.DATE));
+            where.append(" AND (").append(Calls.DATE).append(" > ?)");
             selectionArgs.add(Long.toString(newerThan));
         }
 
@@ -195,11 +212,8 @@ public class CallLogQueryHandler extends NoNullCursorAsyncQueryHandler {
         Uri uri = TelecomUtil.getCallLogUri(mContext).buildUpon()
                 .appendQueryParameter(Calls.LIMIT_PARAM_KEY, Integer.toString(limit))
                 .build();
-        Log.i(TAG, "getCallLogUri = " + uri.toString() + "\nselection = " + selection);
-       
-        startQuery(token, null, uri,
-                CallLogQuery._PROJECTION, selection, selectionArgs.toArray(EMPTY_STRING_ARRAY),
-                Calls.DEFAULT_SORT_ORDER);
+        startQuery(token, null, uri, CallLogQuery._PROJECTION, selection, selectionArgs.toArray(
+                new String[selectionArgs.size()]), Calls.DEFAULT_SORT_ORDER);
     }
 
     /** Cancel any pending fetch request. */
@@ -229,18 +243,24 @@ public class CallLogQueryHandler extends NoNullCursorAsyncQueryHandler {
         if (!PermissionsUtil.hasPhonePermissions(mContext)) {
             return;
         }
-        // Mark all "new" calls as not new anymore.
-        StringBuilder where = new StringBuilder();
-        where.append(Calls.IS_READ).append(" = 0");
-        where.append(" AND ");
-        where.append(Calls.TYPE).append(" = ").append(Calls.MISSED_TYPE);
 
         ContentValues values = new ContentValues(1);
         values.put(Calls.IS_READ, "1");
 
         startUpdate(UPDATE_MARK_MISSED_CALL_AS_READ_TOKEN, null, Calls.CONTENT_URI, values,
-                where.toString(), null);
+                getUnreadMissedCallsQuery(), null);
     }
+
+    /** Fetch all missed calls received since last time the tab was opened. */
+    public void fetchMissedCallsUnreadCount() {
+        if (!PermissionsUtil.hasPhonePermissions(mContext)) {
+            return;
+        }
+
+        startQuery(QUERY_MISSED_CALLS_UNREAD_COUNT_TOKEN, null, Calls.CONTENT_URI,
+                new String[]{Calls._ID}, getUnreadMissedCallsQuery(), null, null);
+    }
+
 
     @Override
     protected synchronized void onNotNullableQueryComplete(int token, Object cookie,
@@ -249,12 +269,16 @@ public class CallLogQueryHandler extends NoNullCursorAsyncQueryHandler {
             return;
         }
         try {
-            if (token == QUERY_CALLLOG_TOKEN) {
+            if (token == QUERY_CALLLOG_TOKEN || token == QUERY_VOICEMAIL_ARCHIVE) {
                 if (updateAdapterData(cursor)) {
                     cursor = null;
                 }
             } else if (token == QUERY_VOICEMAIL_STATUS_TOKEN) {
                 updateVoicemailStatus(cursor);
+            } else if (token == QUERY_VOICEMAIL_UNREAD_COUNT_TOKEN) {
+                updateVoicemailUnreadCount(cursor);
+            } else if (token == QUERY_MISSED_CALLS_UNREAD_COUNT_TOKEN) {
+                updateMissedCallsUnreadCount(cursor);
             } else {
                 Log.w(TAG, "Unknown query completed: ignoring: " + token);
             }
@@ -278,6 +302,17 @@ public class CallLogQueryHandler extends NoNullCursorAsyncQueryHandler {
 
     }
 
+    /**
+     * @return Query string to get all unread missed calls.
+     */
+    private String getUnreadMissedCallsQuery() {
+        StringBuilder where = new StringBuilder();
+        where.append(Calls.IS_READ).append(" = 0 OR ").append(Calls.IS_READ).append(" IS NULL");
+        where.append(" AND ");
+        where.append(Calls.TYPE).append(" = ").append(Calls.MISSED_TYPE);
+        return where.toString();
+    }
+
     private void updateVoicemailStatus(Cursor statusCursor) {
         final Listener listener = mListener.get();
         if (listener != null) {
@@ -285,10 +320,30 @@ public class CallLogQueryHandler extends NoNullCursorAsyncQueryHandler {
         }
     }
 
+    private void updateVoicemailUnreadCount(Cursor statusCursor) {
+        final Listener listener = mListener.get();
+        if (listener != null) {
+            listener.onVoicemailUnreadCountFetched(statusCursor);
+        }
+    }
+
+    private void updateMissedCallsUnreadCount(Cursor statusCursor) {
+        final Listener listener = mListener.get();
+        if (listener != null) {
+            listener.onMissedCallsUnreadCountFetched(statusCursor);
+        }
+    }
+
     /** Listener to completion of various queries. */
     public interface Listener {
         /** Called when {@link CallLogQueryHandler#fetchVoicemailStatus()} completes. */
         void onVoicemailStatusFetched(Cursor statusCursor);
+
+        /** Called when {@link CallLogQueryHandler#fetchVoicemailUnreadCount()} completes. */
+        void onVoicemailUnreadCountFetched(Cursor cursor);
+
+        /** Called when {@link CallLogQueryHandler#fetchMissedCallsUnreadCount()} completes. */
+        void onMissedCallsUnreadCountFetched(Cursor cursor);
 
         /**
          * Called when {@link CallLogQueryHandler#fetchCalls(int)} complete.

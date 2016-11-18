@@ -46,11 +46,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="?attr/call_log_secondary_text_color"
-        android:textSize="@dimen/call_log_secondary_text_size" />
+        android:textSize="@dimen/call_log_detail_text_size" />
     <TextView
         android:id="@+id/duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="?attr/call_log_secondary_text_color"
-        android:textSize="@dimen/call_log_secondary_text_size" />
+        android:textSize="@dimen/call_log_detail_text_size" />
 </LinearLayout>

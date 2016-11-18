@@ -31,6 +31,7 @@ import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Trace;
+import android.support.v13.app.FragmentCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,8 +53,8 @@ import com.android.contacts.common.list.ContactTileView;
 import com.android.contacts.common.list.OnPhoneNumberPickerActionListener;
 import com.android.contacts.common.util.PermissionsUtil;
 import com.android.dialer.R;
-import com.android.dialer.util.DialerUtils;
 import com.android.dialer.widget.EmptyContentView;
+import com.android.incallui.Call.LogState;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,7 +64,8 @@ import java.util.HashMap;
  */
 public class SpeedDialFragment extends Fragment implements OnItemClickListener,
         PhoneFavoritesTileAdapter.OnDataSetChangedForAnimationListener,
-        EmptyContentView.OnEmptyViewActionButtonClickedListener {
+        EmptyContentView.OnEmptyViewActionButtonClickedListener,
+        FragmentCompat.OnRequestPermissionsResultCallback {
 
     private static final int READ_CONTACTS_PERMISSION_REQUEST_CODE = 1;
 
@@ -115,14 +117,16 @@ public class SpeedDialFragment extends Fragment implements OnItemClickListener,
         @Override
         public void onContactSelected(Uri contactUri, Rect targetRect) {
             if (mPhoneNumberPickerActionListener != null) {
-                mPhoneNumberPickerActionListener.onPickPhoneNumberAction(contactUri);
+                mPhoneNumberPickerActionListener.onPickDataUri(contactUri,
+                        false /* isVideoCall */, LogState.INITIATION_SPEED_DIAL);
             }
         }
 
         @Override
         public void onCallNumberDirectly(String phoneNumber) {
             if (mPhoneNumberPickerActionListener != null) {
-                mPhoneNumberPickerActionListener.onCallNumberDirectly(phoneNumber);
+                mPhoneNumberPickerActionListener.onPickPhoneNumber(phoneNumber,
+                        false /* isVideoCall */, LogState.INITIATION_SPEED_DIAL);
             }
         }
 
@@ -200,7 +204,9 @@ public class SpeedDialFragment extends Fragment implements OnItemClickListener,
     public void onResume() {
         Trace.beginSection(TAG + " onResume");
         super.onResume();
-
+        if (mContactTileAdapter != null) {
+            mContactTileAdapter.refreshContactsPreferences();
+        }
         if (PermissionsUtil.hasContactsPermissions(getActivity())) {
             if (getLoaderManager().getLoader(LOADER_ID_CONTACT_TILE) == null) {
                 getLoaderManager().initLoader(LOADER_ID_CONTACT_TILE, null,
@@ -251,6 +257,11 @@ public class SpeedDialFragment extends Fragment implements OnItemClickListener,
         mListView.setOnScrollListener(mScrollListener);
         mListView.setFastScrollEnabled(false);
         mListView.setFastScrollAlwaysVisible(false);
+
+        //prevent content changes of the list from firing accessibility events.
+        mListView.setAccessibilityLiveRegion(View.ACCESSIBILITY_LIVE_REGION_NONE);
+        ContentChangedFilter.addToParent(mListView);
+
         Trace.endSection();
         return mParentView;
     }
@@ -473,7 +484,8 @@ public class SpeedDialFragment extends Fragment implements OnItemClickListener,
         }
 
         if (!PermissionsUtil.hasPermission(activity, READ_CONTACTS)) {
-            requestPermissions(new String[] {READ_CONTACTS}, READ_CONTACTS_PERMISSION_REQUEST_CODE);
+          FragmentCompat.requestPermissions(this, new String[] {READ_CONTACTS},
+              READ_CONTACTS_PERMISSION_REQUEST_CODE);
         } else {
             // Switch tabs
             ((HostInterface) activity).showAllContactsTab();

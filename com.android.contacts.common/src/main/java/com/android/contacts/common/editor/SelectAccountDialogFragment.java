@@ -24,6 +24,7 @@ import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import com.android.contacts.common.R;
 import com.android.contacts.common.model.account.AccountWithDataSet;
 import com.android.contacts.common.util.AccountsListAdapter;
 import com.android.contacts.common.util.AccountsListAdapter.AccountListFilter;
@@ -76,6 +77,7 @@ public final class SelectAccountDialogFragment extends DialogFragment {
         final AccountListFilter filter = (AccountListFilter) args.getSerializable(KEY_LIST_FILTER);
         final AccountsListAdapter accountAdapter = new AccountsListAdapter(builder.getContext(),
                 filter);
+        accountAdapter.setCustomLayout(R.layout.account_selector_list_item_condensed);
 
         final DialogInterface.OnClickListener clickListener =
                 new DialogInterface.OnClickListener() {
@@ -101,6 +103,12 @@ public final class SelectAccountDialogFragment extends DialogFragment {
             final Listener target = (Listener) targetFragment;
             target.onAccountSelectorCancelled();
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle b) {
+        setTargetFragment(null, -1);
+        super.onSaveInstanceState(b);
     }
 
     /**

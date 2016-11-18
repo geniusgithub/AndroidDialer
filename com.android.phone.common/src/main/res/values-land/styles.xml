@@ -17,21 +17,20 @@
 
 <resources>
     <style name="DialpadKeyNumberStyle">
-        <item name="android:textColor">@color/dialpad_primary_text_color</item>
+        <item name="android:textColor">?attr/dialpad_text_color_primary</item>
         <item name="android:textSize">@dimen/dialpad_key_numbers_size</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:layout_width">@dimen/dialpad_key_number_width</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginBottom">@dimen/dialpad_key_number_margin_bottom</item>
     </style>
-<!--        <item name="android:textColor">?attr/dialpad_text_color_primary</item> modify by genius-->
+
         <style name="DialpadKeyLettersStyle">
-        <item name="android:textColor">@color/dialpad_secondary_text_color</item>
+        <item name="android:textColor">?attr/dialpad_text_color_secondary</item>
         <item name="android:textSize">@dimen/dialpad_key_letters_size</item>
         <item name="android:fontFamily">sans-serif-regular</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">left</item>
     </style>
-<!--      <item name="android:textColor">?attr/dialpad_text_color_secondary</item>  modify by genius-->
 </resources>

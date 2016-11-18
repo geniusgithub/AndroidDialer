@@ -22,14 +22,18 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v13.app.FragmentCompat;
 import android.util.Log;
 import android.view.View;
 
 import com.android.contacts.common.list.ContactEntryListAdapter;
 import com.android.contacts.common.util.PermissionsUtil;
 import com.android.dialer.dialpad.SmartDialCursorLoader;
+import com.android.dialer.logging.Logger;
+import com.android.dialer.logging.ScreenEvent;
 import com.android.dialer.R;
 import com.android.dialer.widget.EmptyContentView;
+import com.android.incallui.Call.LogState;
 
 import java.util.ArrayList;
 
@@ -37,7 +41,8 @@ import java.util.ArrayList;
  * Implements a fragment to load and display SmartDial search results.
  */
 public class SmartDialSearchFragment extends SearchFragment
-        implements EmptyContentView.OnEmptyViewActionButtonClickedListener {
+        implements EmptyContentView.OnEmptyViewActionButtonClickedListener,
+        FragmentCompat.OnRequestPermissionsResultCallback {
     private static final String TAG = SmartDialSearchFragment.class.getSimpleName();
 
     private static final int CALL_PHONE_PERMISSION_REQUEST_CODE = 1;
@@ -52,6 +57,7 @@ public class SmartDialSearchFragment extends SearchFragment
         adapter.setQuickContactEnabled(true);
         // Set adapter's query string to restore previous instance state.
         adapter.setQueryString(getQueryString());
+        adapter.setListener(this);
         return adapter;
     }
 
@@ -105,7 +111,8 @@ public class SmartDialSearchFragment extends SearchFragment
             return;
         }
 
-        requestPermissions(new String[] {CALL_PHONE}, CALL_PHONE_PERMISSION_REQUEST_CODE);
+        FragmentCompat.requestPermissions(this, new String[] {CALL_PHONE},
+            CALL_PHONE_PERMISSION_REQUEST_CODE);
     }
 
     @Override
@@ -114,6 +121,11 @@ public class SmartDialSearchFragment extends SearchFragment
         if (requestCode == CALL_PHONE_PERMISSION_REQUEST_CODE) {
             setupEmptyView();
         }
+    }
+
+    @Override
+    protected int getCallInitiationType(boolean isRemoteDirectory) {
+        return LogState.INITIATION_SMART_DIAL;
     }
 
     public boolean isShowingPermissionRequest() {

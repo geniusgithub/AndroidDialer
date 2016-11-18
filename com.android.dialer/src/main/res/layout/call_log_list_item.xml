@@ -30,8 +30,8 @@
         android:layout_marginStart="@dimen/call_log_start_margin"
         android:layout_marginEnd="@dimen/call_log_outer_margin"
         android:fontFamily="sans-serif-medium"
-        android:textColor="?attr/call_log_secondary_text_color"
-        android:textSize="@dimen/call_log_secondary_text_size"
+        android:textColor="@color/call_log_day_group_heading_color"
+        android:textSize="@dimen/call_log_day_group_heading_size"
         android:paddingTop="@dimen/call_log_day_group_padding_top"
         android:paddingBottom="@dimen/call_log_day_group_padding_bottom" />
 
@@ -83,20 +83,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/call_log_name_margin_bottom"
                         android:layout_marginEnd="@dimen/call_log_icon_margin"
-                        android:textColor="?attr/call_log_primary_text_color"
+                        android:textColor="@color/call_log_primary_color"
                         android:textSize="@dimen/call_log_primary_text_size"
                         android:singleLine="true" />
-
-                    <TextView
-                        android:id="@+id/voicemail_transcription"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/call_log_icon_margin"
-                        android:textColor="?attr/call_log_secondary_text_color"
-                        android:textSize="@dimen/call_log_secondary_text_size"
-                        android:singleLine="true"
-                        android:ellipsize="marquee"
-                        android:visibility="gone" />
 
                     <LinearLayout
                         android:id="@+id/call_type"
@@ -112,14 +101,22 @@
                             android:layout_marginEnd="@dimen/call_log_icon_margin"
                             android:layout_gravity="center_vertical" />
 
+                        <ImageView android:id="@+id/work_profile_icon"
+                            android:src="@drawable/ic_work_profile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/call_log_icon_margin"
+                            android:scaleType="center"
+                            android:visibility="gone" />
+
                         <TextView
                             android:id="@+id/call_location_and_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/call_log_icon_margin"
                             android:layout_gravity="center_vertical"
-                            android:textColor="?attr/call_log_secondary_text_color"
-                            android:textSize="@dimen/call_log_secondary_text_size"
+                            android:textColor="@color/call_log_detail_color"
+                            android:textSize="@dimen/call_log_detail_text_size"
                             android:singleLine="true" />
 
                     </LinearLayout>
@@ -128,11 +125,24 @@
                         android:id="@+id/call_account_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/call_log_call_account_margin_bottom"
                         android:layout_marginEnd="@dimen/call_log_icon_margin"
                         android:textColor="?attr/call_log_secondary_text_color"
-                        android:textSize="@dimen/call_log_secondary_text_size"
+                        android:textSize="@dimen/call_log_detail_text_size"
                         android:visibility="gone"
                         android:singleLine="true" />
+
+                    <TextView
+                      android:id="@+id/voicemail_transcription"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="@dimen/call_log_icon_margin"
+                      android:textColor="@color/call_log_voicemail_transcript_color"
+                      android:textSize="@dimen/call_log_voicemail_transcription_text_size"
+                      android:ellipsize="marquee"
+                      android:visibility="gone"
+                      android:singleLine="false"
+                      android:maxLines="10"/>
 
                 </LinearLayout>
 

@@ -24,6 +24,8 @@ import android.os.Parcelable;
 import android.provider.BaseColumns;
 import android.provider.ContactsContract;
 
+import com.android.contacts.common.compat.CompatUtils;
+import com.android.contacts.common.model.BuilderWrapper;
 import com.android.contacts.common.testing.NeededForTesting;
 import com.google.common.collect.Sets;
 
@@ -409,6 +411,26 @@ public class ValuesDelta implements Parcelable {
      * delete as needed.
      */
     public ContentProviderOperation.Builder buildDiff(Uri targetUri) {
+        return buildDiffHelper(targetUri);
+    }
+
+    /**
+     * For compatibility purpose.
+     */
+    public BuilderWrapper buildDiffWrapper(Uri targetUri) {
+        final ContentProviderOperation.Builder builder = buildDiffHelper(targetUri);
+        BuilderWrapper bw = null;
+        if (isInsert()) {
+            bw = new BuilderWrapper(builder, CompatUtils.TYPE_INSERT);
+        } else if (isDelete()) {
+            bw = new BuilderWrapper(builder, CompatUtils.TYPE_DELETE);
+        } else if (isUpdate()) {
+            bw = new BuilderWrapper(builder, CompatUtils.TYPE_UPDATE);
+        }
+        return bw;
+    }
+
+    private ContentProviderOperation.Builder buildDiffHelper(Uri targetUri) {
         ContentProviderOperation.Builder builder = null;
         if (isInsert()) {
             // Changed values are "insert" back-referenced to Contact
@@ -545,11 +567,11 @@ public class ValuesDelta implements Parcelable {
         return getAsString(ContactsContract.CommonDataKinds.Phone.NORMALIZED_NUMBER);
     }
 
-    public boolean phoneHasType() {
-        return containsKey(ContactsContract.CommonDataKinds.Phone.TYPE);
+    public boolean hasPhoneType() {
+        return getPhoneType() != null;
     }
 
-    public int getPhoneType() {
+    public Integer getPhoneType() {
         return getAsInteger(ContactsContract.CommonDataKinds.Phone.TYPE);
     }
 
@@ -561,11 +583,11 @@ public class ValuesDelta implements Parcelable {
         return getAsString(ContactsContract.CommonDataKinds.Email.DATA);
     }
 
-    public boolean emailHasType() {
-        return containsKey(ContactsContract.CommonDataKinds.Email.TYPE);
+    public boolean hasEmailType() {
+        return getEmailType() != null;
     }
 
-    public int getEmailType() {
+    public Integer getEmailType() {
         return getAsInteger(ContactsContract.CommonDataKinds.Email.TYPE);
     }
 

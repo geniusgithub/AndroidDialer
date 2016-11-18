@@ -28,8 +28,6 @@
     <dimen name="dialpad_zero_key_number_margin_bottom">@dimen/dialpad_zero_key_number_default_margin_bottom</dimen>
     <dimen name="dialpad_zero_key_number_default_margin_bottom">1dp</dimen>
     <dimen name="dialpad_symbol_margin_bottom">13dp</dimen>
-    <!-- The bottom row of the dialpad is slightly taller to account for the dial button -->
-    <dimen name="dialpad_bottom_key_height">65dp</dimen>
     <dimen name="dialpad_key_plus_size">18sp</dimen>
     <dimen name="dialpad_horizontal_padding">5dp</dimen>
     <dimen name="dialpad_digits_text_size">34sp</dimen>
@@ -47,6 +45,9 @@
     <dimen name="dialpad_key_button_translate_y">100dp</dimen>
     <dimen name="dialpad_overflow_margin">8dp</dimen>
     <dimen name="dialpad_space_above_keys">14dp</dimen>
+    <dimen name="dialpad_space_below_keys">8dp</dimen>
+    <!-- The bottom space of the dialpad to account for the dial button -->
+    <dimen name="dialpad_bottom_space_height">80dp</dimen>
 
     <!-- Height of the floating action button -->
     <dimen name="floating_action_button_height">56dp</dimen>

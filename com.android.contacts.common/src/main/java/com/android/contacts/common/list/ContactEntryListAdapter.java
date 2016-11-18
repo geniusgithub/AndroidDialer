@@ -37,8 +37,10 @@ import android.widget.TextView;
 
 import com.android.contacts.common.ContactPhotoManager;
 import com.android.contacts.common.ContactPhotoManager.DefaultImageRequest;
+import com.android.contacts.common.ContactsUtils;
 import com.android.contacts.common.R;
-import com.android.contacts.common.util.PermissionsUtil;
+import com.android.contacts.common.compat.CompatUtils;
+import com.android.contacts.common.compat.DirectoryCompat;
 import com.android.contacts.common.util.SearchUtil;
 
 import java.util.HashSet;
@@ -129,6 +131,7 @@ public abstract class ContactEntryListAdapter extends IndexerListAdapter {
     protected void bindView(View itemView, int partition, Cursor cursor, int position) {
         final ContactListItemView view = (ContactListItemView) itemView;
         view.setIsSectionHeaderEnabled(isSectionHeaderDisplayEnabled());
+        bindWorkProfileIcon(view, partition);
     }
 
     @Override
@@ -416,10 +419,18 @@ public abstract class ContactEntryListAdapter extends IndexerListAdapter {
             if (getPartitionByDirectoryId(id) == -1) {
                 DirectoryPartition partition = new DirectoryPartition(false, true);
                 partition.setDirectoryId(id);
-                if (isRemoteDirectory(id)) {
-                    partition.setLabel(mContext.getString(R.string.directory_search_label));
+                if (DirectoryCompat.isRemoteDirectoryId(id)) {
+                    if (DirectoryCompat.isEnterpriseDirectoryId(id)) {
+                        partition.setLabel(mContext.getString(R.string.directory_search_label_work));
+                    } else {
+                        partition.setLabel(mContext.getString(R.string.directory_search_label));
+                    }
                 } else {
-                    partition.setLabel(mDefaultFilterHeaderText.toString());
+                    if (DirectoryCompat.isEnterpriseDirectoryId(id)) {
+                        partition.setLabel(mContext.getString(R.string.list_filter_phones_work));
+                    } else {
+                        partition.setLabel(mDefaultFilterHeaderText.toString());
+                    }
                 }
                 partition.setDirectoryType(cursor.getString(directoryTypeColumnIndex));
                 partition.setDisplayName(cursor.getString(displayNameColumnIndex));
@@ -480,7 +491,7 @@ public abstract class ContactEntryListAdapter extends IndexerListAdapter {
      * Updates the indexer, which is used to produce section headers.
      */
     private void updateIndexer(Cursor cursor) {
-        if (cursor == null) {
+        if (cursor == null || cursor.isClosed()) {
             setIndexer(null);
             return;
         }
@@ -609,6 +620,16 @@ public abstract class ContactEntryListAdapter extends IndexerListAdapter {
         return view;
     }
 
+    protected void bindWorkProfileIcon(final ContactListItemView view, int partitionId) {
+        final Partition partition = getPartition(partitionId);
+        if (partition instanceof DirectoryPartition) {
+            final DirectoryPartition directoryPartition = (DirectoryPartition) partition;
+            final long directoryId = directoryPartition.getDirectoryId();
+            final long userType = ContactsUtils.determineUserType(directoryId, null);
+            view.setWorkProfileIconEnabled(userType == ContactsUtils.USER_TYPE_WORK);
+        }
+    }
+
     @Override
     protected void bindHeaderView(View view, int partitionIndex, Cursor cursor) {
         Partition partition = getPartition(partitionIndex);
@@ -621,7 +642,7 @@ public abstract class ContactEntryListAdapter extends IndexerListAdapter {
         TextView labelTextView = (TextView)view.findViewById(R.id.label);
         TextView displayNameTextView = (TextView)view.findViewById(R.id.display_name);
         labelTextView.setText(directoryPartition.getLabel());
-        if (!isRemoteDirectory(directoryId)) {
+        if (!DirectoryCompat.isRemoteDirectoryId(directoryId)) {
             displayNameTextView.setText(null);
         } else {
             String directoryName = directoryPartition.getDisplayName();
@@ -724,16 +745,13 @@ public abstract class ContactEntryListAdapter extends IndexerListAdapter {
         QuickContactBadge quickContact = view.getQuickContact();
         quickContact.assignContactUri(
                 getContactUri(partitionIndex, cursor, contactIdColumn, lookUpKeyColumn));
-        // The Contacts app never uses the QuickContactBadge. Therefore, it is safe to assume
-        // that only Dialer will use this QuickContact badge. This means prioritizing the phone
-        // mimetype here is reasonable.
-        if (!PermissionsUtil.sIsAtLeastM){
-        	
-        }else{
+        if (CompatUtils.hasPrioritizedMimeType()) {
+            // The Contacts app never uses the QuickContactBadge. Therefore, it is safe to assume
+            // that only Dialer will use this QuickContact badge. This means prioritizing the phone
+            // mimetype here is reasonable.
             quickContact.setPrioritizedMimeType(Phone.CONTENT_ITEM_TYPE);
         }
-     
-       
+
         if (photoId != 0 || photoUriColumn == -1) {
             getPhotoLoader().loadThumbnail(quickContact, photoId, mDarkTheme, mCircularPhotos,
                     null);
@@ -778,11 +796,6 @@ public abstract class ContactEntryListAdapter extends IndexerListAdapter {
                     ContactsContract.DIRECTORY_PARAM_KEY, String.valueOf(directoryId)).build();
         }
         return uri;
-    }
-
-    public static boolean isRemoteDirectory(long directoryId) {
-        return directoryId != Directory.DEFAULT
-                && directoryId != Directory.LOCAL_INVISIBLE;
     }
 
     /**

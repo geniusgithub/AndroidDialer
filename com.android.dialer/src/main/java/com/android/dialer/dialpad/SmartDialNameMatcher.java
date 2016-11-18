@@ -16,6 +16,7 @@
 
 package com.android.dialer.dialpad;
 
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.android.dialer.dialpad.SmartDialPrefix.PhoneNumberTokens;
@@ -123,7 +124,11 @@ public class SmartDialNameMatcher {
      *         SmartDialMatchPosition with the matching positions otherwise
      */
     @VisibleForTesting
+    @Nullable
     public SmartDialMatchPosition matchesNumber(String phoneNumber, String query, boolean useNanp) {
+        if (TextUtils.isEmpty(phoneNumber)) {
+            return null;
+        }
         StringBuilder builder = new StringBuilder();
         constructEmptyMask(builder, phoneNumber.length());
         mPhoneNumberMatchMask = builder.toString();

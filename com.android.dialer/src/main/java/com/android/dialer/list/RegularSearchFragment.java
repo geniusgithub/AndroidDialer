@@ -15,11 +15,11 @@
  */
 package com.android.dialer.list;
 
-import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.READ_CONTACTS;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.support.v13.app.FragmentCompat;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -28,30 +28,34 @@ import com.android.contacts.common.list.PinnedHeaderListView;
 import com.android.contacts.common.util.PermissionsUtil;
 import com.android.contacts.commonbind.analytics.AnalyticsUtil;
 import com.android.dialerbind.ObjectFactory;
+import com.android.incallui.Call.LogState;
 
 import com.android.dialer.R;
+import com.android.dialer.logging.Logger;
+import com.android.dialer.logging.ScreenEvent;
 import com.android.dialer.service.CachedNumberLookupService;
 import com.android.dialer.widget.EmptyContentView;
 import com.android.dialer.widget.EmptyContentView.OnEmptyViewActionButtonClickedListener;
 
 public class RegularSearchFragment extends SearchFragment
-        implements OnEmptyViewActionButtonClickedListener {
+        implements OnEmptyViewActionButtonClickedListener,
+        FragmentCompat.OnRequestPermissionsResultCallback {
 
-    private static final int READ_CONTACTS_PERMISSION_REQUEST_CODE = 1;
+    public static final int PERMISSION_REQUEST_CODE = 1;
 
     private static final int SEARCH_DIRECTORY_RESULT_LIMIT = 5;
 
     private static final CachedNumberLookupService mCachedNumberLookupService =
         ObjectFactory.newCachedNumberLookupService();
 
-    public RegularSearchFragment() {
-        configureDirectorySearch();
+    public interface CapabilityChecker {
+        public boolean isNearbyPlacesSearchEnabled();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        AnalyticsUtil.sendScreenView(this);
+    protected String mPermissionToRequest;
+
+    public RegularSearchFragment() {
+        configureDirectorySearch();
     }
 
     public void configureDirectorySearch() {
@@ -65,10 +69,12 @@ public class RegularSearchFragment extends SearchFragment
         ((PinnedHeaderListView) getListView()).setScrollToSectionOnHeaderTouch(true);
     }
 
+    @Override
     protected ContactEntryListAdapter createListAdapter() {
         RegularSearchListAdapter adapter = new RegularSearchListAdapter(getActivity());
         adapter.setDisplayPhotos(true);
         adapter.setUseCallableUri(usesCallableUri());
+        adapter.setListener(this);
         return adapter;
     }
 
@@ -85,15 +91,29 @@ public class RegularSearchFragment extends SearchFragment
     @Override
     protected void setupEmptyView() {
         if (mEmptyView != null && getActivity() != null) {
+            final int imageResource;
+            final int actionLabelResource;
+            final int descriptionResource;
+            final OnEmptyViewActionButtonClickedListener listener;
             if (!PermissionsUtil.hasPermission(getActivity(), READ_CONTACTS)) {
-                mEmptyView.setImage(R.drawable.empty_contacts);
-                mEmptyView.setActionLabel(R.string.permission_single_turn_on);
-                mEmptyView.setDescription(R.string.permission_no_search);
-                mEmptyView.setActionClickedListener(this);
+                imageResource = R.drawable.empty_contacts;
+                actionLabelResource = R.string.permission_single_turn_on;
+                descriptionResource = R.string.permission_no_search;
+                listener = this;
+                mPermissionToRequest = READ_CONTACTS;
             } else {
-                mEmptyView.setImage(EmptyContentView.NO_IMAGE);
-                mEmptyView.setActionLabel(EmptyContentView.NO_LABEL);
-                mEmptyView.setDescription(EmptyContentView.NO_LABEL);
+                imageResource = EmptyContentView.NO_IMAGE;
+                actionLabelResource = EmptyContentView.NO_LABEL;
+                descriptionResource = EmptyContentView.NO_LABEL;
+                listener = null;
+                mPermissionToRequest = null;
+            }
+
+            mEmptyView.setImage(imageResource);
+            mEmptyView.setActionLabel(actionLabelResource);
+            mEmptyView.setDescription(descriptionResource);
+            if (listener != null) {
+                mEmptyView.setActionClickedListener(listener);
             }
         }
     }
@@ -105,14 +125,27 @@ public class RegularSearchFragment extends SearchFragment
             return;
         }
 
-        requestPermissions(new String[] {READ_CONTACTS}, READ_CONTACTS_PERMISSION_REQUEST_CODE);
+        if (READ_CONTACTS.equals(mPermissionToRequest)) {
+          FragmentCompat.requestPermissions(this, new String[] {mPermissionToRequest},
+              PERMISSION_REQUEST_CODE);
+        }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions,
             int[] grantResults) {
-        if (requestCode == READ_CONTACTS_PERMISSION_REQUEST_CODE) {
+        if (requestCode == PERMISSION_REQUEST_CODE) {
             setupEmptyView();
+            if (grantResults != null && grantResults.length == 1
+                    && PackageManager.PERMISSION_GRANTED == grantResults[0]) {
+                PermissionsUtil.notifyPermissionGranted(getActivity(), mPermissionToRequest);
+            }
         }
+    }
+
+    @Override
+    protected int getCallInitiationType(boolean isRemoteDirectory) {
+        return isRemoteDirectory ? LogState.INITIATION_REMOTE_DIRECTORY
+                : LogState.INITIATION_REGULAR_SEARCH;
     }
 }

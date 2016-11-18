@@ -19,6 +19,7 @@ package com.android.dialer.calllog;
 import android.net.Uri;
 import android.text.TextUtils;
 
+import com.android.contacts.common.ContactsUtils.UserType;
 import com.android.contacts.common.util.UriUtils;
 import com.google.common.base.Objects;
 
@@ -34,10 +35,20 @@ public class ContactInfo {
      */
     public String lookupKey;
     public String name;
+    public String nameAlternative;
     public int type;
     public String label;
     public String number;
     public String formattedNumber;
+    /*
+     * ContactInfo.normalizedNumber is a column value returned by PhoneLookup query. By definition,
+     * it's E164 representation.
+     * http://developer.android.com/reference/android/provider/ContactsContract.PhoneLookupColumns.
+     * html#NORMALIZED_NUMBER.
+     *
+     * The fallback value, when PhoneLookup fails or else, should be either null or
+     * PhoneNumberUtils.formatNumberToE164.
+     */
     public String normalizedNumber;
     /** The photo for the contact, if available. */
     public long photoId;
@@ -45,6 +56,7 @@ public class ContactInfo {
     public Uri photoUri;
     public boolean isBadData;
     public String objectId;
+    public @UserType long userType;
 
     public static ContactInfo EMPTY = new ContactInfo();
 
@@ -70,6 +82,7 @@ public class ContactInfo {
         ContactInfo other = (ContactInfo) obj;
         if (!UriUtils.areEqual(lookupUri, other.lookupUri)) return false;
         if (!TextUtils.equals(name, other.name)) return false;
+        if (!TextUtils.equals(nameAlternative, other.nameAlternative)) return false;
         if (type != other.type) return false;
         if (!TextUtils.equals(label, other.label)) return false;
         if (!TextUtils.equals(number, other.number)) return false;
@@ -78,14 +91,18 @@ public class ContactInfo {
         if (photoId != other.photoId) return false;
         if (!UriUtils.areEqual(photoUri, other.photoUri)) return false;
         if (!TextUtils.equals(objectId, other.objectId)) return false;
+        if (userType != other.userType) return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return Objects.toStringHelper(this).add("lookupUri", lookupUri).add("name", name).add(
-                "type", type).add("label", label).add("number", number).add("formattedNumber",
-                formattedNumber).add("normalizedNumber", normalizedNumber).add("photoId", photoId)
-                .add("photoUri", photoUri).add("objectId", objectId).toString();
+        return Objects.toStringHelper(this).add("lookupUri", lookupUri).add("name", name)
+                .add("nameAlternative", nameAlternative)
+                .add("type", type).add("label", label)
+                .add("number", number).add("formattedNumber",formattedNumber)
+                .add("normalizedNumber", normalizedNumber).add("photoId", photoId)
+                .add("photoUri", photoUri).add("objectId", objectId)
+                .add("userType",userType).toString();
     }
 }

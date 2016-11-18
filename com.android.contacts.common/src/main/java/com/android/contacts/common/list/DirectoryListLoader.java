@@ -23,11 +23,14 @@ import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
 import android.os.Handler;
+import android.provider.ContactsContract;
 import android.provider.ContactsContract.Directory;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.android.contacts.common.ContactsUtils;
 import com.android.contacts.common.R;
+import com.android.contacts.common.compat.DirectoryCompat;
 
 /**
  * A specialized loader for the list of directories, see {@link Directory}.
@@ -42,7 +45,6 @@ public class DirectoryListLoader extends AsyncTaskLoader<Cursor> {
     public static final int SEARCH_MODE_DATA_SHORTCUT = 3;
 
     private static final class DirectoryQuery {
-        public static final Uri URI = Directory.CONTENT_URI;
         public static final String ORDER_BY = Directory._ID;
 
         public static final String[] PROJECTION = {
@@ -58,6 +60,14 @@ public class DirectoryListLoader extends AsyncTaskLoader<Cursor> {
         public static final int TYPE_RESOURCE_ID = 2;
         public static final int DISPLAY_NAME = 3;
         public static final int PHOTO_SUPPORT = 4;
+
+        public static Uri getDirectoryUri(int mode) {
+            if (mode == SEARCH_MODE_DATA_SHORTCUT || mode == SEARCH_MODE_CONTACT_SHORTCUT) {
+                return Directory.CONTENT_URI;
+            } else {
+                return DirectoryCompat.getContentUri();
+            }
+        }
     }
 
     // This is a virtual column created for a MatrixCursor.
@@ -101,7 +111,8 @@ public class DirectoryListLoader extends AsyncTaskLoader<Cursor> {
     @Override
     protected void onStartLoading() {
         getContext().getContentResolver().
-                registerContentObserver(Directory.CONTENT_URI, false, mObserver);
+                registerContentObserver(DirectoryQuery.getDirectoryUri(mDirectorySearchMode),
+                        false, mObserver);
         forceLoad();
     }
 
@@ -122,22 +133,17 @@ public class DirectoryListLoader extends AsyncTaskLoader<Cursor> {
         String selection;
         switch (mDirectorySearchMode) {
             case SEARCH_MODE_DEFAULT:
-                selection = mLocalInvisibleDirectoryEnabled ? null
-                        : (Directory._ID + "!=" + Directory.LOCAL_INVISIBLE);
+                selection = null;
                 break;
 
             case SEARCH_MODE_CONTACT_SHORTCUT:
-                selection = Directory.SHORTCUT_SUPPORT + "=" + Directory.SHORTCUT_SUPPORT_FULL
-                        + (mLocalInvisibleDirectoryEnabled ? ""
-                                : (" AND " + Directory._ID + "!=" + Directory.LOCAL_INVISIBLE));
+                selection = Directory.SHORTCUT_SUPPORT + "=" + Directory.SHORTCUT_SUPPORT_FULL;
                 break;
 
             case SEARCH_MODE_DATA_SHORTCUT:
                 selection = Directory.SHORTCUT_SUPPORT + " IN ("
                         + Directory.SHORTCUT_SUPPORT_FULL + ", "
-                        + Directory.SHORTCUT_SUPPORT_DATA_ITEMS_ONLY + ")"
-                        + (mLocalInvisibleDirectoryEnabled ? ""
-                                : (" AND " + Directory._ID + "!=" + Directory.LOCAL_INVISIBLE));
+                        + Directory.SHORTCUT_SUPPORT_DATA_ITEMS_ONLY + ")";
                 break;
 
             default:
@@ -146,7 +152,8 @@ public class DirectoryListLoader extends AsyncTaskLoader<Cursor> {
         }
         Cursor cursor = null;
         try {
-            cursor = context.getContentResolver().query(DirectoryQuery.URI,
+            cursor = context.getContentResolver().query(
+                    DirectoryQuery.getDirectoryUri(mDirectorySearchMode),
                     DirectoryQuery.PROJECTION, selection, null, DirectoryQuery.ORDER_BY);
 
             if (cursor == null) {
@@ -155,6 +162,10 @@ public class DirectoryListLoader extends AsyncTaskLoader<Cursor> {
 
             while(cursor.moveToNext()) {
                 long directoryId = cursor.getLong(DirectoryQuery.ID);
+                if (!mLocalInvisibleDirectoryEnabled
+                        && DirectoryCompat.isInvisibleDirectory(directoryId)) {
+                    continue;
+                }
                 String directoryType = null;
 
                 String packageName = cursor.getString(DirectoryQuery.PACKAGE_NAME);

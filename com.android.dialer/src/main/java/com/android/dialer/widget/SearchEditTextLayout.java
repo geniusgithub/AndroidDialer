@@ -230,7 +230,6 @@ public class SearchEditTextLayout extends FrameLayout {
         setElevation(0);
         setPaddingRelative(paddingStart, paddingTop, paddingEnd, paddingBottom);
 
-        setElevation(0);
         if (requestFocus) {
             mSearchView.requestFocus();
         }

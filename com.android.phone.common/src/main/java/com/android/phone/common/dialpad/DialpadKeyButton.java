@@ -17,7 +17,7 @@
 package com.android.phone.common.dialpad;
 
 import android.content.Context;
-import android.graphics.Rect;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -51,7 +51,7 @@ public class DialpadKeyButton extends FrameLayout {
     private AccessibilityManager mAccessibilityManager;
 
     /** Bounds used to filter HOVER_EXIT events. */
-    private Rect mHoverBounds = new Rect();
+    private RectF mHoverBounds = new RectF();
 
     /** Whether this view is currently in the long-hover state. */
     private boolean mLongHovered;
@@ -169,7 +169,7 @@ public class DialpadKeyButton extends FrameLayout {
                     setLongClickable(false);
                     break;
                 case MotionEvent.ACTION_HOVER_EXIT:
-                    if (mHoverBounds.contains((int) event.getX(), (int) event.getY())) {
+                    if (mHoverBounds.contains(event.getX(), event.getY())) {
                         if (mLongHovered) {
                             performLongClick();
                         } else {

@@ -19,10 +19,14 @@ package com.android.dialerbind;
 import static com.android.dialer.calllog.CallLogAdapter.CallFetcher;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 
 import com.android.dialer.calllog.CallLogAdapter;
 import com.android.dialer.calllog.ContactInfoHelper;
+import com.android.dialer.list.RegularSearchFragment;
+import com.android.dialer.logging.Logger;
 import com.android.dialer.service.CachedNumberLookupService;
+import com.android.dialer.service.ExtendedBlockingButtonRenderer;
 import com.android.dialer.voicemail.VoicemailPlaybackPresenter;
 
 /**
@@ -32,6 +36,32 @@ public class ObjectFactory {
 
     public static CachedNumberLookupService newCachedNumberLookupService() {
         // no-op
+        return null;
+    }
+
+    public static String getFilteredNumberProviderAuthority() {
+        return "com.android.dialer.database.filterednumberprovider";
+    }
+
+    public static String getVoicemailArchiveProviderAuthority() {
+        return "com.android.dialer.database.voicemailarchiveprovider";
+    }
+
+    public static boolean isVoicemailArchiveEnabled(Context context) {
+        return false;
+    }
+
+    public static boolean isVoicemailShareEnabled(Context context) {
+        return false;
+    }
+
+    public static boolean isNewBlockingEnabled(Context context) {
+        return true;
+    }
+
+    @Nullable
+    public static ExtendedBlockingButtonRenderer newExtendedBlockingButtonRenderer(
+            Context context, ExtendedBlockingButtonRenderer.Listener listener) {
         return null;
     }
 
@@ -47,12 +77,21 @@ public class ObjectFactory {
             CallFetcher callFetcher,
             ContactInfoHelper contactInfoHelper,
             VoicemailPlaybackPresenter voicemailPlaybackPresenter,
-            boolean isShowingRecentsTab) {
+            int activityType) {
         return new CallLogAdapter(
                 context,
                 callFetcher,
                 contactInfoHelper,
                 voicemailPlaybackPresenter,
-                isShowingRecentsTab);
+                activityType);
+    }
+
+    public static Logger getLoggerInstance() {
+        // no-op
+        return null;
+    }
+
+    public static RegularSearchFragment newRegularSearchFragment() {
+        return new RegularSearchFragment();
     }
 }

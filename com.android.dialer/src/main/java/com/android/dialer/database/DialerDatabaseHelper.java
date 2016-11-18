@@ -36,12 +36,14 @@ import android.provider.ContactsContract.Directory;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.android.contacts.common.compat.CompatUtils;
 import com.android.contacts.common.util.PermissionsUtil;
 import com.android.contacts.common.util.StopWatch;
 import com.android.dialer.R;
+import com.android.dialer.database.FilteredNumberContract.FilteredNumberColumns;
+import com.android.dialer.database.VoicemailArchiveContract.VoicemailArchive;
 import com.android.dialer.dialpad.SmartDialNameMatcher;
 import com.android.dialer.dialpad.SmartDialPrefix;
-
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
@@ -60,6 +62,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class DialerDatabaseHelper extends SQLiteOpenHelper {
     private static final String TAG = "DialerDatabaseHelper";
     private static final boolean DEBUG = false;
+    private boolean mIsTestInstance = false;
 
     private static DialerDatabaseHelper sSingleton = null;
 
@@ -73,7 +76,7 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
      *   0-98   KitKat
      * </pre>
      */
-    public static final int DATABASE_VERSION = 4;
+    public static final int DATABASE_VERSION = 9;
     public static final String DATABASE_NAME = "dialer.db";
 
     /**
@@ -86,10 +89,14 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
     private static final int MAX_ENTRIES = 20;
 
     public interface Tables {
+        /** Saves a list of numbers to be blocked.*/
+        static final String FILTERED_NUMBER_TABLE = "filtered_numbers_table";
         /** Saves the necessary smart dial information of all contacts. */
         static final String SMARTDIAL_TABLE = "smartdial_table";
         /** Saves all possible prefixes to refer to a contacts.*/
         static final String PREFIX_TABLE = "prefix_table";
+        /** Saves all archived voicemail information. */
+        static final String VOICEMAIL_ARCHIVE_TABLE = "voicemail_archive_table";
         /** Database properties for internal use */
         static final String PROPERTIES = "properties";
     }
@@ -111,6 +118,7 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
         static final String IS_SUPER_PRIMARY = "is_super_primary";
         static final String IN_VISIBLE_GROUP = "in_visible_group";
         static final String IS_PRIMARY = "is_primary";
+        static final String CARRIER_PRESENCE = "carrier_presence";
         static final String LAST_SMARTDIAL_UPDATE_TIME = "last_smartdial_update_time";
     }
 
@@ -123,6 +131,14 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
         String PROPERTY_KEY = "property_key";
         String PROPERTY_VALUE = "property_value";
     }
+
+    // change by geniusgithub begin
+    static {
+        if (CompatUtils.isMarshmallowCompatible()) {
+            PhoneQuery.PROJECTION[PhoneQuery.PHONE_CARRIER_PRESENCE] = Data.CARRIER_PRESENCE;
+        }
+    }
+    // change by geniusgithub end
 
     /** Query options for querying the contact database.*/
     public static interface PhoneQuery {
@@ -147,6 +163,8 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
             Data.IS_SUPER_PRIMARY,              // 11
             Contacts.IN_VISIBLE_GROUP,          // 12
             Data.IS_PRIMARY,                    // 13
+            Data._ID                        // 14   change by geniusgithub
+        //    Data.CARRIER_PRESENCE,              // 14
         };
 
         static final int PHONE_ID = 0;
@@ -163,6 +181,7 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
         static final int PHONE_IS_SUPER_PRIMARY = 11;
         static final int PHONE_IN_VISIBLE_GROUP = 12;
         static final int PHONE_IS_PRIMARY = 13;
+        static final int PHONE_CARRIER_PRESENCE = 14;
 
         /** Selects only rows that have been updated after a certain time stamp.*/
         static final String SELECT_UPDATED_CLAUSE =
@@ -178,6 +197,23 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
 
         static final String SELECTION = SELECT_UPDATED_CLAUSE + " AND " +
                 SELECT_IGNORE_LOOKUP_KEY_TOO_LONG_CLAUSE;
+    }
+
+    /**
+     * Query for all contacts that have been updated since the last time the smart dial database
+     * was updated.
+     */
+    public static interface UpdatedContactQuery {
+        static final Uri URI = ContactsContract.Contacts.CONTENT_URI;
+
+        static final String[] PROJECTION = new String[] {
+                ContactsContract.Contacts._ID  // 0
+        };
+
+        static final int UPDATED_CONTACT_ID = 0;
+
+        static final String SELECT_UPDATED_CLAUSE =
+                ContactsContract.Contacts.CONTACT_LAST_UPDATED_TIMESTAMP + " > ?";
     }
 
     /** Query options for querying the deleted contact database.*/
@@ -247,20 +283,23 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
         public final String phoneNumber;
         public final String lookupKey;
         public final long photoId;
+        public final int carrierPresence;
 
         public ContactNumber(long id, long dataID, String displayName, String phoneNumber,
-                String lookupKey, long photoId) {
+                String lookupKey, long photoId, int carrierPresence) {
             this.dataId = dataID;
             this.id = id;
             this.displayName = displayName;
             this.phoneNumber = phoneNumber;
             this.lookupKey = lookupKey;
             this.photoId = photoId;
+            this.carrierPresence = carrierPresence;
         }
 
         @Override
         public int hashCode() {
-            return Objects.hashCode(id, dataId, displayName, phoneNumber, lookupKey, photoId);
+            return Objects.hashCode(id, dataId, displayName, phoneNumber, lookupKey, photoId,
+                    carrierPresence);
         }
 
         @Override
@@ -275,7 +314,8 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
                         && Objects.equal(this.displayName, that.displayName)
                         && Objects.equal(this.phoneNumber, that.phoneNumber)
                         && Objects.equal(this.lookupKey, that.lookupKey)
-                        && Objects.equal(this.photoId, that.photoId);
+                        && Objects.equal(this.photoId, that.photoId)
+                        && Objects.equal(this.carrierPresence, that.carrierPresence);
             }
             return false;
         }
@@ -334,7 +374,12 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
      */
     @VisibleForTesting
     static DialerDatabaseHelper getNewInstanceForTest(Context context) {
-        return new DialerDatabaseHelper(context, null);
+        return new DialerDatabaseHelper(context, null, true);
+    }
+
+    protected DialerDatabaseHelper(Context context, String databaseName, boolean isTestInstance) {
+        this(context, databaseName, DATABASE_VERSION);
+        mIsTestInstance = isTestInstance;
     }
 
     protected DialerDatabaseHelper(Context context, String databaseName) {
@@ -358,42 +403,63 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
 
     private void setupTables(SQLiteDatabase db) {
         dropTables(db);
-        db.execSQL("CREATE TABLE " + Tables.SMARTDIAL_TABLE + " (" +
-                SmartDialDbColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                SmartDialDbColumns.DATA_ID + " INTEGER, " +
-                SmartDialDbColumns.NUMBER + " TEXT," +
-                SmartDialDbColumns.CONTACT_ID + " INTEGER," +
-                SmartDialDbColumns.LOOKUP_KEY + " TEXT," +
-                SmartDialDbColumns.DISPLAY_NAME_PRIMARY + " TEXT, " +
-                SmartDialDbColumns.PHOTO_ID + " INTEGER, " +
-                SmartDialDbColumns.LAST_SMARTDIAL_UPDATE_TIME + " LONG, " +
-                SmartDialDbColumns.LAST_TIME_USED + " LONG, " +
-                SmartDialDbColumns.TIMES_USED + " INTEGER, " +
-                SmartDialDbColumns.STARRED + " INTEGER, " +
-                SmartDialDbColumns.IS_SUPER_PRIMARY + " INTEGER, " +
-                SmartDialDbColumns.IN_VISIBLE_GROUP + " INTEGER, " +
-                SmartDialDbColumns.IS_PRIMARY + " INTEGER" +
-        ");");
+        db.execSQL("CREATE TABLE " + Tables.SMARTDIAL_TABLE + " ("
+                + SmartDialDbColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + SmartDialDbColumns.DATA_ID + " INTEGER, "
+                + SmartDialDbColumns.NUMBER + " TEXT,"
+                + SmartDialDbColumns.CONTACT_ID + " INTEGER,"
+                + SmartDialDbColumns.LOOKUP_KEY + " TEXT,"
+                + SmartDialDbColumns.DISPLAY_NAME_PRIMARY + " TEXT, "
+                + SmartDialDbColumns.PHOTO_ID + " INTEGER, "
+                + SmartDialDbColumns.LAST_SMARTDIAL_UPDATE_TIME + " LONG, "
+                + SmartDialDbColumns.LAST_TIME_USED + " LONG, "
+                + SmartDialDbColumns.TIMES_USED + " INTEGER, "
+                + SmartDialDbColumns.STARRED + " INTEGER, "
+                + SmartDialDbColumns.IS_SUPER_PRIMARY + " INTEGER, "
+                + SmartDialDbColumns.IN_VISIBLE_GROUP + " INTEGER, "
+                + SmartDialDbColumns.IS_PRIMARY + " INTEGER, "
+                + SmartDialDbColumns.CARRIER_PRESENCE + " INTEGER NOT NULL DEFAULT 0"
+                + ");");
 
-        db.execSQL("CREATE TABLE " + Tables.PREFIX_TABLE + " (" +
-                PrefixColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                PrefixColumns.PREFIX + " TEXT COLLATE NOCASE, " +
-                PrefixColumns.CONTACT_ID + " INTEGER" +
-                ");");
+        db.execSQL("CREATE TABLE " + Tables.PREFIX_TABLE + " ("
+                + PrefixColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + PrefixColumns.PREFIX + " TEXT COLLATE NOCASE, "
+                + PrefixColumns.CONTACT_ID + " INTEGER"
+                + ");");
 
-        db.execSQL("CREATE TABLE " + Tables.PROPERTIES + " (" +
-                PropertiesColumns.PROPERTY_KEY + " TEXT PRIMARY KEY, " +
-                PropertiesColumns.PROPERTY_VALUE + " TEXT " +
-                ");");
+        db.execSQL("CREATE TABLE " + Tables.PROPERTIES + " ("
+                + PropertiesColumns.PROPERTY_KEY + " TEXT PRIMARY KEY, "
+                + PropertiesColumns.PROPERTY_VALUE + " TEXT "
+                + ");");
 
+        // This will need to also be updated in setupTablesForFilteredNumberTest and onUpgrade.
+        // Hardcoded so we know on glance what columns are updated in setupTables,
+        // and to be able to guarantee the state of the DB at each upgrade step.
+        db.execSQL("CREATE TABLE " + Tables.FILTERED_NUMBER_TABLE + " ("
+                + FilteredNumberColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + FilteredNumberColumns.NORMALIZED_NUMBER + " TEXT UNIQUE,"
+                + FilteredNumberColumns.NUMBER + " TEXT,"
+                + FilteredNumberColumns.COUNTRY_ISO + " TEXT,"
+                + FilteredNumberColumns.TIMES_FILTERED + " INTEGER,"
+                + FilteredNumberColumns.LAST_TIME_FILTERED + " LONG,"
+                + FilteredNumberColumns.CREATION_TIME + " LONG,"
+                + FilteredNumberColumns.TYPE + " INTEGER,"
+                + FilteredNumberColumns.SOURCE + " INTEGER"
+                + ");");
+
+        createVoicemailArchiveTable(db);
         setProperty(db, DATABASE_VERSION_PROPERTY, String.valueOf(DATABASE_VERSION));
-        resetSmartDialLastUpdatedTime();
+        if (!mIsTestInstance) {
+            resetSmartDialLastUpdatedTime();
+        }
     }
 
     public void dropTables(SQLiteDatabase db) {
         db.execSQL("DROP TABLE IF EXISTS " + Tables.PREFIX_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + Tables.SMARTDIAL_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + Tables.PROPERTIES);
+        db.execSQL("DROP TABLE IF EXISTS " + Tables.FILTERED_NUMBER_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + Tables.VOICEMAIL_ARCHIVE_TABLE);
     }
 
     @Override
@@ -414,12 +480,43 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
             return;
         }
 
+        if (oldVersion < 7) {
+            db.execSQL("DROP TABLE IF EXISTS " + Tables.FILTERED_NUMBER_TABLE);
+            db.execSQL("CREATE TABLE " + Tables.FILTERED_NUMBER_TABLE + " ("
+                    + FilteredNumberColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + FilteredNumberColumns.NORMALIZED_NUMBER + " TEXT UNIQUE,"
+                    + FilteredNumberColumns.NUMBER + " TEXT,"
+                    + FilteredNumberColumns.COUNTRY_ISO + " TEXT,"
+                    + FilteredNumberColumns.TIMES_FILTERED + " INTEGER,"
+                    + FilteredNumberColumns.LAST_TIME_FILTERED + " LONG,"
+                    + FilteredNumberColumns.CREATION_TIME + " LONG,"
+                    + FilteredNumberColumns.TYPE + " INTEGER,"
+                    + FilteredNumberColumns.SOURCE + " INTEGER"
+                    + ");");
+            oldVersion = 7;
+        }
+
+        if (oldVersion < 8) {
+            upgradeToVersion8(db);
+            oldVersion = 8;
+        }
+
+        if (oldVersion < 9) {
+            db.execSQL("DROP TABLE IF EXISTS " + Tables.VOICEMAIL_ARCHIVE_TABLE);
+            createVoicemailArchiveTable(db);
+            oldVersion = 9;
+        }
+
         if (oldVersion != DATABASE_VERSION) {
             throw new IllegalStateException(
                     "error upgrading the database to version " + DATABASE_VERSION);
         }
 
         setProperty(db, DATABASE_VERSION_PROPERTY, String.valueOf(DATABASE_VERSION));
+    }
+
+    public void upgradeToVersion8(SQLiteDatabase db) {
+        db.execSQL("ALTER TABLE smartdial_table ADD carrier_presence INTEGER NOT NULL DEFAULT 0");
     }
 
     /**
@@ -521,15 +618,11 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
      * Removes rows in the smartdial database that matches the contacts that have been deleted
      * by other apps since last update.
      *
-     * @param db Database pointer to the dialer database.
-     * @param last_update_time Time stamp of last update on the smartdial database
+     * @param db Database to operate on.
+     * @param deletedContactCursor Cursor containing rows of deleted contacts
      */
-    private void removeDeletedContacts(SQLiteDatabase db, String last_update_time) {
-        final Cursor deletedContactCursor = mContext.getContentResolver().query(
-                DeleteContactQuery.URI,
-                DeleteContactQuery.PROJECTION,
-                DeleteContactQuery.SELECT_UPDATED_CLAUSE,
-                new String[] {last_update_time}, null);
+    @VisibleForTesting
+    void removeDeletedContacts(SQLiteDatabase db, Cursor deletedContactCursor) {
         if (deletedContactCursor == null) {
             return;
         }
@@ -552,6 +645,15 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    private Cursor getDeletedContactCursor(String lastUpdateMillis) {
+        return mContext.getContentResolver().query(
+                DeleteContactQuery.URI,
+                DeleteContactQuery.PROJECTION,
+                DeleteContactQuery.SELECT_UPDATED_CLAUSE,
+                new String[] {lastUpdateMillis},
+                null);
+    }
+
     /**
      * Removes potentially corrupted entries in the database. These contacts may be added before
      * the previous instance of the dialer was destroyed for some reason. For data integrity, we
@@ -569,6 +671,41 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
                 null);
         db.delete(Tables.SMARTDIAL_TABLE,
                 SmartDialDbColumns.LAST_SMARTDIAL_UPDATE_TIME + " > " + last_update_time, null);
+    }
+
+    /**
+     * All columns excluding MIME_TYPE, _DATA, ARCHIVED, SERVER_ID, are the same as
+     *  the columns in the {@link android.provider.CallLog.Calls} table.
+     *
+     *  @param db Database pointer to the dialer database.
+     */
+    private void createVoicemailArchiveTable(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE " + Tables.VOICEMAIL_ARCHIVE_TABLE + " ("
+                + VoicemailArchive._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + VoicemailArchive.NUMBER + " TEXT,"
+                + VoicemailArchive.DATE + " LONG,"
+                + VoicemailArchive.DURATION + " LONG,"
+                + VoicemailArchive.MIME_TYPE + " TEXT,"
+                + VoicemailArchive.COUNTRY_ISO + " TEXT,"
+                + VoicemailArchive._DATA + " TEXT,"
+                + VoicemailArchive.GEOCODED_LOCATION + " TEXT,"
+                + VoicemailArchive.CACHED_NAME + " TEXT,"
+                + VoicemailArchive.CACHED_NUMBER_TYPE + " INTEGER,"
+                + VoicemailArchive.CACHED_NUMBER_LABEL + " TEXT,"
+                + VoicemailArchive.CACHED_LOOKUP_URI + " TEXT,"
+                + VoicemailArchive.CACHED_MATCHED_NUMBER + " TEXT,"
+                + VoicemailArchive.CACHED_NORMALIZED_NUMBER + " TEXT,"
+                + VoicemailArchive.CACHED_PHOTO_ID + " LONG,"
+                + VoicemailArchive.CACHED_FORMATTED_NUMBER + " TEXT,"
+                + VoicemailArchive.ARCHIVED + " INTEGER,"
+                + VoicemailArchive.NUMBER_PRESENTATION + " INTEGER,"
+                + VoicemailArchive.ACCOUNT_COMPONENT_NAME + " TEXT,"
+                + VoicemailArchive.ACCOUNT_ID + " TEXT,"
+                + VoicemailArchive.FEATURES + " INTEGER,"
+                + VoicemailArchive.SERVER_ID + " INTEGER,"
+                + VoicemailArchive.TRANSCRIPTION + " TEXT,"
+                + VoicemailArchive.CACHED_PHOTO_URI + " TEXT"
+                + ");");
     }
 
     /**
@@ -595,11 +732,14 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
      * @param db Database pointer to the smartdial database
      * @param updatedContactCursor Cursor pointing to the list of recently updated contacts.
      */
-    private void removeUpdatedContacts(SQLiteDatabase db, Cursor updatedContactCursor) {
+    @VisibleForTesting
+    void removeUpdatedContacts(SQLiteDatabase db, Cursor updatedContactCursor) {
         db.beginTransaction();
         try {
+            updatedContactCursor.moveToPosition(-1);
             while (updatedContactCursor.moveToNext()) {
-                final Long contactId = updatedContactCursor.getLong(PhoneQuery.PHONE_CONTACT_ID);
+                final Long contactId =
+                        updatedContactCursor.getLong(UpdatedContactQuery.UPDATED_CONTACT_ID);
 
                 db.delete(Tables.SMARTDIAL_TABLE, SmartDialDbColumns.CONTACT_ID + "=" +
                         contactId, null);
@@ -638,8 +778,9 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
                     SmartDialDbColumns.IS_SUPER_PRIMARY + ", " +
                     SmartDialDbColumns.IN_VISIBLE_GROUP+ ", " +
                     SmartDialDbColumns.IS_PRIMARY + ", " +
+                    SmartDialDbColumns.CARRIER_PRESENCE + ", " +
                     SmartDialDbColumns.LAST_SMARTDIAL_UPDATE_TIME + ") " +
-                    " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             final SQLiteStatement insert = db.compileStatement(sqlInsert);
 
             final String numberSqlInsert = "INSERT INTO " + Tables.PREFIX_TABLE + " (" +
@@ -686,7 +827,14 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
                 insert.bindLong(10, updatedContactCursor.getInt(PhoneQuery.PHONE_IS_SUPER_PRIMARY));
                 insert.bindLong(11, updatedContactCursor.getInt(PhoneQuery.PHONE_IN_VISIBLE_GROUP));
                 insert.bindLong(12, updatedContactCursor.getInt(PhoneQuery.PHONE_IS_PRIMARY));
-                insert.bindLong(13, currentMillis);
+                // change by geniusgithub begin
+                if (CompatUtils.isMarshmallowCompatible()) {
+                    insert.bindLong(13, updatedContactCursor.getInt(PhoneQuery.PHONE_CARRIER_PRESENCE));
+                }else{
+                    insert.bindLong(13, 0);
+                }
+                // change by geniusgithub end
+                insert.bindLong(14, currentMillis);
                 insert.executeInsert();
                 final String contactPhoneNumber =
                         updatedContactCursor.getString(PhoneQuery.PHONE_NUMBER);
@@ -772,59 +920,75 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
             if (DEBUG) {
                 Log.v(TAG, "Last updated at " + lastUpdateMillis);
             }
-            /** Queries the contact database to get contacts that have been updated since the last
-             * update time.
-             */
-            final Cursor updatedContactCursor = mContext.getContentResolver().query(PhoneQuery.URI,
-                    PhoneQuery.PROJECTION, PhoneQuery.SELECTION,
-                    new String[]{lastUpdateMillis}, null);
-            if (updatedContactCursor == null) {
-                if (DEBUG) {
-                    Log.e(TAG, "SmartDial query received null for cursor");
-                }
-                return;
-            }
 
             /** Sets the time after querying the database as the current update time. */
             final Long currentMillis = System.currentTimeMillis();
 
-            try {
-                if (DEBUG) {
-                    stopWatch.lap("Queried the Contacts database");
-                }
+            if (DEBUG) {
+                stopWatch.lap("Queried the Contacts database");
+            }
 
-                /** Prevents the app from reading the dialer database when updating. */
-                sInUpdate.getAndSet(true);
+            /** Prevents the app from reading the dialer database when updating. */
+            sInUpdate.getAndSet(true);
 
-                /** Removes contacts that have been deleted. */
-                removeDeletedContacts(db, lastUpdateMillis);
-                removePotentiallyCorruptedContacts(db, lastUpdateMillis);
+            /** Removes contacts that have been deleted. */
+            removeDeletedContacts(db, getDeletedContactCursor(lastUpdateMillis));
+            removePotentiallyCorruptedContacts(db, lastUpdateMillis);
 
-                if (DEBUG) {
-                    stopWatch.lap("Finished deleting deleted entries");
-                }
+            if (DEBUG) {
+                stopWatch.lap("Finished deleting deleted entries");
+            }
 
-                /** If the database did not exist before, jump through deletion as there is nothing
-                 * to delete.
+            /** If the database did not exist before, jump through deletion as there is nothing
+             * to delete.
+             */
+            if (!lastUpdateMillis.equals("0")) {
+                /** Removes contacts that have been updated. Updated contact information will be
+                 * inserted later. Note that this has to use a separate result set from
+                 * updatePhoneCursor, since it is possible for a contact to be updated (e.g.
+                 * phone number deleted), but have no results show up in updatedPhoneCursor (since
+                 * all of its phone numbers have been deleted).
                  */
-                if (!lastUpdateMillis.equals("0")) {
-                    /** Removes contacts that have been updated. Updated contact information will be
-                     * inserted later.
-                     */
-                    removeUpdatedContacts(db, updatedContactCursor);
-                    if (DEBUG) {
-                        stopWatch.lap("Finished deleting updated entries");
-                    }
+                final Cursor updatedContactCursor = mContext.getContentResolver().query(
+                        UpdatedContactQuery.URI,
+                        UpdatedContactQuery.PROJECTION,
+                        UpdatedContactQuery.SELECT_UPDATED_CLAUSE,
+                        new String[] {lastUpdateMillis},
+                        null
+                        );
+                if (updatedContactCursor == null) {
+                    Log.e(TAG, "SmartDial query received null for cursor");
+                    return;
                 }
+                try {
+                    removeUpdatedContacts(db, updatedContactCursor);
+                } finally {
+                    updatedContactCursor.close();
+                }
+                if (DEBUG) {
+                    stopWatch.lap("Finished deleting entries belonging to updated contacts");
+                }
+            }
 
-                /** Inserts recently updated contacts to the smartdial database.*/
-                insertUpdatedContactsAndNumberPrefix(db, updatedContactCursor, currentMillis);
+            /** Queries the contact database to get all phone numbers that have been updated since the last
+             * update time.
+             */
+            final Cursor updatedPhoneCursor = mContext.getContentResolver().query(PhoneQuery.URI,
+                    PhoneQuery.PROJECTION, PhoneQuery.SELECTION,
+                    new String[]{lastUpdateMillis}, null);
+            if (updatedPhoneCursor == null) {
+                Log.e(TAG, "SmartDial query received null for cursor");
+                return;
+            }
+
+            try {
+                /** Inserts recently updated phone numbers to the smartdial database.*/
+                insertUpdatedContactsAndNumberPrefix(db, updatedPhoneCursor, currentMillis);
                 if (DEBUG) {
                     stopWatch.lap("Finished building the smart dial table");
                 }
             } finally {
-                /** Inserts prefixes of phone numbers into the prefix table.*/
-                updatedContactCursor.close();
+                updatedPhoneCursor.close();
             }
 
             /** Gets a list of distinct contacts which have been updated, and adds the name prefixes
@@ -937,7 +1101,8 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
                 SmartDialDbColumns.PHOTO_ID + ", " +
                 SmartDialDbColumns.NUMBER + ", " +
                 SmartDialDbColumns.CONTACT_ID + ", " +
-                SmartDialDbColumns.LOOKUP_KEY +
+                SmartDialDbColumns.LOOKUP_KEY + ", " +
+                SmartDialDbColumns.CARRIER_PRESENCE +
                 " FROM " + Tables.SMARTDIAL_TABLE + " WHERE " +
                 SmartDialDbColumns.CONTACT_ID + " IN " +
                     " (SELECT " + PrefixColumns.CONTACT_ID +
@@ -961,6 +1126,7 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
             final int columnNumber = 3;
             final int columnId = 4;
             final int columnLookupKey = 5;
+            final int columnCarrierPresence = 6;
             if (DEBUG) {
                 stopWatch.lap("Found column IDs");
             }
@@ -978,6 +1144,7 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
                 final long id = cursor.getLong(columnId);
                 final long photoId = cursor.getLong(columnPhotoId);
                 final String lookupKey = cursor.getString(columnLookupKey);
+                final int carrierPresence = cursor.getInt(columnCarrierPresence);
 
                 /** If a contact already exists and another phone number of the contact is being
                  * processed, skip the second instance.
@@ -998,7 +1165,7 @@ public class DialerDatabaseHelper extends SQLiteOpenHelper {
                     /** If a contact has not been added, add it to the result and the hash set.*/
                     duplicates.add(contactMatch);
                     result.add(new ContactNumber(id, dataID, displayName, phoneNumber, lookupKey,
-                            photoId));
+                            photoId, carrierPresence));
                     counter++;
                     if (DEBUG) {
                         stopWatch.lap("Added one result: Name: " + displayName);

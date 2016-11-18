@@ -87,5 +87,5 @@
     </LinearLayout>
     <Space
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dialpad_bottom_key_height" />
+        android:layout_height="@dimen/dialpad_bottom_space_height" />
 </LinearLayout>

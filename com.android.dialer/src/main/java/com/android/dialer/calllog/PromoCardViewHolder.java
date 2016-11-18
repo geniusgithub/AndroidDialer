@@ -15,14 +15,17 @@
  */
 package com.android.dialer.calllog;
 
-import com.android.dialer.R;
-
+import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.android.contacts.common.testing.NeededForTesting;
+import com.android.dialer.R;
+
 /**
- * View holder class for a promo card which will appear in the voicemail tab.
+ * Generic ViewHolder class for a promo card with a primary and secondary action.
+ * Example: the promo card which appears in the voicemail tab.
  */
 public class PromoCardViewHolder extends RecyclerView.ViewHolder {
     public static PromoCardViewHolder create(View rootView) {
@@ -30,14 +33,15 @@ public class PromoCardViewHolder extends RecyclerView.ViewHolder {
     }
 
     /**
-     * The "Settings" button view.
+     * The primary action button view.
      */
-    private View mSettingsTextView;
+    private View mPrimaryActionView;
 
     /**
+     * The secondary action button view.
      * The "Ok" button view.
      */
-    private View mOkTextView;
+    private View mSecondaryActionView;
 
     /**
      * Creates an instance of the {@link ViewHolder}.
@@ -47,25 +51,33 @@ public class PromoCardViewHolder extends RecyclerView.ViewHolder {
     private PromoCardViewHolder(View rootView) {
         super(rootView);
 
-        mSettingsTextView = rootView.findViewById(R.id.settings_action);
-        mOkTextView = rootView.findViewById(R.id.ok_action);
+        mPrimaryActionView = rootView.findViewById(R.id.primary_action);
+        mSecondaryActionView = rootView.findViewById(R.id.secondary_action);
     }
 
-    /**
-     * Retrieves the "Settings" button.
+   /**
+     * Retrieves the "primary" action button (eg. "OK").
      *
      * @return The view.
      */
-    public View getSettingsTextView() {
-        return mSettingsTextView;
+    public View getPrimaryActionView() {
+        return mPrimaryActionView;
     }
 
     /**
-     * Retrieves the "Ok" button.
+     * Retrieves the "secondary" action button (eg. "Cancel" or "More Info").
      *
      * @return The view.
      */
-    public View getOkTextView() {
-        return mOkTextView;
+    public View getSecondaryActionView() {
+        return mSecondaryActionView;
+    }
+
+    @NeededForTesting
+    public static PromoCardViewHolder createForTest(Context context) {
+        PromoCardViewHolder viewHolder = new PromoCardViewHolder(new View(context));
+        viewHolder.mPrimaryActionView = new View(context);
+        viewHolder.mSecondaryActionView = new View(context);
+        return viewHolder;
     }
 }

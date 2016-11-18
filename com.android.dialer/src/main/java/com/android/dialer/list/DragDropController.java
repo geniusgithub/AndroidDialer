@@ -3,6 +3,8 @@ package com.android.dialer.list;
 import android.util.Log;
 import android.view.View;
 
+import com.android.contacts.common.compat.CompatUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,13 +35,23 @@ public class DragDropController {
     /**
      * @return True if the drag is started, false if the drag is cancelled for some reason.
      */
-    boolean handleDragStarted(int x, int y) {
-        final PhoneFavoriteSquareTileView tileView = mDragItemContainer.getViewForLocation(x, y);
+    boolean handleDragStarted(View v, int x, int y) {
+        int screenX = x;
+        int screenY = y;
+        // The coordinates in dragEvent of DragEvent.ACTION_DRAG_STARTED before NYC is window-related.
+        // This is fixed in NYC.
+        if (CompatUtils.isNCompatible()) {
+            v.getLocationOnScreen(mLocationOnScreen);
+            screenX = x + mLocationOnScreen[0];
+            screenY = y + mLocationOnScreen[1];
+        }
+        final PhoneFavoriteSquareTileView tileView = mDragItemContainer.getViewForLocation(
+                screenX, screenY);
         if (tileView == null) {
             return false;
         }
         for (int i = 0; i < mOnDragDropListeners.size(); i++) {
-            mOnDragDropListeners.get(i).onDragStarted(x, y, tileView);
+            mOnDragDropListeners.get(i).onDragStarted(screenX, screenY, tileView);
         }
 
         return true;

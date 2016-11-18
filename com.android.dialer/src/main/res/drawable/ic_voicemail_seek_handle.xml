@@ -16,6 +16,5 @@
   -->
 <bitmap xmlns:android="http://schemas.android.com/apk/res/android"
         android:src="@drawable/ic_handle"
-        android:autoMirrored="true"
         android:tint="@color/actionbar_background_color" >
 </bitmap>

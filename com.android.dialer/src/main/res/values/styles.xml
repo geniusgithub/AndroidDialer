@@ -15,15 +15,21 @@
   ~ limitations under the License
   -->
 <resources>
-    <style name="DialtactsTheme"
-           parent="android:Theme.Material.Light">
+    <style name="DialtactsTheme" parent="Theme.AppCompat.Light">
         <item name="android:textColorPrimary">@color/dialtacts_primary_text_color</item>
         <item name="android:textColorSecondary">@color/dialtacts_secondary_text_color</item>
+
+        <!-- Styles that require AppCompat compatibility, remember to update both sets -->
         <item name="android:windowActionBarOverlay">true</item>
+        <item name="windowActionBarOverlay">true</item>
         <item name="android:windowActionModeOverlay">true</item>
+        <item name="windowActionModeOverlay">true</item>
         <item name="android:actionBarStyle">@style/DialtactsActionBarStyle</item>
+        <item name="actionBarStyle">@style/DialtactsActionBarStyle</item>
         <!-- Style for the overflow button in the actionbar. -->
         <item name="android:actionOverflowButtonStyle">@style/DialtactsActionBarOverflow</item>
+        <item name="actionOverflowButtonStyle">@style/DialtactsActionBarOverflow</item>
+
         <!--  Drawable for the back button -->
         <item name="android:homeAsUpIndicator">@drawable/ic_back_arrow</item>
         <item name="android:windowContentOverlay">@null</item>
@@ -34,13 +40,13 @@
         <item name="section_header_background">@drawable/list_title_holo</item>
         <item name="list_section_header_height">32dip</item>
         <item name="list_item_padding_top">12dp</item>
-        <item name="list_item_padding_right">32dp</item>
+        <item name="list_item_padding_right">24dp</item>
         <item name="list_item_padding_bottom">12dp</item>
         <item name="list_item_padding_left">16dp</item>
         <item name="list_item_gap_between_image_and_text">
             @dimen/contact_browser_list_item_gap_between_image_and_text
         </item>
-        <item name="list_item_gap_between_label_and_data">5dip</item>
+        <item name="list_item_gap_between_label_and_data">8dip</item>
         <item name="list_item_presence_icon_margin">4dip</item>
         <item name="list_item_presence_icon_size">16dip</item>
         <item name="list_item_photo_size">@dimen/contact_browser_list_item_photo_size</item>
@@ -77,6 +83,16 @@
         <item name="android:colorPrimaryDark">@color/dialer_theme_color_dark</item>
         <item name="dialpad_key_button_touch_tint">@color/dialer_dialpad_touch_tint</item>
         <item name="android:colorControlActivated">@color/dialer_theme_color</item>
+        <item name="android:colorButtonNormal">@color/dialer_theme_color</item>
+        <item name="android:textAppearanceButton">@style/DialerButtonTextStyle</item>
+
+        <!-- Video call icon -->
+        <item name="list_item_video_call_icon_size">32dip</item>
+        <item name="list_item_video_call_icon_margin">8dip</item>
+    </style>
+
+    <style name="DialerButtonTextStyle" parent="@android:style/TextAppearance.Material.Widget.Button">
+        <item name="android:textColor">#fff</item>
     </style>
 
     <!-- Action bar overflow menu icon. -->
@@ -96,13 +112,19 @@
     </style>
 
     <style name="DialtactsThemeWithoutActionBarOverlay" parent="DialtactsTheme">
+        <!-- Styles that require AppCompat compatibility, remember to update both sets -->
         <item name="android:windowActionBarOverlay">false</item>
+        <item name="windowActionBarOverlay">false</item>
         <item name="android:actionOverflowButtonStyle">@style/DialtactsActionBarOverflowWhite</item>
+        <item name="actionOverflowButtonStyle">@style/DialtactsActionBarOverflowWhite</item>
     </style>
 
     <!-- Hide the actionbar title during the activity preview -->
     <style name="DialtactsActivityTheme" parent="DialtactsTheme">
+        <!-- Styles that require AppCompat compatibility, remember to update both sets -->
         <item name="android:actionBarStyle">@style/DialtactsActionBarWithoutTitleStyle</item>
+        <item name="actionBarStyle">@style/DialtactsActionBarWithoutTitleStyle</item>
+
         <item name="android:fastScrollThumbDrawable">@drawable/fastscroll_thumb</item>
         <item name="android:fastScrollTrackDrawable">@null</item>
     </style>
@@ -121,23 +143,49 @@
         <item name="android:actionOverflowButtonStyle">@style/DialtactsActionBarOverflowWhite</item>
     </style>
 
-    <style name="DialtactsActionBarStyle" parent="android:Widget.Material.ActionBar">
+    <style name="CallDetailActionItemStyle">
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:drawablePadding">@dimen/call_detail_action_item_drawable_padding</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingStart">@dimen/call_detail_action_item_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/call_detail_action_item_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/call_detail_action_item_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/call_detail_action_item_padding_vertical</item>
+        <item name="android:textColor">@color/call_detail_footer_text_color</item>
+        <item name="android:textSize">@dimen/call_detail_action_item_text_size</item>
+    </style>
+
+    <style name="DialtactsActionBarStyle"
+           parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <!-- Styles that require AppCompat compatibility, remember to update both sets -->
         <item name="android:background">@color/actionbar_background_color</item>
+        <item name="background">@color/actionbar_background_color</item>
         <item name="android:titleTextStyle">@style/DialtactsActionBarTitleText</item>
+        <item name="titleTextStyle">@style/DialtactsActionBarTitleText</item>
         <item name="android:height">@dimen/action_bar_height</item>
+        <item name="height">@dimen/action_bar_height</item>
         <item name="android:elevation">@dimen/action_bar_elevation</item>
+        <item name="elevation">@dimen/action_bar_elevation</item>
         <!-- Empty icon -->
         <item name="android:icon">@android:color/transparent</item>
+        <item name="icon">@android:color/transparent</item>
         <!-- Shift the title text to the right -->
         <item name="android:contentInsetStart">@dimen/actionbar_contentInsetStart</item>
+        <item name="contentInsetStart">@dimen/actionbar_contentInsetStart</item>
     </style>
 
     <style name="DialtactsActionBarWithoutTitleStyle" parent="DialtactsActionBarStyle">
+        <!-- Styles that require AppCompat compatibility, remember to update both sets -->
         <item name="android:displayOptions"></item>
+        <item name="displayOptions"></item>
         <item name="android:height">@dimen/action_bar_height_large</item>
+        <item name="height">@dimen/action_bar_height_large</item>
         <!-- Override ActionBar title offset to keep search box aligned left -->
         <item name="android:contentInsetStart">0dp</item>
+        <item name="contentInsetStart">0dp</item>
         <item name="android:contentInsetEnd">0dp</item>
+        <item name="contentInsetEnd">0dp</item>
     </style>
 
     <!-- Text in the action bar at the top of the screen -->
@@ -171,12 +219,17 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:paddingStart">@dimen/call_log_action_horizontal_padding</item>
         <item name="android:paddingEnd">@dimen/call_log_action_horizontal_padding</item>
-        <item name="android:textColor">?attr/call_log_secondary_text_color</item>
-        <item name="android:textSize">@dimen/call_log_list_item_actions_text_size</item>
-        <item name="android:fontFamily">"sans-serif-medium"</item>
+        <item name="android:textColor">@color/call_log_action_color</item>
+        <item name="android:textSize">@dimen/call_log_primary_text_size</item>
+        <item name="android:fontFamily">"sans-serif"</item>
         <item name="android:focusable">true</item>
         <item name="android:singleLine">true</item>
         <item name="android:importantForAccessibility">no</item>
+    </style>
+
+    <style name="CallLogActionSupportTextStyle" parent="@style/CallLogActionTextStyle">
+        <item name="android:textSize">@dimen/call_log_detail_text_size</item>
+        <item name="android:textColor">@color/call_log_detail_color</item>
     </style>
 
     <style name="CallLogActionIconStyle">
@@ -201,6 +254,21 @@
         <item name="android:windowBackground">@color/setting_background_color</item>
         <item name="android:colorAccent">@color/dialtacts_theme_color</item>
         <item name="android:textColorLink">@color/dialtacts_theme_color</item>
+    </style>
+
+    <style name="ManageBlockedNumbersStyle" parent="SettingsStyle">
+        <!-- Styles that require AppCompat compatibility, remember to update both sets -->
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="windowActionBarOverlay">true</item>
+        <item name="android:actionBarStyle">@style/ManageBlockedNumbersActionBarStyle</item>
+        <item name="actionBarStyle">@style/ManageBlockedNumbersActionBarStyle</item>
+        <item name="android:fastScrollTrackDrawable">@null</item>
+    </style>
+
+    <style name="ManageBlockedNumbersActionBarStyle" parent="DialtactsActionBarWithoutTitleStyle">
+        <!-- Styles that require AppCompat compatibility, remember to update both sets -->
+        <item name="android:height">@dimen/action_bar_height</item>
+        <item name="height">@dimen/action_bar_height</item>
     </style>
 
     <!-- Inherit from Theme.Material.Light.Dialog instead of Theme.Material.Light.Dialog.Alert
@@ -233,7 +301,7 @@
 
     <style name="PromoCardActionStyle" parent="TextActionStyle">
         <item name="android:textColor">@color/promo_card_text</item>
-        <item name="android:textSize">@dimen/call_log_list_item_actions_text_size</item>
+        <item name="android:textSize">@dimen/call_log_primary_text_size</item>
     </style>
 
     <style name="VoicemailPlaybackLayoutTextStyle">
@@ -245,5 +313,34 @@
         <item name="android:layout_height">56dp</item>
         <item name="android:background">@drawable/oval_ripple</item>
         <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="DialerFlatButtonStyle" parent="@android:style/Widget.Material.Button">
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:paddingEnd">@dimen/button_horizontal_padding</item>
+        <item name="android:paddingStart">@dimen/button_horizontal_padding</item>
+        <item name="android:textColor">@color/dialer_flat_button_text_color</item>
+    </style>
+
+    <!-- Style for the 'primary' button in a view. Unlike the DialerFlatButtonStyle, this button -->
+    <!-- is not colored white, to draw more attention to it. -->
+    <style name="DialerPrimaryFlatButtonStyle" parent="@android:style/Widget.Material.Button">
+        <item name="android:background">@drawable/selectable_primary_flat_button</item>
+        <item name="android:paddingEnd">@dimen/button_horizontal_padding</item>
+        <item name="android:paddingStart">@dimen/button_horizontal_padding</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="BlockedNumbersDescriptionTextStyle">
+        <item name="android:lineSpacingMultiplier">1.43</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:textSize">@dimen/blocked_number_settings_description_text_size</item>
+    </style>
+
+    <style name="FullWidthDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">?android:attr/listDivider</item>
     </style>
 </resources>

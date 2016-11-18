@@ -98,7 +98,7 @@ public class RawContactModifier {
 
     public static boolean hasValidTypes(RawContactDelta state, DataKind kind) {
         if (RawContactModifier.hasEditTypes(kind)) {
-            return (getValidTypes(state, kind).size() > 0);
+            return (getValidTypes(state, kind, null, true, null, true).size() > 0);
         } else {
             return true;
         }
@@ -135,29 +135,6 @@ public class RawContactModifier {
      * For the given {@link RawContactDelta} and {@link DataKind}, return the
      * list possible {@link EditType} options available based on
      * {@link AccountType}.
-     */
-    public static ArrayList<EditType> getValidTypes(RawContactDelta state, DataKind kind) {
-        return getValidTypes(state, kind, null, true, null);
-    }
-
-    /**
-     * For the given {@link RawContactDelta} and {@link DataKind}, return the
-     * list possible {@link EditType} options available based on
-     * {@link AccountType}.
-     *
-     * @param forceInclude Always include this {@link EditType} in the returned
-     *            list, even when an otherwise-invalid choice. This is useful
-     *            when showing a dialog that includes the current type.
-     */
-    public static ArrayList<EditType> getValidTypes(RawContactDelta state, DataKind kind,
-            EditType forceInclude) {
-        return getValidTypes(state, kind, forceInclude, true, null);
-    }
-
-    /**
-     * For the given {@link RawContactDelta} and {@link DataKind}, return the
-     * list possible {@link EditType} options available based on
-     * {@link AccountType}.
      *
      * @param forceInclude Always include this {@link EditType} in the returned
      *            list, even when an otherwise-invalid choice. This is useful
@@ -167,9 +144,11 @@ public class RawContactModifier {
      * @param typeCount When provided, will be used for the frequency count of
      *            each {@link EditType}, otherwise built using
      *            {@link #getTypeFrequencies(RawContactDelta, DataKind)}.
+     * @param checkOverall If true, check if the overall number of types is under limit.
      */
-    private static ArrayList<EditType> getValidTypes(RawContactDelta state, DataKind kind,
-            EditType forceInclude, boolean includeSecondary, SparseIntArray typeCount) {
+    public static ArrayList<EditType> getValidTypes(RawContactDelta state, DataKind kind,
+            EditType forceInclude, boolean includeSecondary, SparseIntArray typeCount,
+            boolean checkOverall) {
         final ArrayList<EditType> validTypes = new ArrayList<EditType>();
 
         // Bail early if no types provided
@@ -181,10 +160,14 @@ public class RawContactModifier {
         }
 
         // Build list of valid types
-        final int overallCount = typeCount.get(FREQUENCY_TOTAL);
-        for (EditType type : kind.typeList) {
-            final boolean validOverall = (kind.typeOverallMax == -1 ? true
+        boolean validOverall = true;
+        if (checkOverall) {
+            final int overallCount = typeCount.get(FREQUENCY_TOTAL);
+            validOverall = (kind.typeOverallMax == -1 ? true
                     : overallCount < kind.typeOverallMax);
+        }
+
+        for (EditType type : kind.typeList) {
             final boolean validSpecific = (type.specificMax == -1 ? true : typeCount
                     .get(type.rawValue) < type.specificMax);
             final boolean validSecondary = (includeSecondary ? true : !type.secondary);
@@ -310,7 +293,7 @@ public class RawContactModifier {
         // Find type counts and valid primary types, bail if none
         final SparseIntArray typeCount = getTypeFrequencies(state, kind);
         final ArrayList<EditType> validTypes = getValidTypes(state, kind, null, includeSecondary,
-                typeCount);
+                typeCount, /*checkOverall=*/ true);
         if (validTypes.size() == 0) return null;
 
         // Keep track of the last valid type
@@ -402,6 +385,11 @@ public class RawContactModifier {
     }
 
     public static boolean hasChanges(RawContactDeltaList set, AccountTypeManager accountTypes) {
+        return hasChanges(set, accountTypes, /* excludedMimeTypes =*/ null);
+    }
+
+    public static boolean hasChanges(RawContactDeltaList set, AccountTypeManager accountTypes,
+            Set<String> excludedMimeTypes) {
         if (set.isMarkedForSplitting() || set.isMarkedForJoining()) {
             return true;
         }
@@ -411,7 +399,7 @@ public class RawContactModifier {
             final String accountType = values.getAsString(RawContacts.ACCOUNT_TYPE);
             final String dataSet = values.getAsString(RawContacts.DATA_SET);
             final AccountType type = accountTypes.getAccountType(accountType, dataSet);
-            if (hasChanges(state, type)) {
+            if (hasChanges(state, type, excludedMimeTypes)) {
                 return true;
             }
         }
@@ -463,9 +451,11 @@ public class RawContactModifier {
         }
     }
 
-    private static boolean hasChanges(RawContactDelta state, AccountType accountType) {
+    private static boolean hasChanges(RawContactDelta state, AccountType accountType,
+            Set<String> excludedMimeTypes) {
         for (DataKind kind : accountType.getSortedDataKinds()) {
             final String mimeType = kind.mimeType;
+            if (excludedMimeTypes != null && excludedMimeTypes.contains(mimeType)) continue;
             final ArrayList<ValuesDelta> entries = state.getMimeEntries(mimeType);
             if (entries == null) continue;
 

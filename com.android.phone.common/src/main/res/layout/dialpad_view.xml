@@ -15,8 +15,9 @@
   ~ limitations under the License
   -->
 
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
-    <include
-            layout="@layout/dialpad_view_unthemed"
-            android:theme="@style/Dialpad_Light" />
-</merge>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/Dialpad_Light">
+    <include layout="@layout/dialpad_view_unthemed" />
+</FrameLayout>

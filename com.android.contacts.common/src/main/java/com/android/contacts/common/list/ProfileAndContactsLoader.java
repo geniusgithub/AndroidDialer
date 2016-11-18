@@ -20,6 +20,7 @@ import android.content.CursorLoader;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.database.MergeCursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract.Profile;
 
@@ -34,12 +35,20 @@ import java.util.List;
 public class ProfileAndContactsLoader extends CursorLoader {
 
     private boolean mLoadProfile;
+
     private String[] mProjection;
+
+    private Uri mExtraUri;
+    private String[] mExtraProjection;
+    private String mExtraSelection;
+    private String[] mExtraSelectionArgs;
+    private boolean mMergeExtraContactsAfterPrimary;
 
     public ProfileAndContactsLoader(Context context) {
         super(context);
     }
 
+    /** Whether to load the profile and merge results in before any other results. */
     public void setLoadProfile(boolean flag) {
         mLoadProfile = flag;
     }
@@ -49,12 +58,36 @@ public class ProfileAndContactsLoader extends CursorLoader {
         mProjection = projection;
     }
 
+    /** Configure an extra query and merge results in before the primary results. */
+    public void setLoadExtraContactsFirst(Uri uri, String[] projection) {
+        mExtraUri = uri;
+        mExtraProjection = projection;
+        mMergeExtraContactsAfterPrimary = false;
+    }
+
+    /** Configure an extra query and merge results in after the primary results. */
+    public void setLoadExtraContactsLast(Uri uri, String[] projection, String selection,
+            String[] selectionArgs) {
+        mExtraUri = uri;
+        mExtraProjection = projection;
+        mExtraSelection = selection;
+        mExtraSelectionArgs = selectionArgs;
+        mMergeExtraContactsAfterPrimary = true;
+    }
+
+    private boolean canLoadExtraContacts() {
+        return mExtraUri != null && mExtraProjection != null;
+    }
+
     @Override
     public Cursor loadInBackground() {
         // First load the profile, if enabled.
         List<Cursor> cursors = Lists.newArrayList();
         if (mLoadProfile) {
             cursors.add(loadProfile());
+        }
+        if (canLoadExtraContacts() && !mMergeExtraContactsAfterPrimary) {
+            cursors.add(loadExtraContacts());
         }
         // ContactsCursor.loadInBackground() can return null; MergeCursor
         // correctly handles null cursors.
@@ -66,6 +99,9 @@ public class ProfileAndContactsLoader extends CursorLoader {
         }
         final Cursor contactsCursor = cursor;
         cursors.add(contactsCursor);
+        if (canLoadExtraContacts() && mMergeExtraContactsAfterPrimary) {
+            cursors.add(loadExtraContacts());
+        }
         return new MergeCursor(cursors.toArray(new Cursor[cursors.size()])) {
             @Override
             public Bundle getExtras() {
@@ -100,5 +136,10 @@ public class ProfileAndContactsLoader extends CursorLoader {
         } finally {
             cursor.close();
         }
+    }
+
+    private Cursor loadExtraContacts() {
+        return getContext().getContentResolver().query(
+                mExtraUri, mExtraProjection, mExtraSelection, mExtraSelectionArgs, null);
     }
 }

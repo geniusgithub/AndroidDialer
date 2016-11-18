@@ -45,6 +45,9 @@
     <!--  Do not translate. -->
     <string name="dialpad_pound_letters"></string>
 
+    <!-- String describing the back button in the dialpad. -->
+    <string name="description_dialpad_back">Navigate back</string>
+
     <!-- String describing the overflow menu button in the dialpad. -->
     <string name="description_dialpad_overflow">More options</string>
 
@@ -96,6 +99,12 @@
     <string name="callFailed_outOfService">Cellular network not available</string>
     <!-- In-call screen: call failure reason (call denied because of current FDN setting) -->
     <string name="callFailed_fdn_only">Outgoing calls are restricted by FDN.</string>
+    <!-- In-call screen: call failure reason (call modified to USSD request) -->
+    <string name="callFailed_dialToUssd">DIAL request modified to USSD request.</string>
+    <!-- In-call screen: call failure reason (call modified to SS request) -->
+    <string name="callFailed_dialToSs">DIAL request modified to SS request.</string>
+    <!-- In-call screen: call failure reason (call modified to call with modified data) -->
+    <string name="callFailed_dialToDial">DIAL request modified to DIAL with different number.</string>
     <!-- In-call screen: call failure reason (call denied because call barring is on) -->
     <string name="callFailed_cb_enabled">Can\'t make outgoing calls while call barring is on.</string>
     <!-- In-call screen: call failure reason (call denied because domain specific access control is on) -->
@@ -108,7 +117,8 @@
     <string name="callFailed_unobtainable_number">Invalid number</string>
     <!-- In-call screen: message displayed in an error dialog -->
     <string name="incall_error_missing_voicemail_number">Voicemail number unknown.</string>
-
+    <!-- In-call screen: call failed because you cannot make video calls when TTY is enabled. -->
+    <string name="callFailed_video_call_tty_enabled">Cannot make video calls when TTY is enabled.</string>
     <!-- Choice in the ringtone picker.  If chosen, there will be silence instead of a ringtone played. -->
     <string name="ringtone_silent">None</string>
     <!-- If there is ever a ringtone set for some setting, but that ringtone can no longer be resolved, this is shown instead.  For example, if the ringtone was on a SD card and it had been removed, this would be shown for ringtones on that SD card. -->

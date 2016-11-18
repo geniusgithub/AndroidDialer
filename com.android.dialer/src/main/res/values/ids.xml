@@ -15,7 +15,11 @@
 -->
 
 <resources>
+    <item type="id" name="call_detail_delete_menu_item" />
     <item type="id" name="context_menu_copy_to_clipboard" />
+    <item type="id" name="context_menu_copy_transcript_to_clipboard" />
     <item type="id" name="context_menu_edit_before_call" />
+    <item type="id" name="context_menu_block_number" />
     <item type="id" name="settings_header_sounds_and_vibration" />
+    <item type="id" name="block_id" />
 </resources>

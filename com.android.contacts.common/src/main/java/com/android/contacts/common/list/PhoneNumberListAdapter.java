@@ -28,19 +28,26 @@ import android.provider.ContactsContract.CommonDataKinds.SipAddress;
 import android.provider.ContactsContract.Contacts;
 import android.provider.ContactsContract.Data;
 import android.provider.ContactsContract.Directory;
-import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.contacts.common.CallUtil;
+import com.android.contacts.common.ContactPhotoManager.DefaultImageRequest;
+import com.android.contacts.common.ContactsUtils;
 import com.android.contacts.common.GeoUtil;
 import com.android.contacts.common.R;
-import com.android.contacts.common.ContactPhotoManager.DefaultImageRequest;
+import com.android.contacts.common.compat.CallableCompat;
+import com.android.contacts.common.compat.CompatUtils;
+import com.android.contacts.common.compat.DirectoryCompat;
+import com.android.contacts.common.compat.PhoneCompat;
 import com.android.contacts.common.extensions.ExtendedPhoneDirectoriesManager;
 import com.android.contacts.common.extensions.ExtensionsFactory;
 import com.android.contacts.common.preference.ContactsPreferences;
 import com.android.contacts.common.util.Constants;
+
+import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,11 +64,15 @@ public class PhoneNumberListAdapter extends ContactEntryListAdapter {
 
     private static final String TAG = PhoneNumberListAdapter.class.getSimpleName();
 
+    public interface Listener {
+        void onVideoCallIconClicked(int position);
+    }
+
     // A list of extended directories to add to the directories from the database
     private final List<DirectoryPartition> mExtendedDirectories;
 
-    // Extended directories will have ID's that are higher than any of the id's from the database.
-    // Thi sis so that we can identify them and set them up properly. If no extended directories
+    // Extended directories will have ID's that are higher than any of the id's from the database,
+    // so that we can identify them and set them up properly. If no extended directories
     // exist, this will be Long.MAX_VALUE
     private long mFirstExtendedDirectoryId = Long.MAX_VALUE;
 
@@ -85,7 +96,7 @@ public class PhoneNumberListAdapter extends ContactEntryListAdapter {
          */
         public static final String ANALYTICS_VALUE = "analytics_value";
 
-        public static final String[] PROJECTION_PRIMARY = new String[] {
+        public static final String[] PROJECTION_PRIMARY_INTERNAL = new String[] {
             Phone._ID,                          // 0
             Phone.TYPE,                         // 1
             Phone.LABEL,                        // 2
@@ -97,7 +108,17 @@ public class PhoneNumberListAdapter extends ContactEntryListAdapter {
             Phone.PHOTO_THUMBNAIL_URI,          // 8
         };
 
-        public static final String[] PROJECTION_ALTERNATIVE = new String[] {
+        public static final String[] PROJECTION_PRIMARY;
+
+        static {
+            final List<String> projectionList = Lists.newArrayList(PROJECTION_PRIMARY_INTERNAL);
+            if (CompatUtils.isMarshmallowCompatible()) {
+                projectionList.add(Phone.CARRIER_PRESENCE); // 9
+            }
+            PROJECTION_PRIMARY = projectionList.toArray(new String[projectionList.size()]);
+        }
+
+        public static final String[] PROJECTION_ALTERNATIVE_INTERNAL = new String[] {
             Phone._ID,                          // 0
             Phone.TYPE,                         // 1
             Phone.LABEL,                        // 2
@@ -109,6 +130,16 @@ public class PhoneNumberListAdapter extends ContactEntryListAdapter {
             Phone.PHOTO_THUMBNAIL_URI,          // 8
         };
 
+        public static final String[] PROJECTION_ALTERNATIVE;
+
+        static {
+            final List<String> projectionList = Lists.newArrayList(PROJECTION_ALTERNATIVE_INTERNAL);
+            if (CompatUtils.isMarshmallowCompatible()) {
+                projectionList.add(Phone.CARRIER_PRESENCE); // 9
+            }
+            PROJECTION_ALTERNATIVE = projectionList.toArray(new String[projectionList.size()]);
+        }
+
         public static final int PHONE_ID                = 0;
         public static final int PHONE_TYPE              = 1;
         public static final int PHONE_LABEL             = 2;
@@ -118,6 +149,7 @@ public class PhoneNumberListAdapter extends ContactEntryListAdapter {
         public static final int PHOTO_ID                = 6;
         public static final int DISPLAY_NAME            = 7;
         public static final int PHOTO_URI               = 8;
+        public static final int CARRIER_PRESENCE        = 9;
     }
 
     private static final String IGNORE_NUMBER_TOO_LONG_CLAUSE =
@@ -129,6 +161,11 @@ public class PhoneNumberListAdapter extends ContactEntryListAdapter {
     private ContactListItemView.PhotoPosition mPhotoPosition;
 
     private boolean mUseCallableUri;
+
+    private Listener mListener;
+
+    private boolean mIsVideoEnabled;
+    private boolean mIsPresenceEnabled;
 
     public PhoneNumberListAdapter(Context context) {
         super(context);
@@ -144,6 +181,10 @@ public class PhoneNumberListAdapter extends ContactEntryListAdapter {
             // Empty list to avoid sticky NPE's
             mExtendedDirectories = new ArrayList<DirectoryPartition>();
         }
+
+        int videoCapabilities = CallUtil.getVideoCallingAvailability(context);
+        mIsVideoEnabled = (videoCapabilities & CallUtil.VIDEO_CALLING_ENABLED) != 0;
+        mIsPresenceEnabled = (videoCapabilities & CallUtil.VIDEO_CALLING_PRESENCE) != 0;
     }
 
     protected CharSequence getUnknownNameText() {
@@ -170,16 +211,17 @@ public class PhoneNumberListAdapter extends ContactEntryListAdapter {
             loader.setUri(builder.build());
             loader.setProjection(PhoneQuery.PROJECTION_PRIMARY);
         } else {
-            final boolean isRemoteDirectoryQuery = isRemoteDirectory(directoryId);
+            final boolean isRemoteDirectoryQuery
+                    = DirectoryCompat.isRemoteDirectoryId(directoryId);
             final Builder builder;
             if (isSearchMode()) {
                 final Uri baseUri;
                 if (isRemoteDirectoryQuery) {
-                    baseUri = Phone.CONTENT_FILTER_URI;
+                    baseUri = PhoneCompat.getContentFilterUri();
                 } else if (mUseCallableUri) {
-                    baseUri = Callable.CONTENT_FILTER_URI;
+                    baseUri = CallableCompat.getContentFilterUri();
                 } else {
-                    baseUri = Phone.CONTENT_FILTER_URI;
+                    baseUri = PhoneCompat.getContentFilterUri();
                 }
                 builder = baseUri.buildUpon();
                 builder.appendPath(query);      // Builder will encode the query
@@ -190,7 +232,7 @@ public class PhoneNumberListAdapter extends ContactEntryListAdapter {
                             String.valueOf(getDirectoryResultLimit(getDirectoryById(directoryId))));
                 }
             } else {
-                final Uri baseUri = mUseCallableUri ? Callable.CONTENT_URI : Phone.CONTENT_URI;
+                Uri baseUri = mUseCallableUri ? Callable.CONTENT_URI : Phone.CONTENT_URI;
                 builder = baseUri.buildUpon().appendQueryParameter(
                         ContactsContract.DIRECTORY_PARAM_KEY, String.valueOf(Directory.DEFAULT));
                 if (isSectionHeaderDisplayEnabled()) {
@@ -301,11 +343,20 @@ public class PhoneNumberListAdapter extends ContactEntryListAdapter {
     public Uri getDataUri(int partitionIndex, Cursor cursor) {
         final long directoryId =
                 ((DirectoryPartition)getPartition(partitionIndex)).getDirectoryId();
-        if (!isRemoteDirectory(directoryId)) {
+        if (DirectoryCompat.isRemoteDirectoryId(directoryId)) {
+            return null;
+        } else if (DirectoryCompat.isEnterpriseDirectoryId(directoryId)) {
+            /*
+             * ContentUris.withAppendedId(Data.CONTENT_URI, phoneId), is invalid if
+             * isEnterpriseDirectoryId returns true, because the uri itself will fail since the
+             * ContactsProvider in Android Framework currently doesn't support it. return null until
+             * Android framework has enterprise version of Data.CONTENT_URI
+             */
+            return null;
+        } else {
             final long phoneId = cursor.getLong(PhoneQuery.PHONE_ID);
             return ContentUris.withAppendedId(Data.CONTENT_URI, phoneId);
         }
-        return null;
     }
 
     /**
@@ -409,10 +460,11 @@ public class PhoneNumberListAdapter extends ContactEntryListAdapter {
         }
 
         final DirectoryPartition directory = (DirectoryPartition) getPartition(partition);
-        bindPhoneNumber(view, cursor, directory.isDisplayNumber());
+        bindPhoneNumber(view, cursor, directory.isDisplayNumber(), position);
     }
 
-    protected void bindPhoneNumber(ContactListItemView view, Cursor cursor, boolean displayNumber) {
+    protected void bindPhoneNumber(ContactListItemView view, Cursor cursor, boolean displayNumber,
+            int position) {
         CharSequence label = null;
         if (displayNumber &&  !cursor.isNull(PhoneQuery.PHONE_TYPE)) {
             final int type = cursor.getInt(PhoneQuery.PHONE_TYPE);
@@ -436,6 +488,16 @@ public class PhoneNumberListAdapter extends ContactEntryListAdapter {
             }
         }
         view.setPhoneNumber(text, mCountryIso);
+
+        if (CompatUtils.isVideoCompatible()) {
+            // Determine if carrier presence indicates the number supports video calling.
+            int carrierPresence = cursor.getInt(PhoneQuery.CARRIER_PRESENCE);
+            boolean isPresent = (carrierPresence & Phone.CARRIER_PRESENCE_VT_CAPABLE) != 0;
+
+            boolean isVideoIconShown = mIsVideoEnabled && (
+                    mIsPresenceEnabled && isPresent || !mIsPresenceEnabled);
+            view.setShowVideoCallIcon(isVideoIconShown, mListener, position);
+        }
     }
 
     protected void bindSectionHeaderAndDivider(final ContactListItemView view, int position) {
@@ -454,6 +516,18 @@ public class PhoneNumberListAdapter extends ContactEntryListAdapter {
 
     protected void unbindName(final ContactListItemView view) {
         view.hideDisplayName();
+    }
+
+    @Override
+    protected void bindWorkProfileIcon(final ContactListItemView view, int partition) {
+        final DirectoryPartition directory = (DirectoryPartition) getPartition(partition);
+        final long directoryId = directory.getDirectoryId();
+        final long userType = ContactsUtils.determineUserType(directoryId, null);
+        // Work directory must not be a extended directory. An extended directory is custom
+        // directory in the app, but not a directory provided by framework. So it can't be
+        // USER_TYPE_WORK.
+        view.setWorkProfileIconEnabled(
+                !isExtendedDirectory(directoryId) && userType == ContactsUtils.USER_TYPE_WORK);
     }
 
     protected void bindPhoto(final ContactListItemView view, int partitionIndex, Cursor cursor) {
@@ -536,7 +610,7 @@ public class PhoneNumberListAdapter extends ContactEntryListAdapter {
                 if (id > maxId) {
                     maxId = id;
                 }
-                if (!isRemoteDirectory(id)) {
+                if (!DirectoryCompat.isRemoteDirectoryId(id)) {
                     // assuming remote directories come after local, we will end up with the index
                     // where we should insert extended directories. This also works if there are no
                     // remote directories at all.
@@ -556,6 +630,7 @@ public class PhoneNumberListAdapter extends ContactEntryListAdapter {
         }
     }
 
+    @Override
     protected Uri getContactUri(int partitionIndex, Cursor cursor,
             int contactIdColumn, int lookUpKeyColumn) {
         final DirectoryPartition directory = (DirectoryPartition) getPartition(partitionIndex);
@@ -570,5 +645,13 @@ public class PhoneNumberListAdapter extends ContactEntryListAdapter {
                         String.valueOf(directoryId))
                 .encodedFragment(cursor.getString(lookUpKeyColumn))
                 .build();
+    }
+
+    public Listener getListener() {
+        return mListener;
+    }
+
+    public void setListener(Listener listener) {
+        mListener = listener;
     }
 }

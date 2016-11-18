@@ -13,8 +13,9 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<FrameLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/dialtacts_mainlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -43,7 +44,8 @@
         android:layout_width="@dimen/floating_action_button_width"
         android:layout_height="@dimen/floating_action_button_height"
         android:layout_marginBottom="@dimen/floating_action_button_margin_bottom"
-        android:layout_gravity="center_horizontal|bottom">
+        android:layout_gravity="center_horizontal|bottom"
+        app:layout_behavior="com.android.dialer.FloatingActionButtonBehavior">
 
         <ImageButton
             android:id="@+id/floating_action_button"
@@ -68,4 +70,4 @@
             android:importantForAccessibility="no" />
     </FrameLayout>
 
-</FrameLayout>
+</android.support.design.widget.CoordinatorLayout>

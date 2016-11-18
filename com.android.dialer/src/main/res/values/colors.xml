@@ -22,6 +22,10 @@
     <color name="dialer_red_highlight_color">#ff1744</color>
     <color name="dialer_green_highlight_color">#00c853</color>
 
+    <color name="dialer_button_text_color">#fff</color>
+    <color name="dialer_flat_button_text_color">@color/dialer_theme_color</color>
+    <color name="dialer_snackbar_action_text_color">@color/dialer_theme_color</color>
+
     <!-- Color for the setting text. -->
     <color name="setting_primary_color">@color/dialtacts_primary_text_color</color>
     <!-- Color for the setting description text. -->
@@ -30,8 +34,20 @@
     <color name="setting_background_color">#ffffff</color>
     <color name="setting_button_color">#eee</color>
 
+    <!-- 54% black -->
+    <color name="call_log_icon_tint">#8a000000</color>
+    <!-- 87% black -->
+    <color name="call_log_primary_color">#de000000</color>
+    <!-- 54% black -->
+    <color name="call_log_detail_color">#8a000000</color>
+    <!-- 87% black -->
+    <color name="call_log_voicemail_transcript_color">#de000000</color>
     <!-- 70% black -->
-    <color name="call_log_icon_tint">#b3000000</color>
+    <color name="call_log_action_color">#b3000000</color>
+    <!-- 54% black -->
+    <color name="call_log_day_group_heading_color">#8a000000</color>
+    <!-- 87% black-->
+    <color name="call_log_unread_text_color">#de000000</color>
     <color name="call_log_list_item_primary_action_icon_tint">@color/call_log_icon_tint</color>
     <!-- Color of the text describing an unconsumed missed call. -->
     <color name="call_log_missed_call_highlight_color">@color/dialer_red_highlight_color</color>
@@ -92,9 +108,10 @@
 
     <!-- Color for missed call icons. -->
     <color name="missed_call">#ff2e58</color>
-
     <!-- Color for answered or outgoing call icons. -->
     <color name="answered_call">@color/dialer_green_highlight_color</color>
+    <!-- Color for blocked call icons. -->
+    <color name="blocked_call">@color/dialtacts_secondary_text_color</color>
 
     <!-- Color for icons in the actionbar -->
     <color name="actionbar_icon_color">#ffffff</color>
@@ -104,4 +121,22 @@
     <color name="floating_action_button_touch_tint">#80ffffff</color>
 
     <color name="call_log_action_divider">#eeeeee</color>
+    <color name="divider_line_color">#D8D8D8</color>
+
+    <!--  Colors for blocked numbers list -->
+    <color name="blocked_contact_background">@android:color/holo_red_dark</color>
+    <color name="blocked_number_primary_text_color">@color/dialtacts_primary_text_color</color>
+    <color name="blocked_number_secondary_text_color">@color/dialtacts_secondary_text_color</color>
+    <color name="blocked_number_icon_tint">#616161</color>
+    <color name="blocked_number_background">#FFFFFF</color>
+    <color name="blocked_number_accent_color">#42A5F5</color>
+    <color name="blocked_number_block_color">#F44336</color>
+    <color name="blocked_number_header_color">@color/dialer_theme_color</color>
+    <color name="blocked_number_disabled_emergency_header_color">#616161</color>
+    <color name="blocked_number_disabled_emergency_background_color">#E0E0E0</color>
+    <color name="add_blocked_number_icon_color">#bdbdbd</color>
+    <!-- Grey 700 -->
+    <color name="call_detail_footer_text_color">#616161</color>
+    <color name="call_detail_footer_icon_tint">@color/call_detail_footer_text_color</color>
+
 </resources>

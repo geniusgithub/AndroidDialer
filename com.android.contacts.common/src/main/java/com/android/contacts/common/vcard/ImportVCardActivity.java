@@ -90,6 +90,14 @@ public class ImportVCardActivity extends Activity {
      */
     private static final int FAILURE_NOTIFICATION_ID = 1;
 
+    private static final String LOCAL_TMP_FILE_NAME_EXTRA =
+            "com.android.contacts.common.vcard.LOCAL_TMP_FILE_NAME";
+
+    private static final String SOURCE_URI_DISPLAY_NAME =
+            "com.android.contacts.common.vcard.SOURCE_URI_DISPLAY_NAME";
+
+    private static final String STORAGE_VCARD_URI_PREFIX = "file:///storage";
+
     private AccountWithDataSet mAccount;
 
     private ProgressDialog mProgressDialogForCachingVCard;
@@ -171,11 +179,13 @@ public class ImportVCardActivity extends Activity {
         private PowerManager.WakeLock mWakeLock;
         private VCardParser mVCardParser;
         private final Uri[] mSourceUris;  // Given from a caller.
+        private final String[] mSourceDisplayNames; // Display names for each Uri in mSourceUris.
         private final byte[] mSource;
         private final String mDisplayName;
 
-        public VCardCacheThread(final Uri[] sourceUris) {
+        public VCardCacheThread(final Uri[] sourceUris, String[] sourceDisplayNames) {
             mSourceUris = sourceUris;
+            mSourceDisplayNames = sourceDisplayNames;
             mSource = null;
             final Context context = ImportVCardActivity.this;
             final PowerManager powerManager =
@@ -229,71 +239,18 @@ public class ImportVCardActivity extends Activity {
                         return;
                     }
                 } else {
-                    final ContentResolver resolver =
-                            ImportVCardActivity.this.getContentResolver();
+                    int i = 0;
                     for (Uri sourceUri : mSourceUris) {
-                        String filename = null;
-                        // Note: caches are removed by VCardService.
-                        while (true) {
-                            filename = VCardService.CACHE_FILE_PREFIX + cache_index + ".vcf";
-                            final File file = context.getFileStreamPath(filename);
-                            if (!file.exists()) {
-                                break;
-                            } else {
-                                if (cache_index == Integer.MAX_VALUE) {
-                                    throw new RuntimeException("Exceeded cache limit");
-                                }
-                                cache_index++;
-                            }
-                        }
-                        Uri localDataUri = null;
-
-                        try {
-                            localDataUri = copyTo(sourceUri, filename);
-                        } catch (SecurityException e) {
-                            Log.e(LOG_TAG, "SecurityException", e);
-                            showFailureNotification(R.string.fail_reason_io_error);
-                            return;
-                        }
                         if (mCanceled) {
                             Log.i(LOG_TAG, "vCard cache operation is canceled.");
                             break;
                         }
-                        if (localDataUri == null) {
-                            Log.w(LOG_TAG, "destUri is null");
-                            break;
-                        }
 
-                        String displayName = null;
-                        Cursor cursor = null;
-                        // Try to get a display name from the given Uri. If it fails, we just
-                        // pick up the last part of the Uri.
-                        try {
-                            cursor = resolver.query(sourceUri,
-                                    new String[] { OpenableColumns.DISPLAY_NAME },
-                                    null, null, null);
-                            if (cursor != null && cursor.getCount() > 0 && cursor.moveToFirst()) {
-                                if (cursor.getCount() > 1) {
-                                    Log.w(LOG_TAG, "Unexpected multiple rows: "
-                                            + cursor.getCount());
-                                }
-                                int index = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
-                                if (index >= 0) {
-                                    displayName = cursor.getString(index);
-                                }
-                            }
-                        } finally {
-                            if (cursor != null) {
-                                cursor.close();
-                            }
-                        }
-                        if (TextUtils.isEmpty(displayName)){
-                            displayName = sourceUri.getLastPathSegment();
-                        }
+                        String sourceDisplayName = mSourceDisplayNames[i++];
 
                         final ImportRequest request;
                         try {
-                            request = constructImportRequest(null, localDataUri, displayName);
+                            request = constructImportRequest(null, sourceUri, sourceDisplayName);
                         } catch (VCardException e) {
                             Log.e(LOG_TAG, "Maybe the file is in wrong format", e);
                             showFailureNotification(R.string.fail_reason_not_supported);
@@ -332,54 +289,6 @@ public class ImportVCardActivity extends Activity {
                 mProgressDialogForCachingVCard = null;
                 finish();
             }
-        }
-
-        /**
-         * Copy the content of sourceUri to the destination.
-         */
-        private Uri copyTo(final Uri sourceUri, String filename) throws IOException {
-            Log.i(LOG_TAG, String.format("Copy a Uri to app local storage (%s -> %s)",
-                    sourceUri, filename));
-            final Context context = ImportVCardActivity.this;
-            final ContentResolver resolver = context.getContentResolver();
-            ReadableByteChannel inputChannel = null;
-            WritableByteChannel outputChannel = null;
-            Uri destUri = null;
-            try {
-                inputChannel = Channels.newChannel(resolver.openInputStream(sourceUri));
-                destUri = Uri.parse(context.getFileStreamPath(filename).toURI().toString());
-                outputChannel = context.openFileOutput(filename, Context.MODE_PRIVATE).getChannel();
-                final ByteBuffer buffer = ByteBuffer.allocateDirect(8192);
-                while (inputChannel.read(buffer) != -1) {
-                    if (mCanceled) {
-                        Log.d(LOG_TAG, "Canceled during caching " + sourceUri);
-                        return null;
-                    }
-                    buffer.flip();
-                    outputChannel.write(buffer);
-                    buffer.compact();
-                }
-                buffer.flip();
-                while (buffer.hasRemaining()) {
-                    outputChannel.write(buffer);
-                }
-            } finally {
-                if (inputChannel != null) {
-                    try {
-                        inputChannel.close();
-                    } catch (IOException e) {
-                        Log.w(LOG_TAG, "Failed to close inputChannel.");
-                    }
-                }
-                if (outputChannel != null) {
-                    try {
-                        outputChannel.close();
-                    } catch(IOException e) {
-                        Log.w(LOG_TAG, "Failed to close outputChannel");
-                    }
-                }
-            }
-            return destUri;
         }
 
         /**
@@ -476,16 +385,16 @@ public class ImportVCardActivity extends Activity {
         }
     }
 
-    private void importVCard(final Uri uri) {
-        importVCard(new Uri[] {uri});
+    private void importVCard(final Uri uri, final String sourceDisplayName) {
+        importVCard(new Uri[] {uri}, new String[] {sourceDisplayName});
     }
 
-    private void importVCard(final Uri[] uris) {
+    private void importVCard(final Uri[] uris, final String[] sourceDisplayNames) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 if (!isFinishing()) {
-                    mVCardCacheThread = new VCardCacheThread(uris);
+                    mVCardCacheThread = new VCardCacheThread(uris, sourceDisplayNames);
                     mListener = new NotificationImportExportListener(ImportVCardActivity.this);
                     showDialog(R.id.dialog_cache_vcard);
                 }
@@ -493,10 +402,173 @@ public class ImportVCardActivity extends Activity {
         });
     }
 
+    private String getDisplayName(Uri sourceUri) {
+        if (sourceUri == null) {
+            return null;
+        }
+        final ContentResolver resolver = ImportVCardActivity.this.getContentResolver();
+        String displayName = null;
+        Cursor cursor = null;
+        // Try to get a display name from the given Uri. If it fails, we just
+        // pick up the last part of the Uri.
+        try {
+            cursor = resolver.query(sourceUri,
+                    new String[] { OpenableColumns.DISPLAY_NAME },
+                    null, null, null);
+            if (cursor != null && cursor.getCount() > 0 && cursor.moveToFirst()) {
+                if (cursor.getCount() > 1) {
+                    Log.w(LOG_TAG, "Unexpected multiple rows: "
+                            + cursor.getCount());
+                }
+                int index = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                if (index >= 0) {
+                    displayName = cursor.getString(index);
+                }
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        if (TextUtils.isEmpty(displayName)){
+            displayName = sourceUri.getLastPathSegment();
+        }
+        return displayName;
+    }
+
+    /**
+     * Copy the content of sourceUri to the destination.
+     */
+    private Uri copyTo(final Uri sourceUri, String filename) throws IOException {
+        Log.i(LOG_TAG, String.format("Copy a Uri to app local storage (%s -> %s)",
+                sourceUri, filename));
+        final Context context = ImportVCardActivity.this;
+        final ContentResolver resolver = context.getContentResolver();
+        ReadableByteChannel inputChannel = null;
+        WritableByteChannel outputChannel = null;
+        Uri destUri = null;
+        try {
+            inputChannel = Channels.newChannel(resolver.openInputStream(sourceUri));
+            destUri = Uri.parse(context.getFileStreamPath(filename).toURI().toString());
+            outputChannel = context.openFileOutput(filename, Context.MODE_PRIVATE).getChannel();
+            final ByteBuffer buffer = ByteBuffer.allocateDirect(8192);
+            while (inputChannel.read(buffer) != -1) {
+                buffer.flip();
+                outputChannel.write(buffer);
+                buffer.compact();
+            }
+            buffer.flip();
+            while (buffer.hasRemaining()) {
+                outputChannel.write(buffer);
+            }
+        } finally {
+            if (inputChannel != null) {
+                try {
+                    inputChannel.close();
+                } catch (IOException e) {
+                    Log.w(LOG_TAG, "Failed to close inputChannel.");
+                }
+            }
+            if (outputChannel != null) {
+                try {
+                    outputChannel.close();
+                } catch(IOException e) {
+                    Log.w(LOG_TAG, "Failed to close outputChannel");
+                }
+            }
+        }
+        return destUri;
+    }
+
+    /**
+     * Reads the file from {@param sourceUri} and copies it to local cache file.
+     * Returns the local file name which stores the file from sourceUri.
+     */
+    private String readUriToLocalFile(Uri sourceUri) {
+        // Read the uri to local first.
+        int cache_index = 0;
+        String localFilename = null;
+        // Note: caches are removed by VCardService.
+        while (true) {
+            localFilename = VCardService.CACHE_FILE_PREFIX + cache_index + ".vcf";
+            final File file = getFileStreamPath(localFilename);
+            if (!file.exists()) {
+                break;
+            } else {
+                if (cache_index == Integer.MAX_VALUE) {
+                    throw new RuntimeException("Exceeded cache limit");
+                }
+                cache_index++;
+            }
+        }
+        try {
+            copyTo(sourceUri, localFilename);
+        } catch (SecurityException e) {
+            Log.e(LOG_TAG, "SecurityException", e);
+            showFailureNotification(R.string.fail_reason_io_error);
+            return null;
+        } catch (IOException e) {
+            Log.e(LOG_TAG, "IOException during caching vCard", e);
+            showFailureNotification(R.string.fail_reason_io_error);
+            return null;
+        }
+
+        if (localFilename == null) {
+            Log.e(LOG_TAG, "Cannot load uri to local storage.");
+            showFailureNotification(R.string.fail_reason_io_error);
+            return null;
+        }
+
+        return localFilename;
+    }
+
+    private Uri readUriToLocalUri(Uri sourceUri) {
+        final String fileName = readUriToLocalFile(sourceUri);
+        if (fileName == null) {
+            return null;
+        }
+        return Uri.parse(getFileStreamPath(fileName).toURI().toString());
+    }
+
+    // Returns true if uri is from Storage.
+    private boolean isStorageUri(Uri uri) {
+        return uri != null && uri.toString().startsWith(STORAGE_VCARD_URI_PREFIX);
+    }
+
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
 
+        Uri sourceUri = getIntent().getData();
+
+        // Reading uris from non-storage needs the permission granted from the source intent,
+        // instead of permissions from RequestImportVCardPermissionActivity. So skipping requesting
+        // permissions from RequestImportVCardPermissionActivity for uris from non-storage source.
+        if (isStorageUri(sourceUri)
+                && RequestImportVCardPermissionsActivity.startPermissionActivity(this)) {
+            return;
+        }
+
+        String sourceDisplayName = null;
+        if (sourceUri != null) {
+            // Read the uri to local first.
+            String localTmpFileName = getIntent().getStringExtra(LOCAL_TMP_FILE_NAME_EXTRA);
+            sourceDisplayName = getIntent().getStringExtra(SOURCE_URI_DISPLAY_NAME);
+            if (TextUtils.isEmpty(localTmpFileName)) {
+                localTmpFileName = readUriToLocalFile(sourceUri);
+                sourceDisplayName = getDisplayName(sourceUri);
+                if (localTmpFileName == null) {
+                    Log.e(LOG_TAG, "Cannot load uri to local storage.");
+                    showFailureNotification(R.string.fail_reason_io_error);
+                    return;
+                }
+                getIntent().putExtra(LOCAL_TMP_FILE_NAME_EXTRA, localTmpFileName);
+                getIntent().putExtra(SOURCE_URI_DISPLAY_NAME, sourceDisplayName);
+            }
+            sourceUri = Uri.parse(getFileStreamPath(localTmpFileName).toURI().toString());
+        }
+
+        // Always request required permission for contacts before importing the vcard.
         if (RequestImportVCardPermissionsActivity.startPermissionActivity(this)) {
             return;
         }
@@ -529,7 +601,7 @@ public class ImportVCardActivity extends Activity {
             }
         }
 
-        startImport();
+        startImport(sourceUri, sourceDisplayName);
     }
 
     @Override
@@ -540,7 +612,18 @@ public class ImportVCardActivity extends Activity {
                         intent.getStringExtra(SelectAccountActivity.ACCOUNT_NAME),
                         intent.getStringExtra(SelectAccountActivity.ACCOUNT_TYPE),
                         intent.getStringExtra(SelectAccountActivity.DATA_SET));
-                startImport();
+                final Uri sourceUri = getIntent().getData();
+                if (sourceUri == null) {
+                    startImport(sourceUri, /* sourceDisplayName =*/ null);
+                } else {
+                    final String sourceDisplayName = getIntent().getStringExtra(
+                            SOURCE_URI_DISPLAY_NAME);
+                    final String localFileName = getIntent().getStringExtra(
+                            LOCAL_TMP_FILE_NAME_EXTRA);
+                    final Uri localUri = Uri.parse(
+                            getFileStreamPath(localFileName).toURI().toString());
+                    startImport(localUri, sourceDisplayName);
+                }
             } else {
                 if (resultCode != Activity.RESULT_CANCELED) {
                     Log.w(LOG_TAG, "Result code was not OK nor CANCELED: " + resultCode);
@@ -552,11 +635,17 @@ public class ImportVCardActivity extends Activity {
                 final ClipData clipData = intent.getClipData();
                 if (clipData != null) {
                     final ArrayList<Uri> uris = new ArrayList<>();
+                    final ArrayList<String> sourceDisplayNames = new ArrayList<>();
                     for (int i = 0; i < clipData.getItemCount(); i++) {
                         ClipData.Item item = clipData.getItemAt(i);
                         final Uri uri = item.getUri();
                         if (uri != null) {
-                            uris.add(uri);
+                            final Uri localUri = readUriToLocalUri(uri);
+                            if (localUri != null) {
+                                final String sourceDisplayName = getDisplayName(uri);
+                                uris.add(localUri);
+                                sourceDisplayNames.add(sourceDisplayName);
+                            }
                         }
                     }
                     if (uris.isEmpty()) {
@@ -564,13 +653,21 @@ public class ImportVCardActivity extends Activity {
                         finish();
                     } else {
                         Log.i(LOG_TAG, "Multiple vCards selected for import: " + uris);
-                        importVCard(uris.toArray(new Uri[0]));
+                        importVCard(uris.toArray(new Uri[0]),
+                                sourceDisplayNames.toArray(new String[0]));
                     }
                 } else {
                     final Uri uri = intent.getData();
                     if (uri != null) {
                         Log.i(LOG_TAG, "vCard selected for import: " + uri);
-                        importVCard(uri);
+                        final Uri localUri = readUriToLocalUri(uri);
+                        if (localUri != null) {
+                            final String sourceDisplayName = getDisplayName(uri);
+                            importVCard(localUri, sourceDisplayName);
+                        } else {
+                            Log.w(LOG_TAG, "No local URI for vCard import");
+                            finish();
+                        }
                     } else {
                         Log.w(LOG_TAG, "No vCard was selected for import");
                         finish();
@@ -585,19 +682,17 @@ public class ImportVCardActivity extends Activity {
         }
     }
 
-    private void startImport() {
+    private void startImport(Uri uri, String sourceDisplayName) {
         // Handle inbound files
-        Uri uri = getIntent().getData();
         if (uri != null) {
             Log.i(LOG_TAG, "Starting vCard import using Uri " + uri);
-            importVCard(uri);
+            importVCard(uri, sourceDisplayName);
         } else {
             Log.i(LOG_TAG, "Start vCard without Uri. The user will select vCard manually.");
             final Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);
             intent.setType(VCardService.X_VCARD_MIME_TYPE);
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-            intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
             startActivityForResult(intent, REQUEST_OPEN_DOCUMENT);
         }
     }
@@ -605,31 +700,31 @@ public class ImportVCardActivity extends Activity {
     @Override
     protected Dialog onCreateDialog(int resId, Bundle bundle) {
         if (resId == R.id.dialog_cache_vcard) {
-			if (mProgressDialogForCachingVCard == null) {
-			    final String title = getString(R.string.caching_vcard_title);
-			    final String message = getString(R.string.caching_vcard_message);
-			    mProgressDialogForCachingVCard = new ProgressDialog(this);
-			    mProgressDialogForCachingVCard.setTitle(title);
-			    mProgressDialogForCachingVCard.setMessage(message);
-			    mProgressDialogForCachingVCard.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-			    mProgressDialogForCachingVCard.setOnCancelListener(mVCardCacheThread);
-			    startVCardService();
-			}
-			return mProgressDialogForCachingVCard;
-		} else if (resId == R.id.dialog_error_with_message) {
-			String message = mErrorMessage;
-			if (TextUtils.isEmpty(message)) {
-			    Log.e(LOG_TAG, "Error message is null while it must not.");
-			    message = getString(R.string.fail_reason_unknown);
-			}
-			final AlertDialog.Builder builder = new AlertDialog.Builder(this)
-			    .setTitle(getString(R.string.reading_vcard_failed_title))
-			    .setIconAttribute(android.R.attr.alertDialogIcon)
-			    .setMessage(message)
-			    .setOnCancelListener(mCancelListener)
-			    .setPositiveButton(android.R.string.ok, mCancelListener);
-			return builder.create();
-		}
+            if (mProgressDialogForCachingVCard == null) {
+                final String title = getString(R.string.caching_vcard_title);
+                final String message = getString(R.string.caching_vcard_message);
+                mProgressDialogForCachingVCard = new ProgressDialog(this);
+                mProgressDialogForCachingVCard.setTitle(title);
+                mProgressDialogForCachingVCard.setMessage(message);
+                mProgressDialogForCachingVCard.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                mProgressDialogForCachingVCard.setOnCancelListener(mVCardCacheThread);
+                startVCardService();
+            }
+            return mProgressDialogForCachingVCard;
+        } else if (resId == R.id.dialog_error_with_message) {
+            String message = mErrorMessage;
+            if (TextUtils.isEmpty(message)) {
+                Log.e(LOG_TAG, "Error message is null while it must not.");
+                message = getString(R.string.fail_reason_unknown);
+            }
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.reading_vcard_failed_title))
+                .setIconAttribute(android.R.attr.alertDialogIcon)
+                .setMessage(message)
+                .setOnCancelListener(mCancelListener)
+                .setPositiveButton(android.R.string.ok, mCancelListener);
+            return builder.create();
+        }
 
         return super.onCreateDialog(resId, bundle);
     }
