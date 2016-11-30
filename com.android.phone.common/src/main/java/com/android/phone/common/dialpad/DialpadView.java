@@ -245,8 +245,8 @@ public class DialpadView extends LinearLayout {
         EditText digits = (EditText) findViewById(R.id.digits);
         digits.setClickable(canBeEdited);
         digits.setLongClickable(canBeEdited);
-        digits.setFocusableInTouchMode(canBeEdited);
-        digits.setCursorVisible(false);
+//        digits.setFocusableInTouchMode(canBeEdited);
+//        digits.setCursorVisible(false);
 
         mCanDigitsBeEdited = canBeEdited;
     }

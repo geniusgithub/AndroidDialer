@@ -16,8 +16,6 @@
 
 package com.android.dialer.dialpad;
 
-import com.google.common.annotations.VisibleForTesting;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -88,6 +86,7 @@ import com.android.phone.common.CallLogAsync;
 import com.android.phone.common.animation.AnimUtils;
 import com.android.phone.common.dialpad.DialpadKeyButton;
 import com.android.phone.common.dialpad.DialpadView;
+import com.google.common.annotations.VisibleForTesting;
 
 import java.util.HashSet;
 import java.util.List;
@@ -396,8 +395,6 @@ public class DialpadFragment extends Fragment
                 return false;
             }
         });
-
-        mDigits.setCursorVisible(false);
 
         // Set up the "dialpad chooser" UI; see showDialpadChooser().
         mDialpadChooser = (ListView) fragmentView.findViewById(R.id.dialpadChooser);

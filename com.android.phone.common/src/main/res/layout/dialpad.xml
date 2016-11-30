@@ -80,7 +80,9 @@
         android:layout_weight="1"
         android:orientation="horizontal">
         <Space style="@style/DialpadSpaceStyle" />
+
         <include layout="@layout/dialpad_key_star" />
+
         <include layout="@layout/dialpad_key_zero" />
         <include layout="@layout/dialpad_key_pound" />
         <Space style="@style/DialpadSpaceStyle" />
