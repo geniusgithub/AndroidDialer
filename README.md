@@ -19,7 +19,7 @@ google dialer for Android N
 Android OS 5.0 and up
 
 ## Links
-cnblog:[http://www.cnblogs.com/lance2016/](http://www.cnblogs.com/lance2016/p/5229073.html)
+cnblog:[http://www.cnblogs.com/lance2016/](http://www.cnblogs.com/lance2016/p/6107376.html)
  
 ## Development
 If you think this article useful Nepal , please pay attention to me<br />
